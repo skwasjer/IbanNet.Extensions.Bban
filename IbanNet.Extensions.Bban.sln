@@ -5,10 +5,14 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{65C97381-311D-4C81-8494-6BF12C9BDCBF}"
 	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
 		src\Directory.Build.targets = src\Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D8FE9E00-4E06-4A0F-BA75-39E71A016671}"
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.targets = test\Directory.Build.targets
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7CA7E798-5FD2-4E44-B73C-E9EA565ACF82}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,9 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		GitVersion.yml = GitVersion.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IbanNet.Extensions.Bban", "src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj", "{19D148BF-50F2-4711-8336-A5929896017F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IbanNet.Extensions.Bban", "src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj", "{19D148BF-50F2-4711-8336-A5929896017F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IbanNet.Extensions.Bban.Tests", "test\IbanNet.Extensions.Bban.Tests\IbanNet.Extensions.Bban.Tests.csproj", "{CAB0BF46-31F1-4C04-9201-96A1E2866E3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IbanNet.Extensions.Bban.Tests", "test\IbanNet.Extensions.Bban.Tests\IbanNet.Extensions.Bban.Tests.csproj", "{CAB0BF46-31F1-4C04-9201-96A1E2866E3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
