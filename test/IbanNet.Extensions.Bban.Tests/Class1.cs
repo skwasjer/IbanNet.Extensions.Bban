@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Xunit;
 
 namespace IbanNet
 {
-    class Class1
+    public class Class1
     {
+        [Fact]
+        public void Test()
+        {
+        }
     }
 }

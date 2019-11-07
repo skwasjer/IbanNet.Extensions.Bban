@@ -33,7 +33,7 @@ build:
 #   - cmd: nuget pack <Project>\<NuSpec>.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
 #   - cmd: appveyor PushArtifact "<NuSpec>.%GitVersion_NuGetVersion%.nupkg"
 test_script:
-  - OpenCover.Console.exe -target:"dotnet.exe" -targetargs:"test -c Debug /p:DebugType=full -l:trx;LogFilePrefix=testresults" -output:coverage.xml -register:user -returntargetcode -filter:"+[IbanNet*]* -[*Tests]*" -excludebyattribute:*.ExcludeFromCodeCoverageAttribute;*.GeneratedCodeAttribute;*.DebuggerNonUserCodeAttribute;*.CompilerGeneratedAttribute;*.DebuggerHiddenAttribute -oldStyle
+  - OpenCover.Console.exe -target:"dotnet.exe" -targetargs:"test -c Release /p:DebugType=full -l:trx;LogFilePrefix=testresults" -output:coverage.xml -register:user -returntargetcode -filter:"+[IbanNet*]* -[*Tests]*" -excludebyattribute:*.ExcludeFromCodeCoverageAttribute;*.GeneratedCodeAttribute;*.DebuggerNonUserCodeAttribute;*.CompilerGeneratedAttribute;*.DebuggerHiddenAttribute -oldStyle
   - codecov -f coverage.xml
   - ps: '& .\ci\upload-testresults.ps1'
 nuget:
