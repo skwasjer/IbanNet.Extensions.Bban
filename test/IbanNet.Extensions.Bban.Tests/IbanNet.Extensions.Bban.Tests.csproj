@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp2.0;netcoreapp1.1;net47;net45</TargetFrameworks>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+
+    <RootNamespace>IbanNet</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" Condition="$(TargetFramework.StartsWith('netcoreapp'))" />
+    <PackageReference Include="Moq" Version="4.10.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" />
+  </ItemGroup>
+
+</Project>
