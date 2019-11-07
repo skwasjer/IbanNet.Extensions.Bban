@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\IbanNet64.png" Pack="true" Visible="false" PackagePath="\"/>
+    <None Include="..\..\assets\IbanNet64.png" Pack="true" Visible="false" PackagePath="\"/>
   </ItemGroup>
   
 </Project>
