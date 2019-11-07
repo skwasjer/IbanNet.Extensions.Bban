@@ -2,7 +2,8 @@
 image: Visual Studio 2019
 configuration: Release
 install:
-  - choco install gitversion.portable -pre -y
+#  - choco install gitversion.portable -pre -y
+  - choco install gitversion.portable -y --version=4.0.0
   - gitversion /l console /output buildserver
 cache:
   - C:\ProgramData\chocolatey\bin -> appveyor.yml, codecov.yml
