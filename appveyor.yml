@@ -18,8 +18,6 @@ dotnet_csproj:
   assembly_version: $(GitVersion_AssemblySemVer)
   file_version: $(GitVersion_AssemblySemFileVer)
   informational_version: $(GitVersion_InformationalVersion)
-# assembly_info:
-#   patch: false
 nuget:
   project_feed: true
 #  disable_publish_on_pr: true
@@ -31,14 +29,9 @@ build:
   publish_nuget_symbols: true
   use_snupkg_format: true
   verbosity: minimal
-# after_build:
-#   - cmd: ECHO nuget pack <Project>\<NuSpec>.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
-#   - cmd: nuget pack <Project>\<NuSpec>.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
-#   - cmd: appveyor PushArtifact "<NuSpec>.%GitVersion_NuGetVersion%.nupkg"
 test_script:
   - OpenCover.Console.exe -target:"dotnet.exe" -targetargs:"test -c Release /p:DebugType=full -l:trx;LogFilePrefix=testresults" -output:coverage.xml -register:user -returntargetcode -filter:"+[IbanNet*]* -[*Tests]*" -excludebyattribute:*.ExcludeFromCodeCoverageAttribute;*.GeneratedCodeAttribute;*.DebuggerNonUserCodeAttribute;*.CompilerGeneratedAttribute;*.DebuggerHiddenAttribute -oldStyle
   - codecov -f coverage.xml
-#  - ps: '& .\ci\upload-testresults.ps1'
 deploy:
 - provider: NuGet
   api_key:
