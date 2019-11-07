@@ -4,4 +4,3 @@ branches:
   develop: {}
 ignore:
   sha: []
-merge-message-formats: {}
