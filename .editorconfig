@@ -14,12 +14,16 @@ indent_style = space
 indent_size = 4
 insert_final_newline = true
 
-[*.{cs,csproj,tt}]
+[*.{cs,csproj,tt,sln}]
 charset = utf-8-bom
 end_of_line = crlf
 
 [*.{csproj,props,targets}]
 indent_size = 2
+
+[*.sln]
+indent_style = tab
+indent_size = 4
 
 # Misc
 [*.{js,json,yml,yaml}]
