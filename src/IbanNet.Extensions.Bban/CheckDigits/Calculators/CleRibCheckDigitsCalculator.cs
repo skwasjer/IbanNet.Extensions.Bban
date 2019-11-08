@@ -5,49 +5,49 @@ using System.Text;
 
 namespace IbanNet.CheckDigits.Calculators
 {
-	/// <summary>
-	/// Computes the expected national check digits for French bank account numbers, aka. clé RIB (Relevé d'identité bancaire).
-	/// </summary>
-	/// <remarks>
-	/// https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB
-	/// </remarks>
-	internal class CleRibCheckDigitsCalculator : CheckDigitsCalculator
-	{
-		protected override string ConvertFrom(string input)
-		{
-			if (input.Length < 21)
-			{
-				throw new ArgumentException($"The input '{input}' can not be validated using clé RIB.", nameof(input));
-			}
+    /// <summary>
+    /// Computes the expected national check digits for French bank account numbers, aka. clé RIB (Relevé d'identité bancaire).
+    /// </summary>
+    /// <remarks>
+    /// https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB
+    /// </remarks>
+    internal class CleRibCheckDigitsCalculator : CheckDigitsCalculator
+    {
+        protected override string ConvertFrom(string input)
+        {
+            if (input.Length < 21)
+            {
+                throw new ArgumentException($"The input '{input}' can not be validated using clé RIB.", nameof(input));
+            }
 
-			var sb = new StringBuilder();
-			foreach (char c in input)
-			{
-				sb.Append(
-					char.IsNumber(c)
-						? c - CharCode0
-						: MapLetters(c)
-				);
-			}
+            var sb = new StringBuilder();
+            foreach (char c in input)
+            {
+                sb.Append(
+                    char.IsNumber(c)
+                        ? c - CharCode0
+                        : MapLetters(c)
+                );
+            }
 
-			return sb.ToString();
-		}
+            return sb.ToString();
+        }
 
-		private static int MapLetters(char c)
-		{
-			int v = char.ToUpperInvariant(c) - CharCodeA;
-			int digit = v % 9 + 1;
-			return c >= 'S' ? ++digit : digit;
-		}
+        private static int MapLetters(char c)
+        {
+            int v = char.ToUpperInvariant(c) - CharCodeA;
+            int digit = v % 9 + 1;
+            return c >= 'S' ? ++digit : digit;
+        }
 
-		protected override int Calculate(string digits)
-		{
-			int b = int.Parse(digits.Substring(0, 5));
-			int g = int.Parse(digits.Substring(5, 5));
-			BigInteger c = BigInteger.Parse(digits.Substring(10), CultureInfo.InvariantCulture);
+        protected override int Calculate(string digits)
+        {
+            int b = int.Parse(digits.Substring(0, 5));
+            int g = int.Parse(digits.Substring(5, 5));
+            BigInteger c = BigInteger.Parse(digits.Substring(10), CultureInfo.InvariantCulture);
 
-			BigInteger checkDigits = (97 - (89 * b + 15 * g + 3 * c) % 97);
-			return (int)checkDigits;
-		}
-	}
+            BigInteger checkDigits = 97 - (89 * b + 15 * g + 3 * c) % 97;
+            return (int)checkDigits;
+        }
+    }
 }

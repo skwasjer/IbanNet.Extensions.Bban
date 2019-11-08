@@ -1,10 +1,10 @@
 ﻿namespace IbanNet.CheckDigits.Calculators
 {
-	internal class Mod97From98CheckDigitsCalculator : Mod97CheckDigitsCalculator
-	{
-		protected override int Calculate(string digits)
-		{
-			return 98 - base.Calculate(digits);
-		}
-	}
+    internal class Mod97From98CheckDigitsCalculator : Mod97CheckDigitsCalculator
+    {
+        protected override int Calculate(string digits)
+        {
+            return 98 - base.Calculate(digits);
+        }
+    }
 }
