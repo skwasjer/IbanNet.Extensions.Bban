@@ -10,7 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IbanNet" Version="3.1.2" />
+    <!-- For time being, use floating version, so we always pull latest from feed. -->
+    <PackageReference Include="IbanNet" Version="3.2.0-feature-extensibility.build.193-alpha-004" />
   </ItemGroup>
 
 </Project>
