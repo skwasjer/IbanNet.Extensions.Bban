@@ -1,4 +1,7 @@
-﻿namespace IbanNet.CheckDigits.Calculators
+﻿using System;
+using IbanNet.Extensions;
+
+namespace IbanNet.CheckDigits.Calculators
 {
     /// <summary>
     /// Computes the check digits using CIN algorithm.
@@ -13,16 +16,17 @@
 
         public int Compute(char[] value)
         {
-            int i = 0;
             int sum = 0;
-            foreach (char c in value)
+            for (int i = 0; i < value.Length; i++)
             {
-                int number = char.IsNumber(c)
+                char c = value[i];
+                int number = c.IsAsciiDigit()
                     ? c - '0'
-                    : char.ToUpperInvariant(c) - 'A';
+                    : c.IsAsciiLetter()
+                        ? (c | ' ') - 'a'
+                        : throw new InvalidOperationException("Expected alphanumeric characters.");
                 int[] takeWeightsFrom = (i & 1) == 1 ? EvenWeights : OddWeights;
                 sum += takeWeightsFrom[number];
-                i++;
             }
 
             return sum % 26;

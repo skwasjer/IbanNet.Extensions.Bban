@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Numerics;
-using System.Text;
 using IbanNet.Extensions;
 
 namespace IbanNet.CheckDigits.Calculators
@@ -21,32 +18,35 @@ namespace IbanNet.CheckDigits.Calculators
                 throw new ArgumentException($"The input '{new string(value)}' can not be validated using clé RIB.", nameof(value));
             }
 
-            var sb = new StringBuilder();
-            foreach (char ch in value)
+            long b = 0, g = 0, c = 0;
+            for (int i = 0; i < value.Length; i++)
             {
-                if (!ch.IsWhitespace())
+                char ch = value[i];
+                int add = ch.IsAsciiDigit()
+                    ? ch - '0'
+                    : ch.IsAsciiLetter()
+                        ? MapLetters(ch)
+                        : throw new InvalidOperationException("Expected alphanumeric characters.");
+                if (i < 5)
                 {
-                    sb.Append(
-                        char.IsNumber(ch)
-                            ? ch - '0'
-                            : MapLetters(ch)
-                    );
+                    b = b * 10 + add;
+                }
+                else if (i < 10)
+                {
+                    g = g * 10 + add;
+                }
+                else
+                {
+                    c = c * 10 + add;
                 }
             }
 
-            string digits = sb.ToString();
-
-            int b = int.Parse(digits.Substring(0, 5));
-            int g = int.Parse(digits.Substring(5, 5));
-            BigInteger c = BigInteger.Parse(digits.Substring(10), CultureInfo.InvariantCulture);
-
-            BigInteger checkDigits = 97 - (89 * b + 15 * g + 3 * c) % 97;
-            return (int)checkDigits;
+            return (int)(97 - (89 * b + 15 * g + 3 * c) % 97);
         }
 
         private static int MapLetters(char c)
         {
-            int v = char.ToUpperInvariant(c) - 'A';
+            int v = (c | ' ') - 'a';
             int digit = v % 9 + 1;
             return c >= 'S' ? ++digit : digit;
         }

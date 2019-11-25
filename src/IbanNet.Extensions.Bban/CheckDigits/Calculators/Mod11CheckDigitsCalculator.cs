@@ -1,4 +1,7 @@
-﻿namespace IbanNet.CheckDigits.Calculators
+﻿using System;
+using IbanNet.Extensions;
+
+namespace IbanNet.CheckDigits.Calculators
 {
     /// <summary>
     /// Computes the expected national check digits using MOD-11.
@@ -11,12 +14,16 @@
         public int Compute(char[] value)
         {
             int sum = 0;
-            int pos = 0;
-            for (int i = value.Length - 1; i >= 0; i--)
+            for (int i = 0; i < value.Length; i++)
             {
                 char c = value[i];
-                int weight = pos++ % 6 + 2;
-                sum += (char.ToUpperInvariant(c) - '0') * weight;
+                if (!c.IsAsciiDigit())
+                {
+                    throw new InvalidOperationException("Expected numeric characters.");
+                }
+
+                int weight = 7 - (i + 2) % 6;
+                sum += (c - '0') * weight;
             }
 
             return 11 - sum % 11;
