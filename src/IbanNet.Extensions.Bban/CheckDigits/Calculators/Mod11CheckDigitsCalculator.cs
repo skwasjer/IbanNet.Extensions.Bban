@@ -6,25 +6,20 @@
     /// <remarks>
     /// https://no.wikipedia.org/wiki/MOD11
     /// </remarks>
-    internal class Mod11CheckDigitsCalculator : CheckDigitsCalculator
+    internal class Mod11CheckDigitsCalculator : ICheckDigitsCalculator
     {
-        protected override string ConvertFrom(string input)
+        public int Compute(char[] value)
         {
             int sum = 0;
             int pos = 0;
-            for (int i = input.Length - 1; i >= 0; i--)
+            for (int i = value.Length - 1; i >= 0; i--)
             {
-                char c = input[i];
+                char c = value[i];
                 int weight = pos++ % 6 + 2;
-                sum += (char.ToUpperInvariant(c) - CharCode0) * weight;
+                sum += (char.ToUpperInvariant(c) - '0') * weight;
             }
 
-            return sum.ToString();
-        }
-
-        protected override int Calculate(string digits)
-        {
-            return 11 - int.Parse(digits) % 11;
+            return 11 - sum % 11;
         }
     }
 }

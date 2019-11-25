@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <!-- For time being, use floating version, so we always pull latest from feed. -->
-    <PackageReference Include="IbanNet" Version="3.2.0-feature-extensibility.build.193-alpha-004" />
+    <PackageReference Include="IbanNet" Version="3.3.0-extensibility0020" />
   </ItemGroup>
 
 </Project>

@@ -6,9 +6,9 @@ namespace IbanNet.Validation.NationalCheckDigits
 {
     internal abstract class NationalCheckDigitsValidator
     {
-        private readonly CheckDigitsCalculator _checkDigitsCalculator;
+        private readonly ICheckDigitsCalculator _checkDigitsCalculator;
 
-        protected NationalCheckDigitsValidator(CheckDigitsCalculator checkDigitsCalculator, params string[] supportedCountryCodes)
+        protected NationalCheckDigitsValidator(ICheckDigitsCalculator checkDigitsCalculator, params string[] supportedCountryCodes)
         {
             _checkDigitsCalculator = checkDigitsCalculator ?? throw new ArgumentNullException(nameof(checkDigitsCalculator));
             SupportedCountryCodes = supportedCountryCodes ?? throw new ArgumentNullException(nameof(supportedCountryCodes));
@@ -25,7 +25,7 @@ namespace IbanNet.Validation.NationalCheckDigits
         public virtual bool Validate(string bban)
         {
             string checkString = GetCheckString(bban);
-            int computedCheckDigits = _checkDigitsCalculator.Compute(checkString);
+            int computedCheckDigits = _checkDigitsCalculator.Compute(checkString.ToCharArray());
 
             return GetExpectedCheckDigits(bban) == computedCheckDigits;
         }

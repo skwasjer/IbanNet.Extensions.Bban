@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using IbanNet.Validation.NationalCheckDigits;
+using IbanNet.Validation.Results;
 
 namespace IbanNet.Validation.Rules
 {
@@ -47,19 +48,17 @@ namespace IbanNet.Validation.Rules
         }
 
         /// <inheritdoc />
-        public void Validate(ValidationRuleContext context)
+        public ValidationRuleResult Validate(ValidationRuleContext context)
         {
             if (!_nationalCheckDigitsValidators.TryGetValue(context.Country.TwoLetterISORegionName, out IEnumerable<NationalCheckDigitsValidator> checkDigitsValidators))
             {
-                return;
+                return ValidationRuleResult.Success;
             }
 
             string bban = context.Value.Substring(4, context.Country.Bban.Length);
-            bool success = checkDigitsValidators.Any(validator => validator.Validate(bban));
-            if (!success)
-            {
-                context.Fail("Invalid national check digits.");
-            }
+            return checkDigitsValidators.Any(validator => validator.Validate(bban))
+                ? ValidationRuleResult.Success
+                : new ErrorResult("Invalid national check digits.");
         }
     }
 }

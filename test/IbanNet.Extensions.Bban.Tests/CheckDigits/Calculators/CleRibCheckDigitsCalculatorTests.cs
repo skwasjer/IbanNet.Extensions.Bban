@@ -22,7 +22,7 @@ namespace IbanNet.CheckDigits.Calculators
 		public void Given_account_number_when_computing_check_digit_should_match_expected(string accountNumber, int expectedCheckDigits)
 		{
 			// Act
-			int actual = _sut.Compute(accountNumber);
+			int actual = _sut.Compute(accountNumber.ToCharArray());
 
 			// Assert
 			actual.Should().Be(expectedCheckDigits);
@@ -36,7 +36,7 @@ namespace IbanNet.CheckDigits.Calculators
 		public void Given_invalid_account_number_when_computing_check_digit_should_not_match_expected(string accountNumber, int assumedCheckDigits)
 		{
 			// Act
-			int actual = _sut.Compute(accountNumber);
+			int actual = _sut.Compute(accountNumber.ToCharArray());
 
 			// Assert
 			actual.Should().NotBe(assumedCheckDigits);
@@ -50,25 +50,26 @@ namespace IbanNet.CheckDigits.Calculators
 			const string accountNumberWithoutWhitespace = "20041010050500013M026";
 
 			// Act
-			int cd1 = _sut.Compute(accountNumberWithWhitespace);
-			int cd2 = _sut.Compute(accountNumberWithoutWhitespace);
+			int cd1 = _sut.Compute(accountNumberWithWhitespace.ToCharArray());
+			int cd2 = _sut.Compute(accountNumberWithoutWhitespace.ToCharArray());
 
 			// Assert
 			cd1.Should().Be(cd2).And.Be(expectedCheckDigits);
 		}
 
+        [Theory]
 		[InlineData("ShortAnd20CharsLong.")]
 		[InlineData("TooShort")]
-		public void Given_account_number_contains_insufficient_chars_when_computing_should_throw(string input)
+		public void Given_account_number_contains_insufficient_chars_when_computing_should_throw(string value)
 		{
-			Action act = () => _sut.Compute(input);
+			Action act = () => _sut.Compute(value.ToCharArray());
 
 			// Assert
 			act.Should()
 				.Throw<ArgumentException>()
-				.WithMessage($"The input '{input}' can not be validated using clé RIB.*")
+				.WithMessage($"The input '{value}' can not be validated using clé RIB.*")
 				.Which.ParamName.Should()
-				.Be(nameof(input));
+				.Be(nameof(value));
 		}
 
 		/// <summary>
@@ -79,7 +80,7 @@ namespace IbanNet.CheckDigits.Calculators
 		public void Given_single_digit_account_number_when_validating_it_should_return_correct_check_digit(string singleDigitAccountNumber, int expectedCheckDigits)
 		{
 			// Act
-			int actual = _sut.Compute(singleDigitAccountNumber);
+			int actual = _sut.Compute(singleDigitAccountNumber.ToCharArray());
 
 			// Assert
 			actual.Should().Be(expectedCheckDigits);

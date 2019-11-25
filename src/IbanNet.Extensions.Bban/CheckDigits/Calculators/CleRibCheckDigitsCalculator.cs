@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Numerics;
 using System.Text;
+using IbanNet.Extensions;
 
 namespace IbanNet.CheckDigits.Calculators
 {
@@ -11,43 +12,43 @@ namespace IbanNet.CheckDigits.Calculators
     /// <remarks>
     /// https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB
     /// </remarks>
-    internal class CleRibCheckDigitsCalculator : CheckDigitsCalculator
+    internal class CleRibCheckDigitsCalculator : ICheckDigitsCalculator
     {
-        protected override string ConvertFrom(string input)
+        public int Compute(char[] value)
         {
-            if (input.Length < 21)
+            if (value.Length < 21)
             {
-                throw new ArgumentException($"The input '{input}' can not be validated using clé RIB.", nameof(input));
+                throw new ArgumentException($"The input '{new string(value)}' can not be validated using clé RIB.", nameof(value));
             }
 
             var sb = new StringBuilder();
-            foreach (char c in input)
+            foreach (char ch in value)
             {
-                sb.Append(
-                    char.IsNumber(c)
-                        ? c - CharCode0
-                        : MapLetters(c)
-                );
+                if (!ch.IsWhitespace())
+                {
+                    sb.Append(
+                        char.IsNumber(ch)
+                            ? ch - '0'
+                            : MapLetters(ch)
+                    );
+                }
             }
 
-            return sb.ToString();
-        }
+            string digits = sb.ToString();
 
-        private static int MapLetters(char c)
-        {
-            int v = char.ToUpperInvariant(c) - CharCodeA;
-            int digit = v % 9 + 1;
-            return c >= 'S' ? ++digit : digit;
-        }
-
-        protected override int Calculate(string digits)
-        {
             int b = int.Parse(digits.Substring(0, 5));
             int g = int.Parse(digits.Substring(5, 5));
             BigInteger c = BigInteger.Parse(digits.Substring(10), CultureInfo.InvariantCulture);
 
             BigInteger checkDigits = 97 - (89 * b + 15 * g + 3 * c) % 97;
             return (int)checkDigits;
+        }
+
+        private static int MapLetters(char c)
+        {
+            int v = char.ToUpperInvariant(c) - 'A';
+            int digit = v % 9 + 1;
+            return c >= 'S' ? ++digit : digit;
         }
     }
 }
