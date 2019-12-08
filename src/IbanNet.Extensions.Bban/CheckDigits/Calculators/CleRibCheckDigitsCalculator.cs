@@ -26,7 +26,7 @@ namespace IbanNet.CheckDigits.Calculators
                     ? ch - '0'
                     : ch.IsAsciiLetter()
                         ? MapLetters(ch)
-                        : throw new InvalidOperationException("Expected alphanumeric characters.");
+                        : throw new InvalidTokenException("Expected alphanumeric characters.");
                 if (i < 5)
                 {
                     b = b * 10 + add;

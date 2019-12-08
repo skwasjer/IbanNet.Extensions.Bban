@@ -65,7 +65,7 @@ namespace IbanNet.CheckDigits.Calculators
 
             // Assert
             act.Should()
-                .Throw<InvalidOperationException>()
+                .Throw<InvalidTokenException>()
                 .WithMessage($"Expected alphanumeric characters.");
         }
 

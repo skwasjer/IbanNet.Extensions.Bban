@@ -25,9 +25,20 @@ namespace IbanNet.Validation.NationalCheckDigits
         public virtual bool Validate(string bban)
         {
             string checkString = GetCheckString(bban);
-            int computedCheckDigits = _checkDigitsCalculator.Compute(checkString.ToCharArray());
+            try
+            {
+                int computedCheckDigits = _checkDigitsCalculator.Compute(checkString.ToCharArray());
 
-            return GetExpectedCheckDigits(bban) == computedCheckDigits;
+                return GetExpectedCheckDigits(bban) == computedCheckDigits;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+            catch (InvalidTokenException)
+            {
+                return false;
+            }
         }
 
         /// <summary>

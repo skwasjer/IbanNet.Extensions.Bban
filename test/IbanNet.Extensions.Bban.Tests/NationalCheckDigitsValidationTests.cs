@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
+using IbanNet.Validation.Results;
 using IbanNet.Validation.Rules;
 using Xunit;
 
@@ -40,7 +40,7 @@ namespace IbanNet
 			result.Should().BeEquivalentTo(new ValidationResult
 			{
 				Value = ibanWithNationalCheckDigits,
-				Country = _validator.SupportedCountries.First(c => c.TwoLetterISORegionName == countryCode)
+				Country = _validator.SupportedCountries[countryCode]
 			});
 		}
 
@@ -57,11 +57,9 @@ namespace IbanNet
 			// Assert
 			result.Should().BeEquivalentTo(new ValidationResult
 			{
-				Result = IbanValidationResult.Custom,
 				Value = ibanWithTamperedNationalCheckDigits,
-				Country = _validator.SupportedCountries.First(c => c.TwoLetterISORegionName == countryCode),
-				ValidationRuleType = typeof(HasValidNationalCheckDigits),
-				ErrorMessage = "Invalid national check digits."
+				Country = _validator.SupportedCountries[countryCode],
+				Error = new InvalidNationalCheckDigitsResult()
 			});
 		}
 	}

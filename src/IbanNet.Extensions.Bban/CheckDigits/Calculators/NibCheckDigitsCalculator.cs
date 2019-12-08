@@ -30,7 +30,7 @@ namespace IbanNet.CheckDigits.Calculators
                     ? ch - '0'
                     : ch.IsAsciiLetter()
                         ? MapLetters(ch)
-                        : throw new InvalidOperationException("Expected alphanumeric characters.");
+                        : throw new InvalidTokenException("Expected alphanumeric characters.");
                 sum += (add * Weights[i]);
             }
 

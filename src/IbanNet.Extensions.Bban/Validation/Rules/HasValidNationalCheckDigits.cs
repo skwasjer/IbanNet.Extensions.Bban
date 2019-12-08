@@ -52,13 +52,14 @@ namespace IbanNet.Validation.Rules
         {
             if (!_nationalCheckDigitsValidators.TryGetValue(context.Country.TwoLetterISORegionName, out IEnumerable<NationalCheckDigitsValidator> checkDigitsValidators))
             {
+                // No national check digits validators found.
                 return ValidationRuleResult.Success;
             }
 
             string bban = context.Value.Substring(4, context.Country.Bban.Length);
             return checkDigitsValidators.Any(validator => validator.Validate(bban))
                 ? ValidationRuleResult.Success
-                : new ErrorResult("Invalid national check digits.");
+                : new InvalidNationalCheckDigitsResult();
         }
     }
 }

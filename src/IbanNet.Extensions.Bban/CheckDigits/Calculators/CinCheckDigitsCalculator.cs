@@ -1,5 +1,4 @@
-﻿using System;
-using IbanNet.Extensions;
+﻿using IbanNet.Extensions;
 
 namespace IbanNet.CheckDigits.Calculators
 {
@@ -24,7 +23,7 @@ namespace IbanNet.CheckDigits.Calculators
                     ? c - '0'
                     : c.IsAsciiLetter()
                         ? (c | ' ') - 'a'
-                        : throw new InvalidOperationException("Expected alphanumeric characters.");
+                        : throw new InvalidTokenException("Expected alphanumeric characters.");
                 int[] takeWeightsFrom = (i & 1) == 1 ? EvenWeights : OddWeights;
                 sum += takeWeightsFrom[number];
             }

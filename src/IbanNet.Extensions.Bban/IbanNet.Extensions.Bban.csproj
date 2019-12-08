@@ -10,8 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- For time being, use floating version, so we always pull latest from feed. -->
-    <PackageReference Include="IbanNet" Version="3.3.0-extensibility0020" />
+    <PackageReference Include="IbanNet" Version="4.0.0-alpha0144" />
   </ItemGroup>
 
 </Project>

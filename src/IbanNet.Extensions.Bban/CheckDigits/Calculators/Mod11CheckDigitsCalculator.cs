@@ -1,5 +1,4 @@
-﻿using System;
-using IbanNet.Extensions;
+﻿using IbanNet.Extensions;
 
 namespace IbanNet.CheckDigits.Calculators
 {
@@ -19,7 +18,7 @@ namespace IbanNet.CheckDigits.Calculators
                 char c = value[i];
                 if (!c.IsAsciiDigit())
                 {
-                    throw new InvalidOperationException("Expected numeric characters.");
+                    throw new InvalidTokenException("Expected numeric characters.");
                 }
 
                 int weight = 7 - (i + 2) % 6;
