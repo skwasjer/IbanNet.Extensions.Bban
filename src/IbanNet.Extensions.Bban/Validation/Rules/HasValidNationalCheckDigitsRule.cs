@@ -8,14 +8,14 @@ namespace IbanNet.Validation.Rules
     /// <summary>
     /// Asserts that the BBAN portion of an IBAN has valid national check digits.
     /// </summary>
-    public class HasValidNationalCheckDigits : IIbanValidationRule
+    public class HasValidNationalCheckDigitsRule : IIbanValidationRule
     {
         private readonly IReadOnlyDictionary<string, IEnumerable<NationalCheckDigitsValidator>> _nationalCheckDigitsValidators;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HasValidNationalCheckDigits" /> class.
+        /// Initializes a new instance of the <see cref="HasValidNationalCheckDigitsRule" /> class.
         /// </summary>
-        public HasValidNationalCheckDigits()
+        public HasValidNationalCheckDigitsRule()
             : this(
                 new List<NationalCheckDigitsValidator>
                 {
@@ -29,7 +29,7 @@ namespace IbanNet.Validation.Rules
         }
 
         // For access by unit tests.
-        internal HasValidNationalCheckDigits(IEnumerable<NationalCheckDigitsValidator> nationalCheckDigitsValidators)
+        internal HasValidNationalCheckDigitsRule(IEnumerable<NationalCheckDigitsValidator> nationalCheckDigitsValidators)
         {
             // Group national check digits validators by supported countries and then create dictionary for quick resolving.
             _nationalCheckDigitsValidators = nationalCheckDigitsValidators

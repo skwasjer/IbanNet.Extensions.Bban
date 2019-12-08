@@ -15,7 +15,7 @@ namespace IbanNet
 			{
 				Rules =
 				{
-					new HasValidNationalCheckDigits()
+					new HasValidNationalCheckDigitsRule()
 				}
 			});
 		}
