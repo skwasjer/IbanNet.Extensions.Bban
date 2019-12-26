@@ -57,6 +57,18 @@ namespace IbanNet.CheckDigits.Calculators
                 .Be(nameof(value));
         }
 
+        [Theory]
+        [InlineData("02345123451234567A:")]
+        public void Given_a_non_alphanumeric_character_when_computing_should_throw(string value)
+        {
+            Action act = () => _sut.Compute(value.ToCharArray());
+
+            // Assert
+            act.Should()
+                .Throw<InvalidOperationException>()
+                .WithMessage($"Expected alphanumeric characters.");
+        }
+
         /// <summary>
         /// Asserts correct mapping of letters.
         /// </summary>
