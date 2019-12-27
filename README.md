@@ -44,6 +44,29 @@ var validator = new IbanValidator(
 );
 ```
 
+## Supported countries
+
+Country                | Code | Support                     | Documentation 
+---------------------- | ---- | --------------------------- | -------------
+Algeria                |  DZ  | :grey_question: STUDYING    |
+Bosnia and Herzegovina |  BA  | :heavy_check_mark: YES      | [CBBH - Instruction on payment account structure](https://www.cbbh.ba/Content/Read/53?lang=en)
+Estonia                |  EE  | :grey_question: STUDYING    |
+Finland                |  FI  | :grey_question: STUDYING    |
+France                 |  FR  | :heavy_check_mark: YES      | [Clé RIB](https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB)
+Germany                |  DE  | :exclamation: NOT LIKELY    | [BundesBank - Prüfzifferberechnungsmethoden](https://www.bundesbank.de/resource/blob/603320/16a80c739bbbae592ca575905975c2d0/mL/pruefzifferberechnungsmethoden-data.pdf)
+Hungary                |  HU  | :grey_question: STUDYING    |
+Italy                 |  IT  | :heavy_check_mark: YES       | [Oracle Cash Management User Guide - Italy](https://docs.oracle.com/cd/E18727_01/doc.121/e13483/T359831T498954.htm#T498993)
+Madagascar             |  MG  | :grey_question: STUDYING    |
+Mauritania             |  MR  | :heavy_check_mark: YES      | [Clé RIB](https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB)
+Monaco                 |  MC  | :heavy_check_mark: YES      | [Clé RIB](https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB)
+North Macedonia        |  MK  | :grey_question: STUDYING    |
+Norway                 |  NO  | :heavy_check_mark: YES      | [Oracle Cash Management User Guide - Norway](https://docs.oracle.com/cd/E18727_01/doc.121/e13483/T359831T498954.htm#T498969)
+Poland                 |  PL  | :grey_question: STUDYING    |
+Portugal               |  PT  | :heavy_check_mark: YES      | [Número de Identificação Bancária](https://pt.wikipedia.org/wiki/N%C3%BAmero_de_Identifica%C3%A7%C3%A3o_Banc%C3%A1ria)
+San Marino             |  SM  | :heavy_check_mark: YES      | [Oracle Cash Management User Guide - Italy](https://docs.oracle.com/cd/E18727_01/doc.121/e13483/T359831T498954.htm#T498993)
+Slovenia               |  SI  | :grey_question: STUDYING    |
+Spain                  |  ES  | :grey_question: STUDYING    |
+
 ### Contributions
 
 PR's are welcome. Please rebase before submitting, provide test coverage, and ensure the AppVeyor build passes. I will not consider PR's otherwise.
