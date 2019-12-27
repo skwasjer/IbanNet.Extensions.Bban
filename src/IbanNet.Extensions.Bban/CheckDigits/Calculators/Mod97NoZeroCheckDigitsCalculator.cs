@@ -1,10 +1,18 @@
 ﻿namespace IbanNet.CheckDigits.Calculators
 {
-    internal class Mod97NoZeroCheckDigitsCalculator : Mod97CheckDigitsCalculator, ICheckDigitsCalculator
+    internal class Mod97NoZeroCheckDigitsCalculator : ICheckDigitsCalculator
     {
-        public new int Compute(char[] value)
+        private readonly Mod97CheckDigitsCalculator _innerCalculator;
+
+        public Mod97NoZeroCheckDigitsCalculator()
         {
-            var mod97 = base.Compute(value);
+            _innerCalculator = new Mod97CheckDigitsCalculator();
+        }
+
+        /// <inheritdoc />
+        public int Compute(char[] value)
+        {
+            var mod97 = _innerCalculator.Compute(value);
             return mod97 == 0
                 ? 97
                 : mod97;
