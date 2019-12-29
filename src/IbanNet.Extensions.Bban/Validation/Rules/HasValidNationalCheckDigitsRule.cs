@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using IbanNet.Registry;
 using IbanNet.Validation.NationalCheckDigits;
 using IbanNet.Validation.Results;
 
@@ -58,7 +59,14 @@ namespace IbanNet.Validation.Rules
                 return ValidationRuleResult.Success;
             }
 
-            string bban = context.Value.Substring(4, context.Country.Bban.Length);
+            BbanStructure bbanStructure = context.Country.Bban;
+            if (bbanStructure.Position + bbanStructure.Length > context.Value.Length || bbanStructure.Length == 0)
+            {
+                // BBAN positional data unavailable, or not matching input.
+                return new InvalidNationalCheckDigitsResult();
+            }
+
+            string bban = context.Value.Substring(bbanStructure.Position, bbanStructure.Length);
             return checkDigitsValidators.Any(validator => validator.Validate(bban))
                 ? ValidationRuleResult.Success
                 : new InvalidNationalCheckDigitsResult();
