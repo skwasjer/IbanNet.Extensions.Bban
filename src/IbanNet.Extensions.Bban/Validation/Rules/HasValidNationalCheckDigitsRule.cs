@@ -58,7 +58,7 @@ namespace IbanNet.Validation.Rules
                 return ValidationRuleResult.Success;
             }
 
-            string bban = context.Value.Substring(4, context.Country.Bban.Length);
+            string bban = context.Value.Substring(context.Country.Bban.Position, context.Country.Bban.Length);
             return checkDigitsValidators.Any(validator => validator.Validate(bban))
                 ? ValidationRuleResult.Success
                 : new InvalidNationalCheckDigitsResult();
