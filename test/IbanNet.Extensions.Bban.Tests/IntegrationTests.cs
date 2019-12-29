@@ -5,11 +5,11 @@ using Xunit;
 
 namespace IbanNet
 {
-	public class NationalCheckDigitsValidationTests
+	public class IntegrationTests
 	{
 		private readonly IbanValidator _validator;
 
-        public NationalCheckDigitsValidationTests()
+        public IntegrationTests()
         {
             _validator = new IbanValidator(new IbanValidatorOptions
 			{
