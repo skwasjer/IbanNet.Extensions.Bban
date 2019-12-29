@@ -1,4 +1,4 @@
-﻿skip_branch_with_pr: true
+skip_branch_with_pr: true
 image: Visual Studio 2019
 configuration: Release
 install:
@@ -37,4 +37,6 @@ deploy:
   api_key:
     secure: V2QFEs9EHhZ5Fxgocpd0/jKOMhiFx1wXkLqPvs7DxSKJT9vItwFMwNQgI8yP1io+
   on:
-    branch: ignore_right_now #/release/.*/
+    branch:
+    - master
+    - /release\/.+/
