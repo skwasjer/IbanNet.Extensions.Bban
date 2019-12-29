@@ -39,7 +39,7 @@ namespace IbanNet
 			// Assert
 			result.Should().BeEquivalentTo(new ValidationResult
 			{
-				Value = ibanWithNationalCheckDigits,
+				AttemptedValue = ibanWithNationalCheckDigits,
 				Country = _validator.SupportedCountries[countryCode]
 			});
 		}
@@ -57,7 +57,7 @@ namespace IbanNet
 			// Assert
 			result.Should().BeEquivalentTo(new ValidationResult
 			{
-				Value = ibanWithTamperedNationalCheckDigits,
+                AttemptedValue = ibanWithTamperedNationalCheckDigits,
 				Country = _validator.SupportedCountries[countryCode],
 				Error = new InvalidNationalCheckDigitsResult()
 			});
