@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IbanNet" Version="4.0.0-beta0177" />
+    <PackageReference Include="IbanNet" Version="4.0.0-beta0183" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Registry;
@@ -63,7 +60,7 @@ namespace IbanNet.Validation.Rules
             ValidationRuleResult actual = _sut.Validate(context);
 
             // Assert
-            actual.Should().Be(new InvalidNationalCheckDigitsResult());
+            actual.Should().BeOfType<InvalidNationalCheckDigitsResult>();
             _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Never);
         }
 
@@ -88,7 +85,7 @@ namespace IbanNet.Validation.Rules
             ValidationRuleResult actual = _sut.Validate(context);
 
             // Assert
-            actual.Should().Be(new InvalidNationalCheckDigitsResult());
+            actual.Should().BeOfType<InvalidNationalCheckDigitsResult>();
             _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Never);
         }
 
@@ -110,7 +107,7 @@ namespace IbanNet.Validation.Rules
             };
 
             // Act
-            ValidationRuleResult actual = _sut.Validate(context);
+            _sut.Validate(context);
 
             // Assert
             _checkDigitsValidatorMock.Verify(m => m.Validate(expectedExtractedBban), Times.Once);
