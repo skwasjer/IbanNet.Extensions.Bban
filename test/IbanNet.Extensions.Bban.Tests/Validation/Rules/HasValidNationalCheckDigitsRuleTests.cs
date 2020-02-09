@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using IbanNet.CheckDigits.Calculators;
+using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
+using IbanNet.Extensions.Bban.Validation.Results;
 using IbanNet.Registry;
-using IbanNet.Validation.NationalCheckDigits;
 using IbanNet.Validation.Results;
+using IbanNet.Validation.Rules;
 using Moq;
 using Xunit;
 
-namespace IbanNet.Validation.Rules
+namespace IbanNet.Extensions.Bban.Validation.Rules
 {
     public class HasValidNationalCheckDigitsRuleTests
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Numerics;
-using IbanNet.Extensions;
+using IbanNet.CheckDigits.Calculators;
+using IbanNet.Extensions.Bban.Extensions;
 
-namespace IbanNet.CheckDigits.Calculators
+namespace IbanNet.Extensions.Bban.CheckDigits.Calculators
 {
     /// <summary>
     /// Computes the expected national check digits for Portugal bank account numbers, aka. NIB (Número de Identificação Bancária).

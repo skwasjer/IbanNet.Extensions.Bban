@@ -8,7 +8,7 @@ using Moq;
 using Moq.Protected;
 using Xunit;
 
-namespace IbanNet.Validation.NationalCheckDigits
+namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits
 {
     public class NationalCheckDigitsValidatorTests
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using IbanNet.DependencyInjection;
-using IbanNet.Validation.Rules;
+using IbanNet.Extensions.Bban.Validation.Rules;
 
-namespace IbanNet
+namespace IbanNet.Extensions.Bban
 {
     /// <summary>
     /// Configuration extensions for IbanNet to enable national check digit validation.

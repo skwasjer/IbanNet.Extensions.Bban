@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace IbanNet.Validation.NationalCheckDigits
+namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits
 {
 	public class CinNationalCheckDigitsValidatorTest
 	{

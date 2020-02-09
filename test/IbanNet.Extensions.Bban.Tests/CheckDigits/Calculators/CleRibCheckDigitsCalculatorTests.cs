@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
-namespace IbanNet.CheckDigits.Calculators
+namespace IbanNet.Extensions.Bban.CheckDigits.Calculators
 {
 	public class CleRibCheckDigitsCalculatorTests
 	{

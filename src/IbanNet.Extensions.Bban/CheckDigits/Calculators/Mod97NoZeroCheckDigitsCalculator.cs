@@ -1,4 +1,6 @@
-﻿namespace IbanNet.CheckDigits.Calculators
+﻿using IbanNet.CheckDigits.Calculators;
+
+namespace IbanNet.Extensions.Bban.CheckDigits.Calculators
 {
     internal class Mod97NoZeroCheckDigitsCalculator : ICheckDigitsCalculator
     {

@@ -4,11 +4,11 @@ using System.Linq;
 using FluentAssertions;
 using IbanNet.DependencyInjection;
 using IbanNet.DependencyInjection.ServiceProvider;
-using IbanNet.Validation.Rules;
+using IbanNet.Extensions.Bban.Validation.Rules;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace IbanNet
+namespace IbanNet.Extensions.Bban
 {
     /// <summary>
     /// Asserts rule is correctly registered using the builder extensions.

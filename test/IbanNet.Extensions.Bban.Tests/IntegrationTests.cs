@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using IbanNet.Validation.Results;
-using IbanNet.Validation.Rules;
+using IbanNet.Extensions.Bban.Validation.Results;
+using IbanNet.Extensions.Bban.Validation.Rules;
 using Xunit;
 
-namespace IbanNet
+namespace IbanNet.Extensions.Bban
 {
 	public class IntegrationTests
 	{

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using IbanNet.Validation.NationalCheckDigits;
+using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
-namespace IbanNet.Validation.Rules
+namespace IbanNet.Extensions.Bban.Validation.Rules
 {
     internal static class NationalCheckDigitsValidatorFactory
     {

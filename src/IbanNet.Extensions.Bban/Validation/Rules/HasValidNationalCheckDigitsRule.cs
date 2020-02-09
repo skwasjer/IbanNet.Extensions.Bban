@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
+using IbanNet.Extensions.Bban.Validation.Results;
 using IbanNet.Registry;
-using IbanNet.Validation.NationalCheckDigits;
 using IbanNet.Validation.Results;
+using IbanNet.Validation.Rules;
 
-namespace IbanNet.Validation.Rules
+namespace IbanNet.Extensions.Bban.Validation.Rules
 {
     /// <summary>
     /// Asserts that the BBAN portion of an IBAN has valid national check digits.

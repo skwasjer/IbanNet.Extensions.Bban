@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace IbanNet.Extensions
+namespace IbanNet.Extensions.Bban.Extensions
 {
 	/// <summary>
 	/// Taken from MS source for <see cref="char"/>.

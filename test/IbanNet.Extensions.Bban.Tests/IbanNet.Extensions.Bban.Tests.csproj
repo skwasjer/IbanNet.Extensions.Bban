@@ -6,7 +6,7 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
 
-    <RootNamespace>IbanNet</RootNamespace>
+    <RootNamespace>IbanNet.Extensions.Bban</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp'))">

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using IbanNet.CheckDigits.Calculators;
 using Xunit;
 
-namespace IbanNet.CheckDigits.Calculators
+namespace IbanNet.Extensions.Bban.CheckDigits.Calculators
 {
     public class NibCheckDigitsCalculatorTests
     {

@@ -1,6 +1,6 @@
-﻿using IbanNet.CheckDigits.Calculators;
+﻿using IbanNet.Extensions.Bban.CheckDigits.Calculators;
 
-namespace IbanNet.Validation.NationalCheckDigits
+namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits
 {
     internal class BosniaAndHerzegovinaMod97NationalCheckDigitsValidator : NationalCheckDigitsValidator
     {

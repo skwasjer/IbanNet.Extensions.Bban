@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using IbanNet.CheckDigits.Calculators;
 
-namespace IbanNet.Validation.NationalCheckDigits
+namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits
 {
     internal abstract class NationalCheckDigitsValidator
     {
