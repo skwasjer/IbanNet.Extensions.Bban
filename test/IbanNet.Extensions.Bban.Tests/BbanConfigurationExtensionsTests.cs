@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using FluentAssertions;
+using IbanNet.DependencyInjection;
 using IbanNet.DependencyInjection.ServiceProvider;
 using IbanNet.Validation.Rules;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,41 @@ namespace IbanNet
                 .OfType<HasValidNationalCheckDigitsRule>()
                 .Should()
                 .HaveCount(1);
+        }
+
+        [Fact]
+        public void Given_that_builder_is_null_when_adding_rule_it_should_throw()
+        {
+            IIbanNetOptionsBuilder builder = null;
+
+            // Act
+            // ReSharper disable once ExpressionIsAlwaysNull
+            Action act = () => builder.ValidateNationalCheckDigits();
+
+            // Assert
+            act.Should()
+                .Throw<ArgumentNullException>()
+                .Which.ParamName.Should()
+                .Be(nameof(builder));
+        }
+
+        [Fact]
+        public void When_registering_rule_it_should_return_builder()
+        {
+            IIbanNetOptionsBuilder returnedBuilder = null;
+            IServiceProvider services = new ServiceCollection()
+                // Register rule
+                .AddIbanNet(builder =>
+                {
+                    returnedBuilder = builder.ValidateNationalCheckDigits();
+                    returnedBuilder.Should().Be(builder);
+                })
+                .BuildServiceProvider();
+
+            // Act
+            // Resolve to trigger extension  method.
+            services.GetRequiredService<IIbanValidator>();
+            returnedBuilder.Should().NotBeNull();
         }
     }
 }

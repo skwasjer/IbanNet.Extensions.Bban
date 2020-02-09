@@ -1,4 +1,5 @@
-﻿using IbanNet.DependencyInjection;
+﻿using System;
+using IbanNet.DependencyInjection;
 using IbanNet.Validation.Rules;
 
 namespace IbanNet
@@ -17,6 +18,11 @@ namespace IbanNet
         /// <returns>The <see cref="IIbanNetOptionsBuilder"/> so that additional calls can be chained.</returns>
         public static IIbanNetOptionsBuilder ValidateNationalCheckDigits(this IIbanNetOptionsBuilder builder)
         {
+            if (builder is null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
             return builder.WithRule(() => new HasValidNationalCheckDigitsRule());
         }
     }
