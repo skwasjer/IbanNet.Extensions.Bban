@@ -7,7 +7,7 @@ namespace IbanNet.Extensions.Bban
     /// <summary>
     /// Configuration extensions for IbanNet to enable national check digit validation.
     /// </summary>
-    public static class BbanConfigurationExtensions
+    public static class IbanNetOptionsBuilderExtensions
     {
         // TODO: maybe add 'experimental' option to opt-in into experimental (still in development/unstable) check digit validators/countries (perhaps specific per country/algo.
 

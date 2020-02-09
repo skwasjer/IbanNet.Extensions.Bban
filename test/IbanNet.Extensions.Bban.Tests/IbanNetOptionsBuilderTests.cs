@@ -13,11 +13,11 @@ namespace IbanNet.Extensions.Bban
     /// <summary>
     /// Asserts rule is correctly registered using the builder extensions.
     /// </summary>
-    public class BbanConfigurationExtensionsTests
+    public class IbanNetOptionsBuilderTests
     {
         private readonly IIbanValidator _validator;
 
-        public BbanConfigurationExtensionsTests()
+        public IbanNetOptionsBuilderTests()
         {
             IServiceProvider services = new ServiceCollection()
                 // Register rule
