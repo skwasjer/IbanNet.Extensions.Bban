@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Registry;
@@ -16,11 +17,11 @@ namespace IbanNet.Validation.Rules
 
         public HasValidNationalCheckDigitsRuleTests()
         {
-            _checkDigitsValidatorMock = new Mock<NationalCheckDigitsValidator>(Mock.Of<ICheckDigitsCalculator>(), new [] { "ZZ" });
+            _checkDigitsValidatorMock = new Mock<NationalCheckDigitsValidator>(Mock.Of<ICheckDigitsCalculator>(), new[] { "ZZ" });
 
-            var checkDigitValidatorStubs = new List<NationalCheckDigitsValidator>
+            var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
             {
-                _checkDigitsValidatorMock.Object
+                { "ZZ", new[] { _checkDigitsValidatorMock.Object } }
             };
 
             _sut = new HasValidNationalCheckDigitsRule(checkDigitValidatorStubs);
@@ -35,7 +36,7 @@ namespace IbanNet.Validation.Rules
             };
 
             // Act
-            ValidationRuleResult actual =_sut.Validate(context);
+            ValidationRuleResult actual = _sut.Validate(context);
 
             // Assert
             actual.Should().BeSameAs(ValidationRuleResult.Success);
@@ -118,10 +119,10 @@ namespace IbanNet.Validation.Rules
         {
             var matchingCheckDigitValidatorMock = new Mock<NationalCheckDigitsValidator>(Mock.Of<ICheckDigitsCalculator>(), new[] { "WW" });
 
-            var checkDigitValidatorStubs = new List<NationalCheckDigitsValidator>
+            var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
             {
-                _checkDigitsValidatorMock.Object,
-                matchingCheckDigitValidatorMock.Object
+                { "ZZ", new[] { _checkDigitsValidatorMock.Object } },
+                { "WW", new[] { matchingCheckDigitValidatorMock.Object } }
             };
 
             _checkDigitsValidatorMock
@@ -162,10 +163,9 @@ namespace IbanNet.Validation.Rules
         [InlineData(true)]
         public void Given_multiple_check_digit_validators_matching_the_country_when_validating_it_should_validate_using_any(bool matchesFirst)
         {
-            var checkDigitValidatorStubs = new List<NationalCheckDigitsValidator>
+            var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
             {
-                _checkDigitsValidatorMock.Object,
-                _checkDigitsValidatorMock.Object
+                { "ZZ", new[] { _checkDigitsValidatorMock.Object, _checkDigitsValidatorMock.Object } }
             };
 
             _checkDigitsValidatorMock
@@ -192,6 +192,23 @@ namespace IbanNet.Validation.Rules
 
             // Assert
             _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Exactly(matchesFirst ? 1 : 2));
+        }
+
+        [Fact]
+        public void Given_null_validators_when_creating_it_should_throw()
+        {
+            IDictionary<string, IEnumerable<NationalCheckDigitsValidator>> nationalCheckDigitsValidators = null;
+
+            // Act
+            // ReSharper disable once ExpressionIsAlwaysNull
+            // ReSharper disable once ObjectCreationAsStatement
+            Action act = () => new HasValidNationalCheckDigitsRule(nationalCheckDigitsValidators);
+
+            // Assert
+            act.Should()
+                .Throw<ArgumentNullException>()
+                .Which.ParamName.Should()
+                .Be(nameof(nationalCheckDigitsValidators));
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using IbanNet.Registry;
 using IbanNet.Validation.NationalCheckDigits;
@@ -17,37 +19,15 @@ namespace IbanNet.Validation.Rules
         /// Initializes a new instance of the <see cref="HasValidNationalCheckDigitsRule" /> class.
         /// </summary>
         public HasValidNationalCheckDigitsRule()
-            : this(
-                new List<NationalCheckDigitsValidator>
-                {
-                    new CinNationalCheckDigitsValidator(),
-                    new CleRibNationalCheckDigitsValidator(),
-                    new NorwayMod11ValidatorDigitsValidator(),
-                    new BosniaAndHerzegovinaMod97NationalCheckDigitsValidator(),
-                    new BelgiumMod97NationalCheckDigitsValidator(),
-                    new NibNationalCheckDigitsValidator()
-                }
-            )
+            : this(NationalCheckDigitsValidatorFactory.Create())
         {
         }
 
-        // For access by unit tests.
-        internal HasValidNationalCheckDigitsRule(IEnumerable<NationalCheckDigitsValidator> nationalCheckDigitsValidators)
+        internal HasValidNationalCheckDigitsRule(IDictionary<string, IEnumerable<NationalCheckDigitsValidator>> nationalCheckDigitsValidators)
         {
-            // Group national check digits validators by supported countries and then create dictionary for quick resolving.
-            _nationalCheckDigitsValidators = nationalCheckDigitsValidators
-                .SelectMany(v => v.SupportedCountryCodes
-                    .Select(c => new
-                    {
-                        validator = v, 
-                        countryCode = c
-                    })
-                )
-                .GroupBy(g => g.countryCode)
-                .ToDictionary(
-                    g => g.Key,
-                    g => (IEnumerable<NationalCheckDigitsValidator>)g.Select(kvp => kvp.validator).ToList()
-                );
+            _nationalCheckDigitsValidators = new ReadOnlyDictionary<string, IEnumerable<NationalCheckDigitsValidator>>(
+                nationalCheckDigitsValidators ?? throw new ArgumentNullException(nameof(nationalCheckDigitsValidators))
+            );
         }
 
         /// <inheritdoc />
