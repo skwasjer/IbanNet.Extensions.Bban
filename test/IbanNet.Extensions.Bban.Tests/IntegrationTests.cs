@@ -21,6 +21,8 @@ namespace IbanNet.Extensions.Bban
         }
 
         [Theory]
+        [InlineData("NL15ASRB0480066884")]
+        [InlineData("NL91ABNA0417164300")]
         [InlineData("FR1420041010050500013M02606")]
         [InlineData("FR7630006000011234567890189")]
         [InlineData("MR1300020001010000123456753")]
@@ -45,6 +47,7 @@ namespace IbanNet.Extensions.Bban
         }
 
         [Theory]
+        [InlineData("NL64ABNA0417164301")]
         [InlineData("FR4120041010050500013M02605")]
         [InlineData("FR0630006000011234567890188")]
         public void Given_iban_with_invalid_national_check_digits_when_validating_it_should_not_validate(string ibanWithTamperedNationalCheckDigits)
