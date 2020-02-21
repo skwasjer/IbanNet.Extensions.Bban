@@ -34,7 +34,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Calculators
                 sum += (add * Weights[i]);
             }
 
-            return 98 - ((int) sum % 97);
+            return 98 - ((int)sum % 97);
         }
 
         private static int MapLetters(char c)

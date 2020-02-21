@@ -43,6 +43,7 @@ namespace IbanNet.Extensions.Bban.Validation.Rules
                 yield return new BosniaAndHerzegovinaMod97NationalCheckDigitsValidator();
                 yield return new BelgiumMod97NationalCheckDigitsValidator();
                 yield return new NibNationalCheckDigitsValidator();
+                yield return new DutchNationalCheckDigitsValidator();
             }
 
             IEnumerator IEnumerable.GetEnumerator()
