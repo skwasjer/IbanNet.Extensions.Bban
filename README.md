@@ -15,9 +15,9 @@ dotnet package add IbanNet.Extensions.Bban
 
 ---
 
-[![Build status](https://ci.appveyor.com/api/projects/status/aw3hivn9s07hooys/branch/master?svg=true)](https://ci.appveyor.com/project/skwasjer/ibannet-extensions-bban)
-[![Tests](https://img.shields.io/appveyor/tests/skwasjer/ibannet-extensions-bban/master.svg)](https://ci.appveyor.com/project/skwasjer/ibannet-extensions-bban/build/tests)
-[![codecov](https://codecov.io/gh/skwasjer/IbanNet.Extensions.Bban/branch/master/graph/badge.svg)](https://codecov.io/gh/skwasjer/IbanNet.Extensions.Bban)
+[![Build status](https://ci.appveyor.com/api/projects/status/aw3hivn9s07hooys/branch/main?svg=true)](https://ci.appveyor.com/project/skwasjer/ibannet-extensions-bban)
+[![Tests](https://img.shields.io/appveyor/tests/skwasjer/ibannet-extensions-bban/main.svg)](https://ci.appveyor.com/project/skwasjer/ibannet-extensions-bban/build/tests)
+[![codecov](https://codecov.io/gh/skwasjer/IbanNet.Extensions.Bban/branch/main/graph/badge.svg)](https://codecov.io/gh/skwasjer/IbanNet.Extensions.Bban)
 [![NuGet](https://img.shields.io/nuget/v/IbanNet.Extensions.Bban.svg)](https://www.nuget.org/packages/IbanNet.Extensions.Bban/) [![NuGet](https://img.shields.io/nuget/dt/IbanNet.Extensions.Bban.svg)](https://www.nuget.org/packages/IbanNet.Extensions.Bban/)
 
 ## Configuration

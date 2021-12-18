@@ -3,7 +3,7 @@ mode: ContinuousDelivery
 continuous-delivery-fallback-tag: 'ci'
 branches:
   main:
-    regex: ^main|master$
+    regex: ^main$
     tag: 'ci'
 ignore:
   sha: []
