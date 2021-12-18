@@ -6,6 +6,7 @@
     <Description>IbanNet extension to validate BBAN national check digits.</Description>
     <PackageProjectUrl>https://github.com/skwasjer/IbanNet.Extensions.Bban</PackageProjectUrl>
     <PackageTags>BBAN, Validation, IBAN, International Bank Account Number</PackageTags>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

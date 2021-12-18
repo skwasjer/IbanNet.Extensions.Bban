@@ -35,7 +35,7 @@ namespace IbanNet.Extensions.Bban.Validation.Rules
         /// <inheritdoc />
         public ValidationRuleResult Validate(ValidationRuleContext context)
         {
-            if (!_nationalCheckDigitsValidators.TryGetValue(context.Country.TwoLetterISORegionName, out IEnumerable<NationalCheckDigitsValidator> checkDigitsValidators))
+            if (!_nationalCheckDigitsValidators.TryGetValue(context.Country!.TwoLetterISORegionName, out IEnumerable<NationalCheckDigitsValidator>? checkDigitsValidators))
             {
                 // No national check digits validators found.
                 return ValidationRuleResult.Success;
