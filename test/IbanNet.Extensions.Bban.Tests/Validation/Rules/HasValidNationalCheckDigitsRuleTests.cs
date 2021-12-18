@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 using IbanNet.Extensions.Bban.Validation.Results;
 using IbanNet.Registry;
+using IbanNet.Registry.Patterns;
 using IbanNet.Validation.Results;
 using IbanNet.Validation.Rules;
 using Moq;
@@ -32,10 +34,7 @@ namespace IbanNet.Extensions.Bban.Validation.Rules
         [Fact]
         public void Given_that_no_validator_matches_iban_country_when_validating_it_should_pass()
         {
-            var context = new ValidationRuleContext("XX000000")
-            {
-                Country = new IbanCountry("XX")
-            };
+            var context = new ValidationRuleContext("XX000000", new IbanCountry("XX"));
 
             // Act
             ValidationRuleResult actual = _sut.Validate(context);
@@ -48,16 +47,10 @@ namespace IbanNet.Extensions.Bban.Validation.Rules
         [Fact]
         public void Given_that_bban_structure_length_is_zero_when_validating_it_should_fail()
         {
-            var context = new ValidationRuleContext("ZZ000000")
+            var context = new ValidationRuleContext("ZZ000000", new IbanCountry("ZZ")
             {
-                Country = new IbanCountry("ZZ")
-                {
-                    Bban =
-                    {
-                        Length = 0
-                    }
-                }
-            };
+                Bban = new BbanStructure(new TestPattern(Enumerable.Empty<PatternToken>()))
+            });
 
             // Act
             ValidationRuleResult actual = _sut.Validate(context);
@@ -72,17 +65,13 @@ namespace IbanNet.Extensions.Bban.Validation.Rules
         [InlineData(5, 6)]
         public void Given_that_bban_expected_length_is_greater_than_available_when_validating_it_should_fail(int position, int length)
         {
-            var context = new ValidationRuleContext("ZZ000000")
-            {
-                Country = new IbanCountry("ZZ")
+            var context = new ValidationRuleContext("ZZ000000",
+                new IbanCountry("ZZ")
                 {
-                    Bban =
-                    {
-                        Position = position,
-                        Length = length
-                    }
-                }
-            };
+                    Bban = new BbanStructure(
+                        new TestPattern(new[] { new PatternToken(AsciiCategory.Digit, length) }),
+                        position)
+                });
 
             // Act
             ValidationRuleResult actual = _sut.Validate(context);
@@ -97,17 +86,13 @@ namespace IbanNet.Extensions.Bban.Validation.Rules
         [InlineData(4, 4, "2345")]
         public void When_validating_it_should_extract_bban_from_iban(int position, int length, string expectedExtractedBban)
         {
-            var context = new ValidationRuleContext("ZZ0123456")
-            {
-                Country = new IbanCountry("ZZ")
+            var context = new ValidationRuleContext("ZZ0123456",
+                new IbanCountry("ZZ")
                 {
-                    Bban =
-                    {
-                        Position = position,
-                        Length = length
-                    }
-                }
-            };
+                    Bban = new BbanStructure(
+                        new TestPattern(new[] { new PatternToken(AsciiCategory.Digit, length) }),
+                        position)
+                });
 
             // Act
             _sut.Validate(context);
@@ -139,17 +124,13 @@ namespace IbanNet.Extensions.Bban.Validation.Rules
 
             var sut = new HasValidNationalCheckDigitsRule(checkDigitValidatorStubs);
 
-            var context = new ValidationRuleContext("WW0123456")
-            {
-                Country = new IbanCountry("WW")
+            var context = new ValidationRuleContext("WW0123456",
+                new IbanCountry("WW")
                 {
-                    Bban =
-                    {
-                        Position = 2,
-                        Length = 7
-                    }
-                }
-            };
+                    Bban = new BbanStructure(
+                        new TestPattern(new[] { new PatternToken(AsciiCategory.Digit, 7) }),
+                        2)
+                });
 
             // Act
             ValidationRuleResult actual = sut.Validate(context);
@@ -177,17 +158,13 @@ namespace IbanNet.Extensions.Bban.Validation.Rules
 
             var sut = new HasValidNationalCheckDigitsRule(checkDigitValidatorStubs);
 
-            var context = new ValidationRuleContext("ZZ0123456")
-            {
-                Country = new IbanCountry("ZZ")
+            var context = new ValidationRuleContext("ZZ0123456",
+                new IbanCountry("ZZ")
                 {
-                    Bban =
-                    {
-                        Position = 2,
-                        Length = 7
-                    }
-                }
-            };
+                    Bban = new BbanStructure(
+                        new TestPattern(new[] { new PatternToken(AsciiCategory.Digit, 7) }),
+                        2)
+                });
 
             // Act
             sut.Validate(context);
