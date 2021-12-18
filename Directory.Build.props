@@ -1,5 +1,23 @@
 <Project>
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <MicrosoftExtensionsVersion>6.0.0</MicrosoftExtensionsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
+    <MicrosoftExtensionsVersion>5.0.0</MicrosoftExtensionsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1' Or $(TargetFramework.StartsWith('netcoreapp3'))">
+    <MicrosoftExtensionsVersion>3.1.0</MicrosoftExtensionsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0' Or $(TargetFramework.StartsWith('netcoreapp2'))">
+    <MicrosoftExtensionsVersion>2.1.0</MicrosoftExtensionsVersion>
+  </PropertyGroup>
+
 </Project>

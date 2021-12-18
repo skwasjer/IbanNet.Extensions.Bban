@@ -1,26 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;netcoreapp2.2;netcoreapp2.1;netcoreapp2.0;net472;net452</TargetFrameworks>
+    <TargetFrameworks>net6.0;net5.0;netcoreapp3.1;netcoreapp2.1;net48;net472;net462;net452</TargetFrameworks>
 
-    <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
 
     <RootNamespace>IbanNet.Extensions.Bban</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp'))">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
-    <PackageReference Include="IbanNet.DependencyInjection.ServiceProvider" Version="4.0.0" />
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp')) Or '$(TargetFramework)'=='net6.0' Or '$(TargetFramework)'=='net5.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageReference Include="IbanNet.DependencyInjection.ServiceProvider" Version="5.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard2.1" Condition="'$(TargetFramework)'=='netcoreapp3.0'" />
-    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard2.0" Condition="'$(TargetFramework)'=='netcoreapp2.2'" />
-    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard1.6" Condition="'$(TargetFramework)'=='netcoreapp2.1'" />
-    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard1.2" Condition="'$(TargetFramework)'=='netcoreapp2.0'" />
-    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=net47" Condition="'$(TargetFramework)'=='net472'" />
-    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=net45" Condition="'$(TargetFramework)'=='net452'" />
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=net6.0" Condition="'$(TargetFramework)'=='net6.0'" />
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=net5.0" Condition="'$(TargetFramework)'=='net5.0'" />
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard2.1" Condition="'$(TargetFramework)'=='netcoreapp3.1'" />
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard2.0" Condition="'$(TargetFramework)'=='netcoreapp2.1'" />
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard1.6" Condition="'$(TargetFramework)'=='net48'" />
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=net472" Condition="'$(TargetFramework)'=='net472'" />
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard1.2" Condition="'$(TargetFramework)'=='net462'" />
+    <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=net452" Condition="'$(TargetFramework)'=='net452'" />
+
   </ItemGroup>
 
 </Project>
