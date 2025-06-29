@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp')) Or '$(TargetFramework)'=='net6.0' Or '$(TargetFramework)'=='net5.0'">
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsVersion)" />
-    <PackageReference Include="IbanNet.DependencyInjection.ServiceProvider" Version="5.3.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="IbanNet.DependencyInjection.ServiceProvider" Version="5.18.0" />
   </ItemGroup>
 
   <ItemGroup>
