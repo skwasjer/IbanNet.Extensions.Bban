@@ -4,16 +4,11 @@
     <IsPackable>false</IsPackable>
 
     <MicrosoftNetTestSdk>17.13.0</MicrosoftNetTestSdk>
-    <FluentAssertionsVersion>6.1.0</FluentAssertionsVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net462'">
-    <FluentAssertionsVersion>5.10.3</FluentAssertionsVersion>
-    <DefineConstants>$(DefineConstants);FlUENT_ASSERTIONS_5</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
+    <!-- Due to license change of FluentAssertions, lock to v7 -->
+    <PackageReference Include="FluentAssertions" Version="[7.2,8.0)" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
