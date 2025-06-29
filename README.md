@@ -15,9 +15,9 @@ dotnet package add IbanNet.Extensions.Bban
 
 ---
 
-[![Build status](https://ci.appveyor.com/api/projects/status/aw3hivn9s07hooys/branch/main?svg=true)](https://ci.appveyor.com/project/skwasjer/ibannet-extensions-bban)
-[![Tests](https://img.shields.io/appveyor/tests/skwasjer/ibannet-extensions-bban/main.svg)](https://ci.appveyor.com/project/skwasjer/ibannet-extensions-bban/build/tests)
-[![codecov](https://codecov.io/gh/skwasjer/IbanNet.Extensions.Bban/branch/main/graph/badge.svg)](https://codecov.io/gh/skwasjer/IbanNet.Extensions.Bban)
+[![Main workflow](https://github.com/skwasjer/IbanNet.Extensions.Bban/actions/workflows/main.yml/badge.svg)](https://github.com/skwasjer/IbanNet.Extensions.Bban/actions/workflows/main.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=skwasjer_IbanNet.Extensions.Bban&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=skwasjer_IbanNet.Extensions.Bban)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=skwasjer_IbanNet.Extensions.Bban&metric=coverage)](https://sonarcloud.io/component_measures?id=skwasjer_IbanNet.Extensions.Bban&metric=coverage)
 [![NuGet](https://img.shields.io/nuget/v/IbanNet.Extensions.Bban.svg)](https://www.nuget.org/packages/IbanNet.Extensions.Bban/) [![NuGet](https://img.shields.io/nuget/dt/IbanNet.Extensions.Bban.svg)](https://www.nuget.org/packages/IbanNet.Extensions.Bban/)
 
 ## Configuration
