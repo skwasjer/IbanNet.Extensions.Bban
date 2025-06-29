@@ -197,6 +197,9 @@ cordova_plugins.js
 cordova.js
 /plugins
 /lib
+
 *.DotSettings
 .vs/
 /coverage.xml
+BenchmarkDotNet.Artifacts
+/.sonarqube
