@@ -17,16 +17,17 @@ insert_final_newline = true
 [*.{cs,csproj,tt,sln}]
 charset = utf-8-bom
 end_of_line = crlf
+indent_style = space
 
 [*.{csproj,props,targets}]
 indent_size = 2
+indent_style = space
 
 [*.sln]
 indent_style = tab
-indent_size = 4
 
 # Misc
-[*.{js,json,yml,yaml}]
+[*.{js,json,yml}]
 charset = utf-8
 indent_size = 2
 end_of_line = lf
@@ -36,6 +37,10 @@ charset = utf-8
 indent_size = 2
 end_of_line = lf
 trim_trailing_whitespace = false
+
+[.*]
+indent_size = 4
+end_of_line = lf
 
 ###############################
 # .NET Coding Conventions     #
@@ -79,6 +84,9 @@ dotnet_style_prefer_conditional_expression_over_assignment = true:silent
 dotnet_style_prefer_conditional_expression_over_return = true:silent
 csharp_style_prefer_index_operator = false:suggestion
 csharp_style_prefer_range_operator = false:suggestion
+
+# File scoped ns
+csharp_style_namespace_declarations = file_scoped:error
 
 ###############################
 # Naming Conventions          #
