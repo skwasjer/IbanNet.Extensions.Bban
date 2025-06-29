@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP_OR_GREATER || NET5_0_OR_GREATER
+﻿#if NETCOREAPP3_1_OR_GREATER
 using System;
 using System.Linq;
 using FluentAssertions;
