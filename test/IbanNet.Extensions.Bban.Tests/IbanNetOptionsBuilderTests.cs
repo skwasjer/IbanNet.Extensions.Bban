@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP3_1_OR_GREATER
+﻿#if NETCOREAPP
 using System;
 using System.Linq;
 using FluentAssertions;
