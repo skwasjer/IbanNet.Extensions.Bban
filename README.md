@@ -58,7 +58,7 @@ Hungary                |  HU  | :grey_question: STUDYING    |
 Italy                  |  IT  | :heavy_check_mark: YES      | [Oracle Cash Management User Guide - Italy](https://docs.oracle.com/cd/E18727_01/doc.121/e13483/T359831T498954.htm#T498993)
 Madagascar             |  MG  | :grey_question: STUDYING    |
 Mauritania             |  MR  | :heavy_check_mark: YES      | [Clé RIB](https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB)
-Netherlands, The       |  NL  | :heavy_check_mark: YES      | [Oracle Cash Management User Guide - Netherlands](https://docs.oracle.com/cd/E18727_01/doc.121/e13483/T359831T498954.htm#T498964)
+Netherlands, The       |  NL  | :information_source: N/A      | [Not applicable since Jan. 1st, 2020](https://www.betaalvereniging.nl/actueel/nieuws/laatste-10-cijfers-nederlands-iban-vanaf-2020-meer-los-gebruiken/)
 Monaco                 |  MC  | :heavy_check_mark: YES      | [Clé RIB](https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB)
 North Macedonia        |  MK  | :grey_question: STUDYING    |
 Norway                 |  NO  | :heavy_check_mark: YES      | [Oracle Cash Management User Guide - Norway](https://docs.oracle.com/cd/E18727_01/doc.121/e13483/T359831T498954.htm#T498969)
