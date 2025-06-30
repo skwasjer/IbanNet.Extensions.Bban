@@ -31,6 +31,22 @@ public class HasValidNationalCheckDigitsRuleTests
     }
 
     [Fact]
+    public void Given_that_context_is_null_when_validating_it_should_throw()
+    {
+        ValidationRuleContext context = null;
+
+        // Act
+        // ReSharper disable once AssignNullToNotNullAttribute
+        Action act = () => _sut.Validate(context);
+
+        // Assert
+        act.Should()
+            .Throw<ArgumentNullException>()
+            .Which.ParamName.Should()
+            .Be(nameof(context));
+    }
+
+    [Fact]
     public void Given_that_no_validator_matches_iban_country_when_validating_it_should_pass()
     {
         var context = new ValidationRuleContext("XX000000", new IbanCountry("XX"));
@@ -175,12 +191,11 @@ public class HasValidNationalCheckDigitsRuleTests
     [Fact]
     public void Given_null_validators_when_creating_it_should_throw()
     {
-        IDictionary<string, IEnumerable<NationalCheckDigitsValidator>> nationalCheckDigitsValidators = null;
+        Dictionary<string, IEnumerable<NationalCheckDigitsValidator>> nationalCheckDigitsValidators = null;
 
         // Act
-        // ReSharper disable once ExpressionIsAlwaysNull
-        // ReSharper disable once ObjectCreationAsStatement
-        Action act = () => new HasValidNationalCheckDigitsRule(nationalCheckDigitsValidators);
+        // ReSharper disable once AssignNullToNotNullAttribute
+        Func<HasValidNationalCheckDigitsRule> act = () => new HasValidNationalCheckDigitsRule(nationalCheckDigitsValidators);
 
         // Assert
         act.Should()

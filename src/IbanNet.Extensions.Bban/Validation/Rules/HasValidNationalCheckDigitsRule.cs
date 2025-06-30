@@ -15,7 +15,7 @@ namespace IbanNet.Extensions.Bban.Validation.Rules;
 /// </summary>
 public class HasValidNationalCheckDigitsRule : IIbanValidationRule
 {
-    private readonly IReadOnlyDictionary<string, IEnumerable<NationalCheckDigitsValidator>> _nationalCheckDigitsValidators;
+    private readonly ReadOnlyDictionary<string, IEnumerable<NationalCheckDigitsValidator>> _nationalCheckDigitsValidators;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HasValidNationalCheckDigitsRule" /> class.
@@ -35,6 +35,11 @@ public class HasValidNationalCheckDigitsRule : IIbanValidationRule
     /// <inheritdoc />
     public ValidationRuleResult Validate(ValidationRuleContext context)
     {
+        if (context is null)
+        {
+            throw new ArgumentNullException(nameof(context));
+        }
+
         if (!_nationalCheckDigitsValidators.TryGetValue(context.Country!.TwoLetterISORegionName, out IEnumerable<NationalCheckDigitsValidator>? checkDigitsValidators))
         {
             // No national check digits validators found.

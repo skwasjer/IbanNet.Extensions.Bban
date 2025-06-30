@@ -1,4 +1,5 @@
-﻿using IbanNet.Extensions.Bban.CheckDigits.Calculators;
+﻿using System.Globalization;
+using IbanNet.Extensions.Bban.CheckDigits.Calculators;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
@@ -27,6 +28,6 @@ internal class NorwayMod11ValidatorDigitsValidator : NationalCheckDigitsValidato
 
     protected override int GetExpectedCheckDigits(string bban)
     {
-        return int.Parse(bban.Substring(bban.Length - CheckDigitCount));
+        return int.Parse(bban.Substring(bban.Length - CheckDigitCount), CultureInfo.InvariantCulture);
     }
 }
