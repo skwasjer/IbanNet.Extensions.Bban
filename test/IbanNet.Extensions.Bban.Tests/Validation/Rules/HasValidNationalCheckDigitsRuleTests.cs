@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
@@ -25,7 +24,7 @@ public class HasValidNationalCheckDigitsRuleTests
 
         var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
         {
-            { "ZZ", new[] { _checkDigitsValidatorMock.Object } }
+            { "ZZ", [_checkDigitsValidatorMock.Object] }
         };
 
         _sut = new HasValidNationalCheckDigitsRule(checkDigitValidatorStubs);
@@ -49,7 +48,7 @@ public class HasValidNationalCheckDigitsRuleTests
     {
         var context = new ValidationRuleContext("ZZ000000", new IbanCountry("ZZ")
         {
-            Bban = new BbanStructure(new TestPattern(Enumerable.Empty<PatternToken>()))
+            Bban = new BbanStructure(new TestPattern([]))
         });
 
         // Act
@@ -69,7 +68,7 @@ public class HasValidNationalCheckDigitsRuleTests
             new IbanCountry("ZZ")
             {
                 Bban = new BbanStructure(
-                    new TestPattern(new[] { new PatternToken(AsciiCategory.Digit, length) }),
+                    new TestPattern([new PatternToken(AsciiCategory.Digit, length)]),
                     position)
             });
 
@@ -90,7 +89,7 @@ public class HasValidNationalCheckDigitsRuleTests
             new IbanCountry("ZZ")
             {
                 Bban = new BbanStructure(
-                    new TestPattern(new[] { new PatternToken(AsciiCategory.Digit, length) }),
+                    new TestPattern([new PatternToken(AsciiCategory.Digit, length)]),
                     position)
             });
 
@@ -108,8 +107,8 @@ public class HasValidNationalCheckDigitsRuleTests
 
         var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
         {
-            { "ZZ", new[] { _checkDigitsValidatorMock.Object } },
-            { "WW", new[] { matchingCheckDigitValidatorMock.Object } }
+            { "ZZ", [_checkDigitsValidatorMock.Object] },
+            { "WW", [matchingCheckDigitValidatorMock.Object] }
         };
 
         _checkDigitsValidatorMock
@@ -128,7 +127,7 @@ public class HasValidNationalCheckDigitsRuleTests
             new IbanCountry("WW")
             {
                 Bban = new BbanStructure(
-                    new TestPattern(new[] { new PatternToken(AsciiCategory.Digit, 7) }),
+                    new TestPattern([new PatternToken(AsciiCategory.Digit, 7)]),
                     2)
             });
 
@@ -148,7 +147,7 @@ public class HasValidNationalCheckDigitsRuleTests
     {
         var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
         {
-            { "ZZ", new[] { _checkDigitsValidatorMock.Object, _checkDigitsValidatorMock.Object } }
+            { "ZZ", [_checkDigitsValidatorMock.Object, _checkDigitsValidatorMock.Object] }
         };
 
         _checkDigitsValidatorMock
@@ -162,7 +161,7 @@ public class HasValidNationalCheckDigitsRuleTests
             new IbanCountry("ZZ")
             {
                 Bban = new BbanStructure(
-                    new TestPattern(new[] { new PatternToken(AsciiCategory.Digit, 7) }),
+                    new TestPattern([new PatternToken(AsciiCategory.Digit, 7)]),
                     2)
             });
 

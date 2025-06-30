@@ -12,7 +12,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
 /// </remarks>
 internal class NibCheckDigitsCalculator : ICheckDigitsCalculator
 {
-    private static readonly int[] Weights = { 73, 17, 89, 38, 62, 45, 53, 15, 50, 5, 49, 34, 81, 76, 27, 90, 9, 30, 3 };
+    private static readonly int[] Weights = [73, 17, 89, 38, 62, 45, 53, 15, 50, 5, 49, 34, 81, 76, 27, 90, 9, 30, 3];
 
     public int Compute(char[] value)
     {
