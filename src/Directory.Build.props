@@ -18,6 +18,7 @@
     <PackageIcon>IbanNet64.png</PackageIcon>
     <PackageReleaseNotes>Release notes are at https://github.com/skwasjer/IbanNet.Extensions.Bban/releases</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AnalysisLevel>latest-All</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
