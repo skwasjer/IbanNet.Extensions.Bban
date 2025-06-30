@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using IbanNet.Registry.Patterns;
 
-namespace IbanNet.Extensions.Bban
+namespace IbanNet.Extensions.Bban;
+
+internal class TestPattern : Pattern
 {
-    internal class TestPattern : Pattern
+    public TestPattern(IEnumerable<PatternToken> tokens) : base(tokens)
     {
-        public TestPattern(IEnumerable<PatternToken> tokens) : base(tokens)
-        {
-        }
     }
 }

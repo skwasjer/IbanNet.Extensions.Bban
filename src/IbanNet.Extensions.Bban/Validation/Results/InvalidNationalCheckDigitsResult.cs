@@ -1,17 +1,16 @@
 ﻿using IbanNet.Validation.Results;
 
-namespace IbanNet.Extensions.Bban.Validation.Results
+namespace IbanNet.Extensions.Bban.Validation.Results;
+
+/// <summary>
+/// The result returned when the national check digits are incorrect.
+/// </summary>
+public class InvalidNationalCheckDigitsResult : ErrorResult
 {
     /// <summary>
-    /// The result returned when the national check digits are incorrect.
+    /// Initializes a new instance of the <see cref="InvalidNationalCheckDigitsResult" /> class.
     /// </summary>
-    public class InvalidNationalCheckDigitsResult : ErrorResult
+    public InvalidNationalCheckDigitsResult() : base("The national check digits are incorrect.")
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidNationalCheckDigitsResult" /> class.
-        /// </summary>
-        public InvalidNationalCheckDigitsResult() : base("The national check digits are incorrect.")
-        {
-        }
     }
 }
