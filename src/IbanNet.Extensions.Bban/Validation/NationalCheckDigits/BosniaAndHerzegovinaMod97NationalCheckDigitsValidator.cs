@@ -1,4 +1,5 @@
-﻿using IbanNet.Extensions.Bban.CheckDigits.Calculators;
+﻿using System.Globalization;
+using IbanNet.Extensions.Bban.CheckDigits.Calculators;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
@@ -15,6 +16,6 @@ internal class BosniaAndHerzegovinaMod97NationalCheckDigitsValidator : NationalC
 
     protected override int GetExpectedCheckDigits(string bban)
     {
-        return int.Parse(bban.Substring(bban.Length - 2));
+        return int.Parse(bban.Substring(bban.Length - 2), CultureInfo.InvariantCulture);
     }
 }
