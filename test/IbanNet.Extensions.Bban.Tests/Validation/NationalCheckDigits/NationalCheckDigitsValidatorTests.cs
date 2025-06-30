@@ -57,8 +57,8 @@ public class NationalCheckDigitsValidatorTests
 
     public static IEnumerable<object[]> ShouldNotThrowExceptionCases()
     {
-        yield return new object[] { new InvalidTokenException("error") };
-        yield return new object[] { new ArgumentException("error") };
+        yield return [new InvalidTokenException("error")];
+        yield return [new ArgumentException("error")];
     }
 
     [Theory]

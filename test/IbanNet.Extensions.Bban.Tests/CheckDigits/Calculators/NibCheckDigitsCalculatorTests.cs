@@ -96,7 +96,7 @@ public class NibCheckDigitsCalculatorTests
             {
                 expectedCheckDigits -= 3;
             }
-            yield return new object[] { accountNumber, expectedCheckDigits };
+            yield return [accountNumber, expectedCheckDigits];
         }
     }
 }
