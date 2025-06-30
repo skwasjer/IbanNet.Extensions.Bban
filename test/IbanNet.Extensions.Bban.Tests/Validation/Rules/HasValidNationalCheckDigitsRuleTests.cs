@@ -191,12 +191,11 @@ public class HasValidNationalCheckDigitsRuleTests
     [Fact]
     public void Given_null_validators_when_creating_it_should_throw()
     {
-        IDictionary<string, IEnumerable<NationalCheckDigitsValidator>> nationalCheckDigitsValidators = null;
+        Dictionary<string, IEnumerable<NationalCheckDigitsValidator>> nationalCheckDigitsValidators = null;
 
         // Act
-        // ReSharper disable once ExpressionIsAlwaysNull
-        // ReSharper disable once ObjectCreationAsStatement
-        Action act = () => new HasValidNationalCheckDigitsRule(nationalCheckDigitsValidators);
+        // ReSharper disable once AssignNullToNotNullAttribute
+        Func<HasValidNationalCheckDigitsRule> act = () => new HasValidNationalCheckDigitsRule(nationalCheckDigitsValidators);
 
         // Assert
         act.Should()
