@@ -15,7 +15,7 @@ internal static class NationalCheckDigitsValidatorFactory
         return GroupByCountry(new AllValidators());
     }
 
-    private static IDictionary<string, IEnumerable<NationalCheckDigitsValidator>> GroupByCountry(IEnumerable<NationalCheckDigitsValidator> validators)
+    private static Dictionary<string, IEnumerable<NationalCheckDigitsValidator>> GroupByCountry(IEnumerable<NationalCheckDigitsValidator> validators)
     {
         // Group national check digits validators by supported countries and then create dictionary for quick resolving.
         return validators
@@ -29,7 +29,7 @@ internal static class NationalCheckDigitsValidatorFactory
             .GroupBy(g => g.countryCode)
             .ToDictionary(
                 g => g.Key,
-                g => (IEnumerable<NationalCheckDigitsValidator>)g.Select(kvp => kvp.validator).ToList()
+                g => g.Select(kvp => kvp.validator).AsEnumerable()
             );
     }
 

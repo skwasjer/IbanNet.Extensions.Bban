@@ -15,7 +15,7 @@ namespace IbanNet.Extensions.Bban.Validation.Rules;
 /// </summary>
 public class HasValidNationalCheckDigitsRule : IIbanValidationRule
 {
-    private readonly IReadOnlyDictionary<string, IEnumerable<NationalCheckDigitsValidator>> _nationalCheckDigitsValidators;
+    private readonly ReadOnlyDictionary<string, IEnumerable<NationalCheckDigitsValidator>> _nationalCheckDigitsValidators;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="HasValidNationalCheckDigitsRule" /> class.
