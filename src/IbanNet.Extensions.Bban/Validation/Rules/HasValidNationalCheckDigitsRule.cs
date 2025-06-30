@@ -35,6 +35,11 @@ public class HasValidNationalCheckDigitsRule : IIbanValidationRule
     /// <inheritdoc />
     public ValidationRuleResult Validate(ValidationRuleContext context)
     {
+        if (context is null)
+        {
+            throw new ArgumentNullException(nameof(context));
+        }
+
         if (!_nationalCheckDigitsValidators.TryGetValue(context.Country!.TwoLetterISORegionName, out IEnumerable<NationalCheckDigitsValidator>? checkDigitsValidators))
         {
             // No national check digits validators found.
