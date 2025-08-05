@@ -3,21 +3,21 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
 
-    <MicrosoftNetTestSdk>17.13.0</MicrosoftNetTestSdk>
+    <MicrosoftNetTestSdk>17.14.1</MicrosoftNetTestSdk>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- Due to license change of FluentAssertions, lock to v7 -->
-    <PackageReference Include="FluentAssertions" Version="[7.2,8.0)" />
+    <PackageReference Include="FluentAssertions" Version="8.5.0" />
     <!-- Pinned due to license change/spyware -->
-    <PackageReference Include="Moq" Version="[4.18.4]" />
-    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="Moq" Version="[4.20.72]" />
+    <PackageReference Include="xunit" Version="2.9.3" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsTestProject)' == 'true'">
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNetTestSdk)" />
     <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="$(MicrosoftNetTestSdk)" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
