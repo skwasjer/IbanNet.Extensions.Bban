@@ -10,7 +10,7 @@
     <!-- Due to license change of FluentAssertions, lock to v7 -->
     <PackageReference Include="FluentAssertions" Version="[7.2,8.0)" />
     <!-- Pinned due to license change/spyware -->
-    <PackageReference Include="Moq" Version="[4.18.4]" />
+    <PackageReference Include="Moq" Version="[4.20.72]" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
