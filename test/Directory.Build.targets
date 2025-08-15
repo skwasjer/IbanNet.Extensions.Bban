@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <!-- Due to license change of FluentAssertions, lock to v7 -->
-    <PackageReference Include="FluentAssertions" Version="[7.2,8.0)" />
+    <PackageReference Include="FluentAssertions" Version="8.6.0" />
     <!-- Pinned due to license change/spyware -->
     <PackageReference Include="Moq" Version="[4.18.4]" />
     <PackageReference Include="xunit" Version="2.4.1" />
