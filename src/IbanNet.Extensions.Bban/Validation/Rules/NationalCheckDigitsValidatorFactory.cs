@@ -44,6 +44,7 @@ internal static class NationalCheckDigitsValidatorFactory
             yield return new BelgiumMod97NationalCheckDigitsValidator();
             yield return new NibNationalCheckDigitsValidator();
             yield return new PolishNationalCheckDigitsValidator();
+            yield return new FinnishNationalCheckDigitsValidator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
