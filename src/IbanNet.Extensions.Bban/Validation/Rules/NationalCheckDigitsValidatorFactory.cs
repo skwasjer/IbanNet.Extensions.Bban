@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
@@ -43,6 +43,7 @@ internal static class NationalCheckDigitsValidatorFactory
             yield return new BosniaAndHerzegovinaMod97NationalCheckDigitsValidator();
             yield return new BelgiumMod97NationalCheckDigitsValidator();
             yield return new NibNationalCheckDigitsValidator();
+            yield return new PolishNationalCheckDigitsValidator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
