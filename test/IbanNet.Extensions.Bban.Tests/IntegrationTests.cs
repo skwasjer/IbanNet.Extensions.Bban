@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using IbanNet.Extensions.Bban.Validation.Results;
 using IbanNet.Extensions.Bban.Validation.Rules;
 using Xunit;
@@ -29,6 +29,9 @@ public class IntegrationTests
     [InlineData("SM86U0322509800000000270100")]
     [InlineData("NO9386011117947")]
     [InlineData("BA391290079401028494")]
+    [InlineData("PL27114020040000300201355387")]
+    [InlineData("FI1410093000123458")]
+    [InlineData("CZ3801231234571234567899")]
     public void Given_iban_with_valid_national_check_digits_when_validating_it_should_validate(string ibanWithNationalCheckDigits)
     {
         string countryCode = ibanWithNationalCheckDigits.Substring(0, 2);
@@ -51,6 +54,9 @@ public class IntegrationTests
     [InlineData("SM24U0322509800010000270100")]
     [InlineData("NO4386012117947")]
     [InlineData("BA731290079401027494")]
+    [InlineData("PL02114020050000300201355387")]
+    [InlineData("FI8410093000123459")]
+    [InlineData("CZ8401231234501234567899")]
     public void Given_iban_with_invalid_national_check_digits_when_validating_it_should_not_validate(string ibanWithTamperedNationalCheckDigits)
     {
         string countryCode = ibanWithTamperedNationalCheckDigits.Substring(0, 2);
