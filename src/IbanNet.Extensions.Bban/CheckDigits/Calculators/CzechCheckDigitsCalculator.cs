@@ -18,7 +18,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
 /// 
 /// https://en.wikipedia.org/wiki/International_Bank_Account_Number#National_check_digits
 /// </remarks>
-internal class CzechCheckDigitsCalculator
+internal static class CzechCheckDigitsCalculator
 {
     private static readonly int[] PrefixWeights = [10, 5, 8, 4, 2, 1];
     private static readonly int[] AccountWeights = [6, 3, 7, 9, 10, 5, 8, 4, 2, 1];
