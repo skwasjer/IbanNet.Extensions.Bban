@@ -26,7 +26,7 @@ internal class CzechCheckDigitsCalculator
     /// <summary>
     /// Computes the check digit for the 6-digit account prefix.
     /// </summary>
-    public int ComputePrefixCheckDigit(char[] value)
+    public static int ComputePrefixCheckDigit(char[] value)
     {
         if (value.Length != 6)
         {
@@ -39,7 +39,7 @@ internal class CzechCheckDigitsCalculator
     /// <summary>
     /// Computes the check digit for the 10-digit account number.
     /// </summary>
-    public int ComputeAccountCheckDigit(char[] value)
+    public static int ComputeAccountCheckDigit(char[] value)
     {
         if (value.Length != 10)
         {

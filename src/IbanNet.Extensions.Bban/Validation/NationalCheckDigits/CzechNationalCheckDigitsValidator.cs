@@ -18,12 +18,9 @@ namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 /// </remarks>
 internal class CzechNationalCheckDigitsValidator : NationalCheckDigitsValidator
 {
-    private readonly CzechCheckDigitsCalculator _czechCalculator;
-
     public CzechNationalCheckDigitsValidator()
         : base(new DummyCalculator(), "CZ")
     {
-        _czechCalculator = new CzechCheckDigitsCalculator();
     }
 
     public override bool Validate(string bban)
@@ -40,7 +37,7 @@ internal class CzechNationalCheckDigitsValidator : NationalCheckDigitsValidator
             // Prefix check digit: position 9 (1 digit)
             // Pass data + '0' to calculator to get expected check digit
             string prefixData = bban.Substring(4, 5) + "0";
-            int computedPrefixCheck = _czechCalculator.ComputePrefixCheckDigit(prefixData.ToCharArray());
+            int computedPrefixCheck = CzechCheckDigitsCalculator.ComputePrefixCheckDigit(prefixData.ToCharArray());
             int expectedPrefixCheck = int.Parse(bban.Substring(9, 1), CultureInfo.InvariantCulture);
             
             if (computedPrefixCheck != expectedPrefixCheck)
@@ -53,7 +50,7 @@ internal class CzechNationalCheckDigitsValidator : NationalCheckDigitsValidator
             // Account check digit: position 19 (1 digit)
             // Pass data + '0' to calculator to get expected check digit
             string accountData = bban.Substring(10, 9) + "0";
-            int computedAccountCheck = _czechCalculator.ComputeAccountCheckDigit(accountData.ToCharArray());
+            int computedAccountCheck = CzechCheckDigitsCalculator.ComputeAccountCheckDigit(accountData.ToCharArray());
             int expectedAccountCheck = int.Parse(bban.Substring(19, 1), CultureInfo.InvariantCulture);
             
             return computedAccountCheck == expectedAccountCheck;

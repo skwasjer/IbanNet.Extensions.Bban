@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using IbanNet.CheckDigits.Calculators;
 using Xunit;
@@ -6,13 +7,6 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
 
 public class CzechCheckDigitsCalculatorTests
 {
-    private readonly CzechCheckDigitsCalculator _sut;
-
-    public CzechCheckDigitsCalculatorTests()
-    {
-        _sut = new CzechCheckDigitsCalculator();
-    }
-
     [Theory]
     [InlineData("000000", 0)]   // sum = 0, rem = 0, check = 0
     [InlineData("000001", 10)]  // sum = 0×10+0×5+0×8+0×4+0×2+1×1 = 1, rem = 1, check = 11-1 = 10
@@ -21,7 +15,7 @@ public class CzechCheckDigitsCalculatorTests
     public void Given_account_prefix_when_computing_check_digit_should_match_expected(string prefix, int expectedCheckDigit)
     {
         // Act
-        int actual = _sut.ComputePrefixCheckDigit(prefix.ToCharArray());
+        int actual = CzechCheckDigitsCalculator.ComputePrefixCheckDigit(prefix.ToCharArray());
 
         // Assert
         actual.Should().Be(expectedCheckDigit);
@@ -35,7 +29,7 @@ public class CzechCheckDigitsCalculatorTests
     public void Given_account_number_when_computing_check_digit_should_match_expected(string accountNumber, int expectedCheckDigit)
     {
         // Act
-        int actual = _sut.ComputeAccountCheckDigit(accountNumber.ToCharArray());
+        int actual = CzechCheckDigitsCalculator.ComputeAccountCheckDigit(accountNumber.ToCharArray());
 
         // Assert
         actual.Should().Be(expectedCheckDigit);
@@ -47,9 +41,11 @@ public class CzechCheckDigitsCalculatorTests
         // Arrange
         char[] invalidInput = "ABC123".ToCharArray();
 
-        // Act & Assert
-        _sut.Invoking(c => c.ComputePrefixCheckDigit(invalidInput))
-            .Should().Throw<InvalidTokenException>()
+        // Act
+        Action act = () => CzechCheckDigitsCalculator.ComputePrefixCheckDigit(invalidInput);
+
+        // Assert
+        act.Should().Throw<InvalidTokenException>()
             .WithMessage("*numeric*");
     }
 
@@ -59,9 +55,11 @@ public class CzechCheckDigitsCalculatorTests
         // Arrange
         char[] invalidInput = "ABCDEF1234".ToCharArray();
 
-        // Act & Assert
-        _sut.Invoking(c => c.ComputeAccountCheckDigit(invalidInput))
-            .Should().Throw<InvalidTokenException>()
+        // Act
+        Action act = () => CzechCheckDigitsCalculator.ComputeAccountCheckDigit(invalidInput);
+
+        // Assert
+        act.Should().Throw<InvalidTokenException>()
             .WithMessage("*numeric*");
     }
 
@@ -70,9 +68,11 @@ public class CzechCheckDigitsCalculatorTests
     [InlineData("1234567")] // Too long (7 digits)
     public void Given_invalid_prefix_length_when_computing_should_throw_InvalidTokenException(string invalidInput)
     {
-        // Act & Assert
-        _sut.Invoking(c => c.ComputePrefixCheckDigit(invalidInput.ToCharArray()))
-            .Should().Throw<InvalidTokenException>()
+        // Act
+        Action act = () => CzechCheckDigitsCalculator.ComputePrefixCheckDigit(invalidInput.ToCharArray());
+
+        // Assert
+        act.Should().Throw<InvalidTokenException>()
             .WithMessage("*6 digits*");
     }
 
@@ -81,9 +81,11 @@ public class CzechCheckDigitsCalculatorTests
     [InlineData("12345678901")]  // Too long (11 digits)
     public void Given_invalid_account_length_when_computing_should_throw_InvalidTokenException(string invalidInput)
     {
-        // Act & Assert
-        _sut.Invoking(c => c.ComputeAccountCheckDigit(invalidInput.ToCharArray()))
-            .Should().Throw<InvalidTokenException>()
+        // Act
+        Action act = () => CzechCheckDigitsCalculator.ComputeAccountCheckDigit(invalidInput.ToCharArray());
+
+        // Assert
+        act.Should().Throw<InvalidTokenException>()
             .WithMessage("*10 digits*");
     }
 }
