@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+* feat: Add Polish (PL) BBAN validator with MOD-10 check digit algorithm
+* feat: Add Finnish (FI) BBAN validator with Luhn algorithm
+* feat: Add Czech (CZ) BBAN validator with dual MOD-11 algorithm
+
 ## v2.0.0
 
 * feat!: adds .NET 8 by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/26
