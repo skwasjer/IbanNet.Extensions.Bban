@@ -1,10 +1,27 @@
 # Changelog
 
-## Unreleased
+## v2.1.0
 
-* feat: Add Polish (PL) BBAN validator with MOD-10 check digit algorithm
-* feat: Add Finnish (FI) BBAN validator with Luhn algorithm
-* feat: Add Czech (CZ) BBAN validator with dual MOD-11 algorithm
+* feat: Add BBAN validators for Poland, Finland, and Czech Republic by @Thorium in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/49
+  * Polish (PL) BBAN validator with MOD-10 check digit algorithm
+  * Finnish (FI) BBAN validator with Luhn algorithm
+  * Czech (CZ) BBAN validator with dual MOD-11 algorithm
+ 
+### Chores
+
+* chore(deps): Bump IbanNet.DependencyInjection.ServiceProvider from 5.18.0 to 5.19.0 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/45
+* ci(runners): switch to latest runners since `macos-13` is deprecated by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/58
+* ci(deps): Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/53
+* ci(deps): Bump github/codeql-action from 3 to 4 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/54
+* ci(deps): Bump actions/upload-artifact from 4 to 5 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/51
+* ci(deps): Bump gittools/actions from 3.1.1 to 4.2.0 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/52
+* ci(deps): Bump actions/setup-node from 4 to 6 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/50
+
+## New Contributors
+* @dependabot[bot] made their first contribution in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/45
+* @Thorium made their first contribution in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/49
+
+**Full Changelog**: https://github.com/skwasjer/IbanNet.Extensions.Bban/compare/v2.0.0...v2.1.0
 
 ## v2.0.0
 
