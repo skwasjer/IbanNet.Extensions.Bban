@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.1.1
+
+## What's Changed
+
+* fix: all validators for a country must pass instead of one by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/60
+* fix(norway): when the final remainder of mod 11 = 0 it should yield 0 as check digit by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/61
+
+### Chores/CI
+
+* chore(deps): Bump xunit from 2.4.1 to 2.9.3 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/59
+
+**Full Changelog**: https://github.com/skwasjer/IbanNet.Extensions.Bban/compare/v2.1.0...v2.1.1
+
+
 ## v2.1.0
 
 * feat: Add BBAN validators for Poland, Finland, and Czech Republic by @Thorium in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/49
