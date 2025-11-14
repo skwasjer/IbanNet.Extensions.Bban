@@ -71,14 +71,14 @@ Spain                  |  ES  | :grey_question: STUDYING    |
 
 ### Contributions
 
-PR's are welcome. Please rebase before submitting, provide test coverage, and ensure the AppVeyor build passes. I will not consider PR's otherwise.
+Please check out the [contribution guidelines](https://github.com/skwasjer/IbanNet.Extensions.Bban/blob/main/CONTRIBUTING.md).
 
-### Contributors
+### Maintainers
 
-- skwas (author/maintainer)
+- [skwasjer](https://github.com/skwasjer)
 - [Greybird](https://github.com/Greybird)
 
 ### Useful info
 
 - [Changelog](Changelog.md)
-- [IbanNet ](https://github.com/skwasjer/IbanNet)
+- [IbanNet](https://github.com/skwasjer/IbanNet)
