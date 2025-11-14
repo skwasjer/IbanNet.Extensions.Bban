@@ -26,6 +26,7 @@ internal class Mod11CheckDigitsCalculator : ICheckDigitsCalculator
             sum += (c - '0') * weight;
         }
 
-        return 11 - sum % 11;
+        int remainder = sum % 11;
+        return remainder == 0 ? 0 : 11 - remainder;
     }
 }
