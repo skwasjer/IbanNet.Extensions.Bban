@@ -54,7 +54,7 @@ public class HasValidNationalCheckDigitsRule : IIbanValidationRule
         }
 
         string bban = context.Value.Substring(bbanStructure.Position, bbanStructure.Length);
-        return checkDigitsValidators.Any(validator => validator.Validate(bban))
+        return checkDigitsValidators.All(validator => validator.Validate(bban))
             ? ValidationRuleResult.Success
             : new InvalidNationalCheckDigitsResult();
     }
