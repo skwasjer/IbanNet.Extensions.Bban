@@ -157,9 +157,11 @@ public class HasValidNationalCheckDigitsRuleTests
     }
 
     [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public void Given_multiple_check_digit_validators_matching_the_country_when_validating_it_should_validate_using_any(bool matchesFirst)
+    [InlineData(false, false, false)]
+    [InlineData(true, false, false)]
+    [InlineData(false, true, false)]
+    [InlineData(true, true, true)]
+    public void Given_multiple_check_digit_validators_matching_the_country_when_validating_it_should_validate_using_all(bool matchesFirst, bool matchesSecond, bool shouldBeValid)
     {
         var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
         {
@@ -169,7 +171,7 @@ public class HasValidNationalCheckDigitsRuleTests
         _checkDigitsValidatorMock
             .SetupSequence(m => m.Validate(It.IsAny<string>()))
             .Returns(matchesFirst)
-            .Returns(true);
+            .Returns(matchesSecond);
 
         var sut = new HasValidNationalCheckDigitsRule(checkDigitValidatorStubs);
 
@@ -182,10 +184,19 @@ public class HasValidNationalCheckDigitsRuleTests
             });
 
         // Act
-        sut.Validate(context);
+        ValidationRuleResult actual = sut.Validate(context);
 
         // Assert
-        _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Exactly(matchesFirst ? 1 : 2));
+        if (shouldBeValid)
+        {
+            actual.Should().BeSameAs(ValidationRuleResult.Success);
+        }
+        else
+        {
+            actual.Should().BeOfType<InvalidNationalCheckDigitsResult>();
+        }
+
+        _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Exactly(!matchesFirst ? 1 : 2));
     }
 
     [Fact]
