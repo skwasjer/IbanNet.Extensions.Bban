@@ -18,6 +18,7 @@ public class NorwayMod11ValidatorDigitsValidatorTest
 
     // NO
     [Theory]
+    [InlineData("00000100080")] // Mod 11 = 0
     [InlineData("86011117947")]
     [InlineData("02056439652")]
     [InlineData("12345678903")]
@@ -29,6 +30,7 @@ public class NorwayMod11ValidatorDigitsValidatorTest
 
     // NO
     [Theory]
+    [InlineData("00000100030")] // Mod 11 = 1 (not valid, because the complement 11 - 1 = 10 (2 digits) and the account number only has 1 check digit)
     [InlineData("02056439653")]
     public void Given_invalid_bban_should_not_validate(string bban)
     {

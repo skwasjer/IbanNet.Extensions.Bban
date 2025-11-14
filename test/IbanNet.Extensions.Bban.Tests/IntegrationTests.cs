@@ -1,4 +1,4 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using IbanNet.Extensions.Bban.Validation.Results;
 using IbanNet.Extensions.Bban.Validation.Rules;
 using Xunit;
@@ -28,6 +28,7 @@ public class IntegrationTests
     [InlineData("IT60X0542811101000000123456")]
     [InlineData("SM86U0322509800000000270100")]
     [InlineData("NO9386011117947")]
+    [InlineData("NO7900000100080")] // Mod 11 = 0
     [InlineData("BA391290079401028494")]
     [InlineData("PL27114020040000300201355387")]
     [InlineData("FI1410093000123458")]
@@ -53,6 +54,7 @@ public class IntegrationTests
     [InlineData("IT07X0542811101000100123456")]
     [InlineData("SM24U0322509800010000270100")]
     [InlineData("NO4386012117947")]
+    [InlineData("NO7100000100030")] // Mod 11 = 1 (not valid, because the complement 11 - 1 = 10 (2 digits) and the account number only has 1 check digit)
     [InlineData("BA731290079401027494")]
     [InlineData("PL02114020050000300201355387")]
     [InlineData("FI8410093000123459")]
