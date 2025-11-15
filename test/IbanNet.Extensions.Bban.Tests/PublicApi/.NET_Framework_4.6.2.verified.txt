@@ -1,0 +1,24 @@
+﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/skwasjer/IbanNet.Extensions.Bban")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETFramework,Version=v4.6.2", FrameworkDisplayName=".NET Framework 4.6.2")]
+namespace IbanNet.Extensions.Bban
+{
+    public static class IbanNetOptionsBuilderExtensions
+    {
+        public static IbanNet.DependencyInjection.IIbanNetOptionsBuilder ValidateNationalCheckDigits(this IbanNet.DependencyInjection.IIbanNetOptionsBuilder builder) { }
+    }
+}
+namespace IbanNet.Extensions.Bban.Validation.Results
+{
+    public class InvalidNationalCheckDigitsResult : IbanNet.Validation.Results.ErrorResult
+    {
+        public InvalidNationalCheckDigitsResult() { }
+    }
+}
+namespace IbanNet.Extensions.Bban.Validation.Rules
+{
+    public class HasValidNationalCheckDigitsRule : IbanNet.Validation.Rules.IIbanValidationRule
+    {
+        public HasValidNationalCheckDigitsRule() { }
+        public IbanNet.Validation.Results.ValidationRuleResult Validate(IbanNet.Validation.Rules.ValidationRuleContext context) { }
+    }
+}
