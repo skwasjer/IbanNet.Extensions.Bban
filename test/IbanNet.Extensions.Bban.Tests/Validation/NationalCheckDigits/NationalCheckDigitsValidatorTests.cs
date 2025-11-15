@@ -5,7 +5,6 @@ using System.Linq;
 using FluentAssertions;
 using IbanNet.CheckDigits.Calculators;
 using Moq;
-using Moq.Protected;
 using Xunit;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
@@ -17,16 +16,21 @@ public class NationalCheckDigitsValidatorTests
 
     private readonly Mock<ICheckDigitsCalculator> _checkDigitsCalculatorMock;
     private readonly Mock<NationalCheckDigitsValidator> _stub;
+    private readonly Mock<CheckString> _getCheckStringFuncMock;
+    private readonly Mock<CheckDigits> _getCheckDigitsFuncMock;
     private readonly NationalCheckDigitsValidator _sut;
 
     public NationalCheckDigitsValidatorTests()
     {
         _checkDigitsCalculatorMock = new Mock<ICheckDigitsCalculator>();
 
-        _stub = new Mock<NationalCheckDigitsValidator>(_checkDigitsCalculatorMock.Object) { CallBase = true };
-        _stub
-            .Protected()
-            .Setup<string>("GetCheckString", ItExpr.IsAny<string>())
+        _getCheckStringFuncMock = new Mock<CheckString>();
+        _getCheckDigitsFuncMock = new Mock<CheckDigits>();
+
+        _stub = new Mock<NationalCheckDigitsValidator>(_checkDigitsCalculatorMock.Object, _getCheckStringFuncMock.Object, _getCheckDigitsFuncMock.Object) { CallBase = true };
+
+        _getCheckStringFuncMock
+            .Setup(m => m.Invoke(It.IsAny<string>()))
             .Returns(CheckStringTestValue);
 
         _sut = _stub.Object;
@@ -35,11 +39,11 @@ public class NationalCheckDigitsValidatorTests
     [Fact]
     public void It_should_call_calculator_with_checkstring_and_validate()
     {
-        _stub
-            .Protected()
-            .Setup<int>("GetExpectedCheckDigits", IbanTestValue)
+        _getCheckDigitsFuncMock
+            .Setup(m => m.Invoke(It.IsAny<string>()))
             .Returns(123)
             .Verifiable();
+
         _checkDigitsCalculatorMock
             .Setup(m => m.Compute(It.Is<char[]>(ch => ch.SequenceEqual(CheckStringTestValue))))
             .Returns(123)
@@ -50,8 +54,9 @@ public class NationalCheckDigitsValidatorTests
 
         // Assert
         actual.Should().BeTrue();
-        _stub.Protected().Verify("GetCheckString", Times.Once(), IbanTestValue);
         _stub.Verify();
+        _getCheckStringFuncMock.Verify(m => m.Invoke(IbanTestValue), Times.Once);
+        _getCheckDigitsFuncMock.Verify();
         _checkDigitsCalculatorMock.Verify();
     }
 

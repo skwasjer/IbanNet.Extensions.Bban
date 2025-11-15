@@ -1,21 +1,18 @@
-﻿using System.Globalization;
-using IbanNet.Extensions.Bban.CheckDigits.Calculators;
+﻿using IbanNet.Extensions.Bban.CheckDigits.Calculators;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
 internal class BelgiumMod97NationalCheckDigitsValidator : NationalCheckDigitsValidator
 {
-    public BelgiumMod97NationalCheckDigitsValidator() : base(new Mod97NoZeroCheckDigitsCalculator(), "BE")
-    {
-    }
+    private const int CheckDigitPosition = 10;
+    private const int CheckDigitLength = 2;
 
-    protected override string GetCheckString(string bban)
+    public BelgiumMod97NationalCheckDigitsValidator()
+        : base(
+            new Mod97NoZeroCheckDigitsCalculator(),
+            CheckString.At(0, CheckDigitPosition),
+            CheckDigits.At(CheckDigitPosition, CheckDigitLength),
+            "BE")
     {
-        return bban.Substring(0, bban.Length - 2);
-    }
-
-    protected override int GetExpectedCheckDigits(string bban)
-    {
-        return int.Parse(bban.Substring(bban.Length - 2), CultureInfo.InvariantCulture);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
+using IbanNet.Builders;
 using IbanNet.Extensions.Bban.Validation.Results;
 using IbanNet.Extensions.Bban.Validation.Rules;
+using IbanNet.Registry;
 using Xunit;
 
 namespace IbanNet.Extensions.Bban;
@@ -11,65 +13,66 @@ public class IntegrationTests
 
     public IntegrationTests()
     {
-        _validator = new IbanValidator(new IbanValidatorOptions
-        {
-            Rules =
-            {
-                new HasValidNationalCheckDigitsRule()
-            }
-        });
+        _validator = new IbanValidator(new IbanValidatorOptions { Rules = { new HasValidNationalCheckDigitsRule() } });
     }
 
     [Theory]
-    [InlineData("FR1420041010050500013M02606")]
-    [InlineData("FR7630006000011234567890189")]
-    [InlineData("MR1300020001010000123456753")]
-    [InlineData("MC5811222000010123456789030")]
-    [InlineData("IT60X0542811101000000123456")]
-    [InlineData("SM86U0322509800000000270100")]
-    [InlineData("NO9386011117947")]
-    [InlineData("NO7900000100080")] // Mod 11 = 0
-    [InlineData("BA391290079401028494")]
-    [InlineData("PL27114020040000300201355387")]
-    [InlineData("FI1410093000123458")]
-    [InlineData("CZ3801231234571234567899")]
-    public void Given_iban_with_valid_national_check_digits_when_validating_it_should_validate(string ibanWithNationalCheckDigits)
+    [InlineData("BE", "539007547034")]
+    [InlineData("FR","20041010050500013M02606")]
+    [InlineData("FR","30006000011234567890189")]
+    [InlineData("MR","00020001010000123456753")]
+    [InlineData("MC","11222000010123456789030")]
+    [InlineData("IT","X0542811101000000123456")]
+    [InlineData("SM","U0322509800000000270100")]
+    [InlineData("NO","86011117947")]
+    [InlineData("NO","00000100080")] // Mod 11 = 0
+    [InlineData("BA","1290079401028494")]
+    [InlineData("PL","114020040000300201355387")]
+    [InlineData("FI","10093000123458")]
+    [InlineData("CZ","01231234571234567899")]
+    [InlineData("PT", "000201231234567890154")]
+    public void Given_iban_with_valid_national_check_digits_when_validating_it_should_validate(string countryCode, string bban)
     {
-        string countryCode = ibanWithNationalCheckDigits.Substring(0, 2);
+        string iban = new IbanBuilder()
+            .WithCountry(countryCode, IbanRegistry.Default)
+            .WithBankAccountNumber(bban)
+            .Build();
 
         // Act
-        ValidationResult result = _validator.Validate(ibanWithNationalCheckDigits);
+        ValidationResult result = _validator.Validate(iban);
 
         // Assert
-        result.Should().BeEquivalentTo(new ValidationResult
-        {
-            AttemptedValue = ibanWithNationalCheckDigits,
-            Country = _validator.SupportedCountries[countryCode]
-        });
+        result.Should().BeEquivalentTo(new ValidationResult { AttemptedValue = iban, Country = _validator.SupportedCountries[countryCode] });
     }
 
     [Theory]
-    [InlineData("FR4120041010050500013M02605")]
-    [InlineData("FR0630006000011234567890188")]
-    [InlineData("IT07X0542811101000100123456")]
-    [InlineData("SM24U0322509800010000270100")]
-    [InlineData("NO4386012117947")]
-    [InlineData("NO7100000100030")] // Mod 11 = 1 (not valid, because the complement 11 - 1 = 10 (2 digits) and the account number only has 1 check digit)
-    [InlineData("BA731290079401027494")]
-    [InlineData("PL02114020050000300201355387")]
-    [InlineData("FI8410093000123459")]
-    [InlineData("CZ8401231234501234567899")]
-    public void Given_iban_with_invalid_national_check_digits_when_validating_it_should_not_validate(string ibanWithTamperedNationalCheckDigits)
+    [InlineData("BE","539007547035")]
+    [InlineData("FR","20041010050500013M02605")]
+    [InlineData("FR","30006000011234567890188")]
+    [InlineData("IT","X0542811101000100123456")]
+    [InlineData("SM","U0322509800010000270100")]
+    [InlineData("NO","86012117947")]
+    [InlineData("NO","00000100030")] // Mod 11 = 1 (not valid, because the complement 11 - 1 = 10 (2 digits) and the account number only has 1 check digit)
+    [InlineData("BA","1290079401027494")]
+    [InlineData("PL","114020050000300201355387")]
+    [InlineData("FI","10093000123459")]
+    [InlineData("CZ","01231234501234567899")]
+    [InlineData("PT", "000201231234567890155")]
+    public void Given_iban_with_invalid_national_check_digits_when_validating_it_should_not_validate(string countryCode, string bban)
     {
-        string countryCode = ibanWithTamperedNationalCheckDigits.Substring(0, 2);
+        string iban = new IbanBuilder()
+            .WithCountry(countryCode, IbanRegistry.Default)
+            .WithBankAccountNumber(bban)
+            .Build();
 
         // Act
-        ValidationResult result = _validator.Validate(ibanWithTamperedNationalCheckDigits);
+        ValidationResult result = _validator.Validate(iban);
 
         // Assert
-        result.Should().BeEquivalentTo(new ValidationResult
+        result.Should()
+        .BeEquivalentTo(new ValidationResult
         {
-            AttemptedValue = ibanWithTamperedNationalCheckDigits,
+            AttemptedValue = iban,
             Country = _validator.SupportedCountries[countryCode],
             Error = new InvalidNationalCheckDigitsResult()
         });

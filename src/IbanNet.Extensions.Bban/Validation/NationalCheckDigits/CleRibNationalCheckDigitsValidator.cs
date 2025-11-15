@@ -1,23 +1,20 @@
-﻿using System.Globalization;
-using IbanNet.Extensions.Bban.CheckDigits.Calculators;
+﻿using IbanNet.Extensions.Bban.CheckDigits.Calculators;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
 internal class CleRibNationalCheckDigitsValidator : NationalCheckDigitsValidator
 {
-    private const int CheckDigitCount = 2;
+    private const int CheckDigitPosition = 21;
+    private const int CheckDigitLength = 2;
 
-    public CleRibNationalCheckDigitsValidator() : base(new CleRibCheckDigitsCalculator(), "FR", "MR", "MC")
+    public CleRibNationalCheckDigitsValidator()
+        : base(
+            new CleRibCheckDigitsCalculator(),
+            CheckString.At(0, CheckDigitPosition),
+            CheckDigits.At(CheckDigitPosition, CheckDigitLength),
+            "FR",
+            "MR",
+            "MC")
     {
-    }
-
-    protected override string GetCheckString(string bban)
-    {
-        return bban.Substring(0, bban.Length - CheckDigitCount);
-    }
-
-    protected override int GetExpectedCheckDigits(string bban)
-    {
-        return int.Parse(bban.Substring(bban.Length - CheckDigitCount), CultureInfo.InvariantCulture);
     }
 }
