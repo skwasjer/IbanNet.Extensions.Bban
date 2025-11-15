@@ -1,12 +1,10 @@
 ﻿#if NETCOREAPP
 using System;
 using System.Linq;
-using FluentAssertions;
 using IbanNet.DependencyInjection;
 using IbanNet.DependencyInjection.ServiceProvider;
 using IbanNet.Extensions.Bban.Validation.Rules;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 
 namespace IbanNet.Extensions.Bban
 {
@@ -39,11 +37,10 @@ namespace IbanNet.Extensions.Bban
         [Fact]
         public void Given_that_builder_is_null_when_adding_rule_it_should_throw()
         {
-            IIbanNetOptionsBuilder builder = null;
+            IIbanNetOptionsBuilder? builder = null;
 
             // Act
-            // ReSharper disable once ExpressionIsAlwaysNull
-            Action act = () => builder.ValidateNationalCheckDigits();
+            Action act = () => builder!.ValidateNationalCheckDigits();
 
             // Assert
             act.Should()
@@ -55,7 +52,7 @@ namespace IbanNet.Extensions.Bban
         [Fact]
         public void When_registering_rule_it_should_return_builder()
         {
-            IIbanNetOptionsBuilder returnedBuilder = null;
+            IIbanNetOptionsBuilder? returnedBuilder = null;
             IServiceProvider services = new ServiceCollection()
                 // Register rule
                 .AddIbanNet(builder =>
