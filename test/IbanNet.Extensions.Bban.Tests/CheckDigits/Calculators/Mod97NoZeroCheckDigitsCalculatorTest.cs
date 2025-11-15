@@ -1,7 +1,4 @@
-﻿using FluentAssertions;
-using Xunit;
-
-namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
+﻿namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
 
 public class Mod97NoZeroCheckDigitsCalculatorTest
 {
