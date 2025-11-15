@@ -1,7 +1,7 @@
-using IbanNet.CheckDigits.Calculators;
+﻿using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.Extensions;
 
-namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
+namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 /// <summary>
 /// Computes the expected national check digits for Finnish bank account numbers using the Luhn algorithm.
@@ -15,7 +15,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
 /// https://en.wikipedia.org/wiki/International_Bank_Account_Number#National_check_digits
 /// https://fi.wikipedia.org/wiki/Tilinumero
 /// </remarks>
-internal class FinnishCheckDigitsCalculator : ICheckDigitsCalculator
+internal class LuhnAlgorithm : ICheckDigitsCalculator
 {
     private static readonly int[] Weights = [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
 

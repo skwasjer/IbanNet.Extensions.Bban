@@ -1,6 +1,6 @@
 ﻿using IbanNet.CheckDigits.Calculators;
 
-namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
+namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 internal class Mod97From98CheckDigitsCalculator : ICheckDigitsCalculator
 {

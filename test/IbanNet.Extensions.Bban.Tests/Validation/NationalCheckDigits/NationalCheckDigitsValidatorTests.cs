@@ -11,19 +11,19 @@ public class NationalCheckDigitsValidatorTests
     private const string IbanTestValue = "some_fake_value";
     private const string CheckStringTestValue = "fake_value";
 
-    private readonly ICheckDigitsCalculator _checkDigitsCalculatorMock;
+    private readonly ICheckDigitsCalculator _checkDigitsAlgorithmMock;
     private readonly CheckString _getCheckStringFuncMock;
     private readonly CheckDigits _getCheckDigitsFuncMock;
     private readonly NationalCheckDigitsValidator _sut;
 
     public NationalCheckDigitsValidatorTests()
     {
-        _checkDigitsCalculatorMock = Substitute.For<ICheckDigitsCalculator>();
+        _checkDigitsAlgorithmMock = Substitute.For<ICheckDigitsCalculator>();
 
         _getCheckStringFuncMock = Substitute.For<CheckString>();
         _getCheckDigitsFuncMock = Substitute.For<CheckDigits>();
 
-        _sut = Substitute.ForPartsOf<NationalCheckDigitsValidator>(_checkDigitsCalculatorMock, _getCheckStringFuncMock, _getCheckDigitsFuncMock);
+        _sut = Substitute.ForPartsOf<NationalCheckDigitsValidator>(_checkDigitsAlgorithmMock, _getCheckStringFuncMock, _getCheckDigitsFuncMock);
 
         _getCheckStringFuncMock
             .Invoke(Arg.Any<string>())
@@ -31,13 +31,13 @@ public class NationalCheckDigitsValidatorTests
     }
 
     [Fact]
-    public void It_should_call_calculator_with_checkstring_and_validate()
+    public void It_should_call_algorithm_with_checkstring_and_validate()
     {
         _getCheckDigitsFuncMock
             .Invoke(Arg.Any<string>())
             .Returns(123);
 
-        _checkDigitsCalculatorMock
+        _checkDigitsAlgorithmMock
             .Compute(Arg.Is<char[]>(ch => ch.SequenceEqual(CheckStringTestValue)))
             .Returns(123);
 
@@ -52,7 +52,7 @@ public class NationalCheckDigitsValidatorTests
         _getCheckDigitsFuncMock
             .Received(1)
             .Invoke(IbanTestValue);
-        _checkDigitsCalculatorMock
+        _checkDigitsAlgorithmMock
             .Received(1)
             .Compute(Arg.Is<char[]>(ch => ch.SequenceEqual(CheckStringTestValue)));
     }
@@ -65,9 +65,9 @@ public class NationalCheckDigitsValidatorTests
 
     [Theory]
     [MemberData(nameof(ShouldNotThrowExceptionCases))]
-    public void Given_that_calculator_throws_exception_that_can_be_handled_when_validating_it_should_not_throw(Exception ex)
+    public void Given_that_algorithm_throws_exception_that_can_be_handled_when_validating_it_should_not_throw(Exception ex)
     {
-        _checkDigitsCalculatorMock
+        _checkDigitsAlgorithmMock
             .Compute(Arg.Any<char[]>())
             .Throws(ex);
 
@@ -78,16 +78,16 @@ public class NationalCheckDigitsValidatorTests
         // Assert
         act.Should().NotThrow();
         actual.Should().BeFalse();
-        _checkDigitsCalculatorMock
+        _checkDigitsAlgorithmMock
             .Received(1)
             .Compute(Arg.Any<char[]>());
     }
 
     [Fact]
-    public void Given_that_calculator_throws_exception_that_can_not_be_handled_when_validating_it_should_throw()
+    public void Given_that_algorithm_throws_exception_that_can_not_be_handled_when_validating_it_should_throw()
     {
         var someExceptionNotHandled = new IOException();
-        _checkDigitsCalculatorMock
+        _checkDigitsAlgorithmMock
             .Compute(Arg.Any<char[]>())
             .Throws(someExceptionNotHandled);
 
@@ -101,7 +101,7 @@ public class NationalCheckDigitsValidatorTests
             .Which.Should()
             .Be(someExceptionNotHandled);
         actual.Should().BeNull();
-        _checkDigitsCalculatorMock
+        _checkDigitsAlgorithmMock
             .Received(1)
             .Compute(Arg.Any<char[]>());
     }

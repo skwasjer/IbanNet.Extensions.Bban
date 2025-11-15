@@ -1,4 +1,4 @@
-﻿using IbanNet.Extensions.Bban.CheckDigits.Calculators;
+﻿using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
@@ -9,7 +9,7 @@ internal class CleRibNationalCheckDigitsValidator : NationalCheckDigitsValidator
 
     public CleRibNationalCheckDigitsValidator()
         : base(
-            new CleRibCheckDigitsCalculator(),
+            new CleRibAlgorithm(),
             CheckString.At(0, CheckDigitPosition),
             CheckDigits.At(CheckDigitPosition, CheckDigitLength),
             "FR",

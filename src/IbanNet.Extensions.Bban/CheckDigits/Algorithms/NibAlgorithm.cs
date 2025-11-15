@@ -2,7 +2,7 @@
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.Extensions;
 
-namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
+namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 /// <summary>
 /// Computes the expected national check digits for Portugal bank account numbers, aka. NIB (Número de Identificação Bancária).
@@ -10,7 +10,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
 /// <remarks>
 /// https://pt.wikipedia.org/wiki/N%C3%BAmero_de_Identifica%C3%A7%C3%A3o_Banc%C3%A1ria
 /// </remarks>
-internal class NibCheckDigitsCalculator : ICheckDigitsCalculator
+internal class NibAlgorithm : ICheckDigitsCalculator
 {
     private static readonly int[] Weights = [73, 17, 89, 38, 62, 45, 53, 15, 50, 5, 49, 34, 81, 76, 27, 90, 9, 30, 3];
 
