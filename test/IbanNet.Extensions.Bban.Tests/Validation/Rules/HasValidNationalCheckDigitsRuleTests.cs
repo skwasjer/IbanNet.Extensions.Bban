@@ -31,11 +31,10 @@ public class HasValidNationalCheckDigitsRuleTests
     [Fact]
     public void Given_that_context_is_null_when_validating_it_should_throw()
     {
-        ValidationRuleContext context = null;
+        ValidationRuleContext? context = null;
 
         // Act
-        // ReSharper disable once AssignNullToNotNullAttribute
-        Action act = () => _sut.Validate(context);
+        Action act = () => _sut.Validate(context!);
 
         // Assert
         act.Should()
@@ -196,11 +195,10 @@ public class HasValidNationalCheckDigitsRuleTests
     [Fact]
     public void Given_null_validators_when_creating_it_should_throw()
     {
-        Dictionary<string, IEnumerable<NationalCheckDigitsValidator>> nationalCheckDigitsValidators = null;
+        Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>? nationalCheckDigitsValidators = null;
 
         // Act
-        // ReSharper disable once AssignNullToNotNullAttribute
-        Func<HasValidNationalCheckDigitsRule> act = () => new HasValidNationalCheckDigitsRule(nationalCheckDigitsValidators);
+        Func<HasValidNationalCheckDigitsRule> act = () => new HasValidNationalCheckDigitsRule(nationalCheckDigitsValidators!);
 
         // Assert
         act.Should()
