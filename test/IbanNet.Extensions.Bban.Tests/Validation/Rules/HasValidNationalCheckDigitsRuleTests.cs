@@ -8,7 +8,7 @@ using IbanNet.Registry;
 using IbanNet.Registry.Patterns;
 using IbanNet.Validation.Results;
 using IbanNet.Validation.Rules;
-using Moq;
+using NSubstitute;
 using Xunit;
 
 namespace IbanNet.Extensions.Bban.Validation.Rules;
@@ -16,20 +16,17 @@ namespace IbanNet.Extensions.Bban.Validation.Rules;
 public class HasValidNationalCheckDigitsRuleTests
 {
     private readonly HasValidNationalCheckDigitsRule _sut;
-    private readonly Mock<NationalCheckDigitsValidator> _checkDigitsValidatorMock;
+    private readonly NationalCheckDigitsValidator _checkDigitsValidatorMock;
 
     public HasValidNationalCheckDigitsRuleTests()
     {
-        _checkDigitsValidatorMock = new Mock<NationalCheckDigitsValidator>(
-            Mock.Of<ICheckDigitsCalculator>(),
-            Mock.Of<CheckString>(),
-            Mock.Of<NationalCheckDigits.CheckDigits>(),
-            new[] { "ZZ" });
+        _checkDigitsValidatorMock = Substitute.ForPartsOf<NationalCheckDigitsValidator>(
+            Substitute.For<ICheckDigitsCalculator>(),
+            Substitute.For<CheckString>(),
+            Substitute.For<NationalCheckDigits.CheckDigits>(),
+            "ZZ");
 
-        var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
-        {
-            { "ZZ", [_checkDigitsValidatorMock.Object] }
-        };
+        var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>> { { "ZZ", [_checkDigitsValidatorMock] } };
 
         _sut = new HasValidNationalCheckDigitsRule(checkDigitValidatorStubs);
     }
@@ -60,23 +57,24 @@ public class HasValidNationalCheckDigitsRuleTests
 
         // Assert
         actual.Should().BeSameAs(ValidationRuleResult.Success);
-        _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Never);
+        _checkDigitsValidatorMock
+            .DidNotReceive()
+            .Validate(Arg.Any<string>());
     }
 
     [Fact]
     public void Given_that_bban_structure_length_is_zero_when_validating_it_should_fail()
     {
-        var context = new ValidationRuleContext("ZZ000000", new IbanCountry("ZZ")
-        {
-            Bban = new BbanStructure(new TestPattern([]))
-        });
+        var context = new ValidationRuleContext("ZZ000000", new IbanCountry("ZZ") { Bban = new BbanStructure(new TestPattern([])) });
 
         // Act
         ValidationRuleResult actual = _sut.Validate(context);
 
         // Assert
         actual.Should().BeOfType<InvalidNationalCheckDigitsResult>();
-        _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Never);
+        _checkDigitsValidatorMock
+            .DidNotReceive()
+            .Validate(Arg.Any<string>());
     }
 
     [Theory]
@@ -97,7 +95,9 @@ public class HasValidNationalCheckDigitsRuleTests
 
         // Assert
         actual.Should().BeOfType<InvalidNationalCheckDigitsResult>();
-        _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Never);
+        _checkDigitsValidatorMock
+            .DidNotReceive()
+            .Validate(Arg.Any<string>());
     }
 
     [Theory]
@@ -117,34 +117,26 @@ public class HasValidNationalCheckDigitsRuleTests
         _sut.Validate(context);
 
         // Assert
-        _checkDigitsValidatorMock.Verify(m => m.Validate(expectedExtractedBban), Times.Once);
+        _checkDigitsValidatorMock
+            .Received(1)
+            .Validate(expectedExtractedBban);
     }
 
     [Fact]
     public void Given_multiple_check_digit_validators_when_validating_it_should_only_use_those_that_have_matching_country()
     {
-        var matchingCheckDigitValidatorMock = new Mock<NationalCheckDigitsValidator>(
-            Mock.Of<ICheckDigitsCalculator>(),
-            Mock.Of<CheckString>(),
-            Mock.Of<NationalCheckDigits.CheckDigits>(),
-            new[] { "WW" }
+        var matchingCheckDigitValidatorMock = Substitute.ForPartsOf<NationalCheckDigitsValidator>(
+            Substitute.For<ICheckDigitsCalculator>(),
+            Substitute.For<CheckString>(),
+            Substitute.For<NationalCheckDigits.CheckDigits>(),
+            "WW"
         );
 
-        var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
-        {
-            { "ZZ", [_checkDigitsValidatorMock.Object] },
-            { "WW", [matchingCheckDigitValidatorMock.Object] }
-        };
-
-        _checkDigitsValidatorMock
-            .Setup(m => m.Validate(It.IsAny<string>()))
-            .Returns(true)
-            .Verifiable();
+        var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>> { { "ZZ", [_checkDigitsValidatorMock] }, { "WW", [matchingCheckDigitValidatorMock] } };
 
         matchingCheckDigitValidatorMock
-            .Setup(m => m.Validate(It.IsAny<string>()))
-            .Returns(true)
-            .Verifiable();
+            .Validate(Arg.Any<string>())
+            .Returns(true);
 
         var sut = new HasValidNationalCheckDigitsRule(checkDigitValidatorStubs);
 
@@ -161,8 +153,8 @@ public class HasValidNationalCheckDigitsRuleTests
 
         // Assert
         actual.Should().BeSameAs(ValidationRuleResult.Success);
-        matchingCheckDigitValidatorMock.Verify();
-        _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Never);
+        matchingCheckDigitValidatorMock.Received(1).Validate(Arg.Any<string>());
+        _checkDigitsValidatorMock.DidNotReceive().Validate(Arg.Any<string>());
     }
 
     [Theory]
@@ -172,15 +164,11 @@ public class HasValidNationalCheckDigitsRuleTests
     [InlineData(true, true, true)]
     public void Given_multiple_check_digit_validators_matching_the_country_when_validating_it_should_validate_using_all(bool matchesFirst, bool matchesSecond, bool shouldBeValid)
     {
-        var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
-        {
-            { "ZZ", [_checkDigitsValidatorMock.Object, _checkDigitsValidatorMock.Object] }
-        };
+        var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>> { { "ZZ", [_checkDigitsValidatorMock, _checkDigitsValidatorMock] } };
 
         _checkDigitsValidatorMock
-            .SetupSequence(m => m.Validate(It.IsAny<string>()))
-            .Returns(matchesFirst)
-            .Returns(matchesSecond);
+            .Validate(Arg.Any<string>())
+            .Returns(matchesFirst, matchesSecond);
 
         var sut = new HasValidNationalCheckDigitsRule(checkDigitValidatorStubs);
 
@@ -205,7 +193,7 @@ public class HasValidNationalCheckDigitsRuleTests
             actual.Should().BeOfType<InvalidNationalCheckDigitsResult>();
         }
 
-        _checkDigitsValidatorMock.Verify(m => m.Validate(It.IsAny<string>()), Times.Exactly(!matchesFirst ? 1 : 2));
+        _checkDigitsValidatorMock.Received(!matchesFirst ? 1 : 2).Validate(Arg.Any<string>());
     }
 
     [Fact]
