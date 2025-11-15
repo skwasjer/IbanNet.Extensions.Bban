@@ -14,6 +14,19 @@
     <PackageReference Include="IbanNet.DependencyInjection.ServiceProvider" Version="5.19.0" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <VerifyPublicApi Condition="'$(VerifyPublicApi)'==''">true</VerifyPublicApi>
+    <DefineConstants Condition="'$(VerifyPublicApi)'=='true'">$(DefineConstants);VERIFY_PUBLIC_API</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(VerifyPublicApi)'=='true'">
+    <PackageReference Include="PublicApiGenerator" Version="11.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Verify.Xunit" Version="31.7.1" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=net8.0" Condition="'$(TargetFramework)'=='net8.0'" />
     <ProjectReference Include="..\..\src\IbanNet.Extensions.Bban\IbanNet.Extensions.Bban.csproj" AdditionalProperties="TargetFramework=netstandard2.1" Condition="'$(TargetFramework)'=='net7.0'" />
