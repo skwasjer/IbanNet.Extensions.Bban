@@ -1,14 +1,14 @@
 ﻿using IbanNet.CheckDigits.Calculators;
 
-namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
+namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
-public class FinnishCheckDigitsCalculatorTests
+public class LuhnAlgorithmTests
 {
-    private readonly FinnishCheckDigitsCalculator _sut;
+    private readonly LuhnAlgorithm _sut;
 
-    public FinnishCheckDigitsCalculatorTests()
+    public LuhnAlgorithmTests()
     {
-        _sut = new FinnishCheckDigitsCalculator();
+        _sut = new LuhnAlgorithm();
     }
 
     [Theory]

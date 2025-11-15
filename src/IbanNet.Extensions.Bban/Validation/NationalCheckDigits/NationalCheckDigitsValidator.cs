@@ -8,16 +8,16 @@ internal abstract class NationalCheckDigitsValidator
 {
     private readonly CheckString _checkString;
     private readonly CheckDigits _expectedCheckDigits;
-    private readonly ICheckDigitsCalculator _checkDigitsCalculator;
+    private readonly ICheckDigitsCalculator _checkDigitsAlgorithm;
 
     protected NationalCheckDigitsValidator
     (
-        ICheckDigitsCalculator checkDigitsCalculator,
+        ICheckDigitsCalculator checkDigitsAlgorithm,
         CheckString checkString,
         CheckDigits expectedCheckDigits,
         params string[] supportedCountryCodes)
     {
-        _checkDigitsCalculator = checkDigitsCalculator ?? throw new ArgumentNullException(nameof(checkDigitsCalculator));
+        _checkDigitsAlgorithm = checkDigitsAlgorithm ?? throw new ArgumentNullException(nameof(checkDigitsAlgorithm));
         SupportedCountryCodes = supportedCountryCodes ?? throw new ArgumentNullException(nameof(supportedCountryCodes));
         _expectedCheckDigits = expectedCheckDigits ?? throw new ArgumentNullException(nameof(expectedCheckDigits));
         _checkString = checkString ?? throw new ArgumentNullException(nameof(checkString));
@@ -37,7 +37,7 @@ internal abstract class NationalCheckDigitsValidator
 
         try
         {
-            int computedCheckDigits = _checkDigitsCalculator.Compute(checkString.ToCharArray());
+            int computedCheckDigits = _checkDigitsAlgorithm.Compute(checkString.ToCharArray());
             int checkDigits = _expectedCheckDigits(bban);
             return checkDigits == computedCheckDigits;
         }

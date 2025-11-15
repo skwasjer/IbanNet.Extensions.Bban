@@ -1,7 +1,7 @@
 ﻿using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.Extensions;
 
-namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
+namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 /// <summary>
 /// Computes the expected national check digits using MOD-11.

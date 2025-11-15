@@ -1,4 +1,4 @@
-﻿using IbanNet.Extensions.Bban.CheckDigits.Calculators;
+﻿using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 

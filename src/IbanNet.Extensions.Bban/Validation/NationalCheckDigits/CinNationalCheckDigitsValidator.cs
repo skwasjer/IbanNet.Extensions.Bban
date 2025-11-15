@@ -1,4 +1,4 @@
-﻿using IbanNet.Extensions.Bban.CheckDigits.Calculators;
+﻿using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
@@ -9,7 +9,7 @@ internal class CinNationalCheckDigitsValidator : NationalCheckDigitsValidator
 
     public CinNationalCheckDigitsValidator()
         : base(
-            new CinCheckDigitsCalculator(),
+            new CinAlgorithm(),
             CheckString.At(CheckDigitLength),
             bban => bban[0] - CharCodeA,
             "IT",

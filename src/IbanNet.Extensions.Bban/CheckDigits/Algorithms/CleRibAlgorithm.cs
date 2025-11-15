@@ -2,7 +2,7 @@
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.Extensions;
 
-namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
+namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 /// <summary>
 /// Computes the expected national check digits for French bank account numbers, aka. clé RIB (Relevé d'identité bancaire).
@@ -10,7 +10,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
 /// <remarks>
 /// https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB
 /// </remarks>
-internal class CleRibCheckDigitsCalculator : ICheckDigitsCalculator
+internal class CleRibAlgorithm : ICheckDigitsCalculator
 {
     public int Compute(char[] value)
     {
