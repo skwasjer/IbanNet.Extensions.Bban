@@ -19,7 +19,11 @@ namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 internal class CzechNationalCheckDigitsValidator : NationalCheckDigitsValidator
 {
     public CzechNationalCheckDigitsValidator()
-        : base(new DummyCalculator(), "CZ")
+        : base(
+            new DummyCalculator(),
+            _ => throw new System.NotImplementedException(),
+            _ => throw new System.NotImplementedException(),
+            "CZ")
     {
     }
 
@@ -63,18 +67,6 @@ internal class CzechNationalCheckDigitsValidator : NationalCheckDigitsValidator
         {
             return false;
         }
-    }
-
-    protected override string GetCheckString(string bban)
-    {
-        // Not used since we override Validate()
-        throw new System.NotImplementedException();
-    }
-
-    protected override int GetExpectedCheckDigits(string bban)
-    {
-        // Not used since we override Validate()
-        throw new System.NotImplementedException();
     }
 
     // Dummy calculator to satisfy base class requirement

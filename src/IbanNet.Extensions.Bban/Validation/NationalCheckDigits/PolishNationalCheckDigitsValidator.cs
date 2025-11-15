@@ -1,4 +1,3 @@
-using System.Globalization;
 using IbanNet.Extensions.Bban.CheckDigits.Calculators;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
@@ -12,22 +11,15 @@ namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 /// </remarks>
 internal class PolishNationalCheckDigitsValidator : NationalCheckDigitsValidator
 {
-    private const int CheckDigitPosition = 7;  // 0-based index
+    private const int CheckDigitPosition = 7; // 0-based index
+    private const int CheckDigitLength = 1;
 
     public PolishNationalCheckDigitsValidator()
-        : base(new PolishCheckDigitsCalculator(), "PL")
+        : base(
+            new PolishCheckDigitsCalculator(),
+            CheckString.At(0, CheckDigitPosition),
+            CheckDigits.At(CheckDigitPosition, CheckDigitLength),
+            "PL")
     {
-    }
-
-    protected override string GetCheckString(string bban)
-    {
-        // First 7 digits of the bank code
-        return bban.Substring(0, CheckDigitPosition);
-    }
-
-    protected override int GetExpectedCheckDigits(string bban)
-    {
-        // The 8th digit of the bank code is the check digit
-        return int.Parse(bban.Substring(CheckDigitPosition, 1), CultureInfo.InvariantCulture);
     }
 }

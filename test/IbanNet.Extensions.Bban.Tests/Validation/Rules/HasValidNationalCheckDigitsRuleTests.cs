@@ -20,7 +20,11 @@ public class HasValidNationalCheckDigitsRuleTests
 
     public HasValidNationalCheckDigitsRuleTests()
     {
-        _checkDigitsValidatorMock = new Mock<NationalCheckDigitsValidator>(Mock.Of<ICheckDigitsCalculator>(), new[] { "ZZ" });
+        _checkDigitsValidatorMock = new Mock<NationalCheckDigitsValidator>(
+            Mock.Of<ICheckDigitsCalculator>(),
+            Mock.Of<CheckString>(),
+            Mock.Of<NationalCheckDigits.CheckDigits>(),
+            new[] { "ZZ" });
 
         var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
         {
@@ -119,7 +123,12 @@ public class HasValidNationalCheckDigitsRuleTests
     [Fact]
     public void Given_multiple_check_digit_validators_when_validating_it_should_only_use_those_that_have_matching_country()
     {
-        var matchingCheckDigitValidatorMock = new Mock<NationalCheckDigitsValidator>(Mock.Of<ICheckDigitsCalculator>(), new[] { "WW" });
+        var matchingCheckDigitValidatorMock = new Mock<NationalCheckDigitsValidator>(
+            Mock.Of<ICheckDigitsCalculator>(),
+            Mock.Of<CheckString>(),
+            Mock.Of<NationalCheckDigits.CheckDigits>(),
+            new[] { "WW" }
+        );
 
         var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>>
         {
