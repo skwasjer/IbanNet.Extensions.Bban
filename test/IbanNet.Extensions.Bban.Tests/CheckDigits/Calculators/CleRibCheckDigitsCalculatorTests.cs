@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentAssertions;
-using Xunit;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Calculators;
 

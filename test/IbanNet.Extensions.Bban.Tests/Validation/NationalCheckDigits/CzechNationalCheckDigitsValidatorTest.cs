@@ -1,7 +1,4 @@
-using FluentAssertions;
-using Xunit;
-
-namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
+﻿namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
 public class CzechNationalCheckDigitsValidatorTest
 {
