@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
+﻿namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 public class CleRibAlgorithmTests
 {

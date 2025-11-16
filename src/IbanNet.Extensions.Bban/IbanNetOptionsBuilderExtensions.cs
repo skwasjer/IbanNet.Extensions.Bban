@@ -1,5 +1,4 @@
-﻿using System;
-using IbanNet.DependencyInjection;
+﻿using IbanNet.DependencyInjection;
 using IbanNet.Extensions.Bban.Validation.Rules;
 
 namespace IbanNet.Extensions.Bban;
