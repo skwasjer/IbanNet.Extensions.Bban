@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using IbanNet.CheckDigits.Calculators;
+﻿using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 using IbanNet.Extensions.Bban.Validation.Results;
 using IbanNet.Registry;

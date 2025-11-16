@@ -1,7 +1,5 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.Versioning;
-using VerifyTests;
 
 namespace IbanNet.Extensions.Bban.PublicApi;
 

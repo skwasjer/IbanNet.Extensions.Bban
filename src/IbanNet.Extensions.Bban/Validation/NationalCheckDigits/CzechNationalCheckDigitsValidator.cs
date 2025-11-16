@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 

@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
 using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
 namespace IbanNet.Extensions.Bban.Validation.Rules;
