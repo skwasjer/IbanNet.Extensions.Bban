@@ -16,6 +16,7 @@ public class IntegrationTests
 
     [Theory]
     [InlineData("BE", "539007547034")]
+    [InlineData("BE", "967296610606")]
     [InlineData("FR","20041010050500013M02606")]
     [InlineData("FR","30006000011234567890189")]
     [InlineData("MR","00020001010000123456753")]
@@ -25,6 +26,8 @@ public class IntegrationTests
     [InlineData("NO","86011117947")]
     [InlineData("NO","00000100080")] // Mod 11 = 0
     [InlineData("BA","1290079401028494")]
+    [InlineData("BA", "0060000123456758")]
+    [InlineData("BA", "0060000123458698")]
     [InlineData("PL","114020040000300201355387")]
     [InlineData("FI","10093000123458")]
     [InlineData("CZ","01231234571234567899")]
@@ -45,6 +48,7 @@ public class IntegrationTests
 
     [Theory]
     [InlineData("BE","539007547035")]
+    [InlineData("BE", "867296610606")]
     [InlineData("FR","20041010050500013M02605")]
     [InlineData("FR","30006000011234567890188")]
     [InlineData("IT","X0542811101000100123456")]
