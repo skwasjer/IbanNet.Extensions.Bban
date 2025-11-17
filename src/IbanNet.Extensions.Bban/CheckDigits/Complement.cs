@@ -1,4 +1,6 @@
-﻿namespace IbanNet.Extensions.Bban.CheckDigits;
+﻿using System.Runtime.CompilerServices;
+
+namespace IbanNet.Extensions.Bban.CheckDigits;
 
 internal delegate int Complement(int modulo, int remainder);
 
@@ -33,6 +35,7 @@ internal static class ComplementExtensions
         /// </summary>
         public static Complement Remainder
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => (_, remainder)
                 => remainder;
         }
@@ -42,6 +45,7 @@ internal static class ComplementExtensions
         /// </summary>
         public static Complement DivisorMinusRemainder
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => (modulo, remainder)
                 => modulo - remainder;
         }
@@ -51,6 +55,7 @@ internal static class ComplementExtensions
         /// </summary>
         public static Complement DivisorPlusOneMinusRemainder
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => (modulo, remainder)
                 => 1 + Complement.DivisorMinusRemainder(modulo, remainder);
         }
@@ -60,6 +65,7 @@ internal static class ComplementExtensions
         /// </summary>
         public static Complement ZeroRemainderOrDivisorMinusRemainder
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => (modulo, remainder)
                 => remainder == 0 ? 0 : Complement.DivisorMinusRemainder(modulo, remainder);
         }
@@ -69,6 +75,7 @@ internal static class ComplementExtensions
         /// </summary>
         public static Complement ZeroOrOneRemainderOrDivisorMinusRemainder
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => (modulo, remainder)
                 => remainder == 1 ? 1 : Complement.ZeroRemainderOrDivisorMinusRemainder(modulo, remainder);
         }
