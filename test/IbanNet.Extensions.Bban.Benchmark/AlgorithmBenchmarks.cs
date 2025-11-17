@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Diagnostics.Windows.Configs;
-using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.CheckDigits;
@@ -8,8 +7,6 @@ using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 namespace IbanNet.Extensions.Bban.Benchmark;
 
-[SimpleJob(RuntimeMoniker.Net80, baseline: true)]
-[SimpleJob(RuntimeMoniker.Net48)]
 [MarkdownExporterAttribute.GitHub]
 [Orderer(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Alphabetical)]
 [MemoryDiagnoser]
