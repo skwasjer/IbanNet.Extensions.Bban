@@ -1,4 +1,5 @@
-﻿using IbanNet.CheckDigits.Calculators;
+﻿using System.Runtime.CompilerServices;
+using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits;
@@ -19,32 +20,46 @@ internal static class AsciiConverterExtensions
         /// <summary>
         /// Converts digits '0' to '9' to their corresponding integer values 0 to 9.
         /// </summary>
-        public static AsciiConverter Digits => ch =>
+        public static AsciiConverter Digits
         {
-            if (ch.IsAsciiDigit())
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
             {
-                return ch - '0';
-            }
+                return ch =>
+                {
+                    if (ch.IsAsciiDigit())
+                    {
+                        return ch - '0';
+                    }
 
-            throw new InvalidTokenException($"Character '{ch}' is not a valid digit character.");
-        };
+                    throw new InvalidTokenException($"Character '{ch}' is not a valid digit character.");
+                };
+            }
+        }
 
         /// <summary>
         /// Converts alphanumeric characters '0'-'9' and 'A'-'Z' to their corresponding base-36 integer values where '0' = 0, 'A' = 10, etc. Lower case letters are also supported and considered as upper case.
         /// </summary>
-        public static AsciiConverter Base36 => ch =>
+        public static AsciiConverter Base36
         {
-            if (ch.IsAsciiDigit())
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
             {
-                return ch - '0';
-            }
+                return ch =>
+                {
+                    if (ch.IsAsciiDigit())
+                    {
+                        return ch - '0';
+                    }
 
-            if (ch.IsAsciiLetter())
-            {
-                return char.ToLowerInvariant(ch) - 'a' + 10;
-            }
+                    if (ch.IsAsciiLetter())
+                    {
+                        return (ch | ' ') - 'a' + 10;
+                    }
 
-            throw new InvalidTokenException($"Character '{ch}' is not a valid alphanumeric character.");
-        };
+                    throw new InvalidTokenException($"Character '{ch}' is not a valid alphanumeric character.");
+                };
+            }
+        }
     }
 }

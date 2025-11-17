@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace IbanNet.Extensions.Bban.Extensions;
 
@@ -15,22 +16,26 @@ internal static class CharExtensions
         // ReSharper restore RedundantCast
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsAsciiLetter(this char ch)
     {
         ch |= ' ';
         return IsInRange(ch, 'a', 'z');
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsUpperAsciiLetter(this char ch)
     {
         return IsInRange(ch, 'A', 'Z');
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsAsciiDigit(this char ch)
     {
         return IsInRange(ch, '0', '9');
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsWhitespace(this char ch)
     {
         return ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n';

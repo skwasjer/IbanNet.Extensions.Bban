@@ -13,10 +13,10 @@ Intel Core i7-8700K CPU 3.70GHz (Coffee Lake), 1 CPU, 12 logical and 6 physical 
 
 | Method                                 | Job                | Runtime            | Mean     | Error    | StdDev   | Ratio | RatioSD | Allocated | Alloc Ratio |
 |--------------------------------------- |------------------- |------------------- |---------:|---------:|---------:|------:|--------:|----------:|------------:|
-| 'ISO 7064 MOD 97-10'                   | .NET 8.0           | .NET 8.0           | 30.93 ns | 0.027 ns | 0.024 ns |  0.82 |    0.02 |         - |          NA |
-| 'ISO 7064 MOD 97-10 (IbanNet library)' | .NET 8.0           | .NET 8.0           | 37.81 ns | 0.778 ns | 0.764 ns |  1.00 |    0.03 |         - |          NA |
-| 'ISO 7064 MOD 97-10'                   | .NET Framework 4.8 | .NET Framework 4.8 | 58.27 ns | 0.118 ns | 0.105 ns |  1.54 |    0.03 |         - |          NA |
-| 'ISO 7064 MOD 97-10 (IbanNet library)' | .NET Framework 4.8 | .NET Framework 4.8 | 65.18 ns | 0.060 ns | 0.056 ns |  1.72 |    0.03 |         - |          NA |
+| 'ISO 7064 MOD 97-10'                   | .NET 8.0           | .NET 8.0           | 32.12 ns | 0.440 ns | 0.343 ns |  0.83 |    0.01 |         - |          NA |
+| 'ISO 7064 MOD 97-10 (IbanNet library)' | .NET 8.0           | .NET 8.0           | 38.68 ns | 0.552 ns | 0.490 ns |  1.00 |    0.02 |         - |          NA |
+| 'ISO 7064 MOD 97-10'                   | .NET Framework 4.8 | .NET Framework 4.8 | 48.98 ns | 0.169 ns | 0.141 ns |  1.27 |    0.02 |         - |          NA |
+| 'ISO 7064 MOD 97-10 (IbanNet library)' | .NET Framework 4.8 | .NET Framework 4.8 | 66.83 ns | 0.572 ns | 0.535 ns |  1.73 |    0.03 |         - |          NA |
 
 ### CLI
 
