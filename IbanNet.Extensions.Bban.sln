@@ -32,6 +32,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IbanNet.Extensions.Bban", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IbanNet.Extensions.Bban.Tests", "test\IbanNet.Extensions.Bban.Tests\IbanNet.Extensions.Bban.Tests.csproj", "{CAB0BF46-31F1-4C04-9201-96A1E2866E3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IbanNet.Extensions.Bban.Benchmark", "test\IbanNet.Extensions.Bban.Benchmark\IbanNet.Extensions.Bban.Benchmark.csproj", "{34559F8A-E76D-B562-A6BC-08595484EE34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{CAB0BF46-31F1-4C04-9201-96A1E2866E3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAB0BF46-31F1-4C04-9201-96A1E2866E3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB0BF46-31F1-4C04-9201-96A1E2866E3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34559F8A-E76D-B562-A6BC-08595484EE34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34559F8A-E76D-B562-A6BC-08595484EE34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34559F8A-E76D-B562-A6BC-08595484EE34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34559F8A-E76D-B562-A6BC-08595484EE34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{19D148BF-50F2-4711-8336-A5929896017F} = {65C97381-311D-4C81-8494-6BF12C9BDCBF}
 		{CAB0BF46-31F1-4C04-9201-96A1E2866E3D} = {D8FE9E00-4E06-4A0F-BA75-39E71A016671}
+		{34559F8A-E76D-B562-A6BC-08595484EE34} = {D8FE9E00-4E06-4A0F-BA75-39E71A016671}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EEBC24F2-0C8F-40FB-AE3D-B118B975D452}
