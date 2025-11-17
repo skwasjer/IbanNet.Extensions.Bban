@@ -40,7 +40,10 @@ public sealed class Mod9710AlgorithmTests
 
         // Assert
         actual.Should().Be(expectedResult);
-        _asciiConverterMock.Received(input.Length).Invoke(Arg.Any<char>());
+        _asciiConverterMock.ReceivedCalls()
+            .Select(ci => (char)ci.GetArguments()[0]!)
+            .Should()
+            .BeEquivalentTo(input, opts => opts.WithStrictOrdering());
         _complementMock.Received(1).Invoke(97, expectedRemainder);
     }
 
