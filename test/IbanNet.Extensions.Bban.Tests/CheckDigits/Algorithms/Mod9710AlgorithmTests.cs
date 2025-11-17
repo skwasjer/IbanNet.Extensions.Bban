@@ -1,6 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-
-namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
+﻿namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 public sealed class Mod9710AlgorithmTests
 {
@@ -68,22 +66,6 @@ public sealed class Mod9710AlgorithmTests
             .Should()
             .Throw<ArgumentNullException>()
             .WithParameterName(nameof(value));
-    }
-
-    [Theory]
-    [InlineData(-1)]
-    [InlineData(97)]
-    public void Given_that_asciiConverter_returns_outOfRange_value_when_computing_it_should_throw(int outOfRangeValue)
-    {
-        _asciiConverterMock
-            .Invoke(Arg.Any<char>())
-            .Returns(outOfRangeValue);
-
-        // Act & assert
-        _sut.Invoking(alg => alg.Compute(['0']))
-            .Should()
-            .Throw<InvalidTokenException>()
-            .WithMessage("*is not valid in Mod 97,10 calculation*");
     }
 
     /// <summary>

@@ -1,4 +1,5 @@
-﻿using IbanNet.CheckDigits.Calculators;
+﻿using System.Diagnostics;
+using IbanNet.CheckDigits.Calculators;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -29,10 +30,10 @@ internal sealed class Mod9710Algorithm(Complement complement) : ICheckDigitsCalc
         {
             char ch = value[i];
             int number = AsciiConverter(ch);
-            if (number is < 0 or >= Modulo)
-            {
-                throw new InvalidTokenException($"Character '{ch}' is not valid in Mod 97,10 calculation.");
-            }
+            Debug.Assert(
+                number is >= 0 and < Modulo,
+                $"Value {number} for character '{ch}' is not valid in Mod 97,10 calculation."
+            );
 
             // If the number we got is a two-digit number (i.e. >= 10) we need to shift left by 100, else by 10.
             int base10Shift = number < 10 ? 10 : 100;
