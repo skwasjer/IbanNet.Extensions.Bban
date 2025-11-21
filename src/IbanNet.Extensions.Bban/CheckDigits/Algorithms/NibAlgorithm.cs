@@ -9,7 +9,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// <remarks>
 /// https://pt.wikipedia.org/wiki/N%C3%BAmero_de_Identifica%C3%A7%C3%A3o_Banc%C3%A1ria
 /// </remarks>
-internal class NibAlgorithm : ICheckDigitsCalculator
+internal class NibAlgorithm : ICheckDigitsAlgorithm
 {
     private static readonly int[] Weights = [73, 17, 89, 38, 62, 45, 53, 15, 50, 5, 49, 34, 81, 76, 27, 90, 9, 30, 3];
 

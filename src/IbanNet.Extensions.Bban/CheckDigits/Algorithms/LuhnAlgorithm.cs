@@ -15,7 +15,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// https://en.wikipedia.org/wiki/International_Bank_Account_Number#National_check_digits
 /// https://fi.wikipedia.org/wiki/Tilinumero
 /// </remarks>
-internal class LuhnAlgorithm : ICheckDigitsCalculator
+internal class LuhnAlgorithm : ICheckDigitsAlgorithm
 {
     private static readonly int[] Weights = [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
 

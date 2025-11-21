@@ -9,7 +9,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// <remarks>
 /// https://no.wikipedia.org/wiki/MOD11
 /// </remarks>
-internal class Mod11CheckDigitsCalculator : ICheckDigitsCalculator
+internal class Mod11CheckDigitsCalculator : ICheckDigitsAlgorithm
 {
     public int Compute(char[] value)
     {

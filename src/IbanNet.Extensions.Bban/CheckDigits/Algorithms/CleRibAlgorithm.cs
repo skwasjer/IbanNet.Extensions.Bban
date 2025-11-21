@@ -9,7 +9,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// <remarks>
 /// https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB
 /// </remarks>
-internal class CleRibAlgorithm : ICheckDigitsCalculator
+internal class CleRibAlgorithm : ICheckDigitsAlgorithm
 {
     public int Compute(char[] value)
     {

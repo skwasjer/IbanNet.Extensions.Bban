@@ -7,7 +7,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// ISO 7064 Mod 97,10 check digit algorithm.
 /// </summary>
 /// <param name="complement">The complement to return.</param>
-internal sealed class Mod9710Algorithm(Complement complement) : ICheckDigitsCalculator
+internal sealed class Mod9710Algorithm(Complement complement) : ICheckDigitsAlgorithm
 {
     /// <summary>
     /// 8 because with 2 more digits added, we are risking integer overflow.

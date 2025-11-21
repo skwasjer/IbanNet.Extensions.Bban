@@ -13,7 +13,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// https://en.wikipedia.org/wiki/International_Bank_Account_Number#National_check_digits
 /// https://pl.wikipedia.org/wiki/Numer_rachunku_bankowego
 /// </remarks>
-internal class PolishCheckDigitsCalculator : ICheckDigitsCalculator
+internal class PolishCheckDigitsCalculator : ICheckDigitsAlgorithm
 {
     private static readonly int[] Weights = [3, 9, 7, 1, 3, 9, 7];
 
