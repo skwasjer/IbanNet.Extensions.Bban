@@ -1,5 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-using IbanNet.Extensions.Bban.Extensions;
+﻿using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -31,7 +30,7 @@ internal class PolishCheckDigitsCalculator : CheckDigitsAlgorithm
             char c = buffer[i];
             if (!c.IsAsciiDigit())
             {
-                throw new InvalidTokenException("Expected numeric characters.");
+                throw new InvalidTokenException("numeric", i, c);
             }
 
             sum += (c - '0') * Weights[i];

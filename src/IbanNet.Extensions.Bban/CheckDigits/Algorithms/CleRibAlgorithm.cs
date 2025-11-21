@@ -1,5 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-using IbanNet.Extensions.Bban.Extensions;
+﻿using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -26,7 +25,7 @@ internal class CleRibAlgorithm : CheckDigitsAlgorithm
                 ? ch - '0'
                 : ch.IsAsciiLetter()
                     ? MapLetters(ch)
-                    : throw new InvalidTokenException("Expected alphanumeric characters.");
+                    : throw new InvalidTokenException("alphanumeric", i, ch);
             if (i < 5)
             {
                 b = b * 10 + add;

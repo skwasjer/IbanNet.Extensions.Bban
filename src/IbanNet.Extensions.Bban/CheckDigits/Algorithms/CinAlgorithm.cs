@@ -1,5 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-using IbanNet.Extensions.Bban.Extensions;
+﻿using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -24,7 +23,7 @@ internal class CinAlgorithm : CheckDigitsAlgorithm
                 ? c - '0'
                 : c.IsAsciiLetter()
                     ? (c | ' ') - 'a'
-                    : throw new InvalidTokenException("Expected alphanumeric characters.");
+                    : throw new InvalidTokenException("alphanumeric", i, c);
             int[] takeWeightsFrom = (i & 1) == 1 ? EvenWeights : OddWeights;
             sum += takeWeightsFrom[number];
         }

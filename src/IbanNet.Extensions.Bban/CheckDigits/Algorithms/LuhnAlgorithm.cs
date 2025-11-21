@@ -1,5 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-using IbanNet.Extensions.Bban.Extensions;
+﻿using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -33,7 +32,7 @@ internal class LuhnAlgorithm : CheckDigitsAlgorithm
             char c = buffer[i];
             if (!c.IsAsciiDigit())
             {
-                throw new InvalidTokenException("Expected numeric characters.");
+                throw new InvalidTokenException("numeric", i, c);
             }
 
             int product = (c - '0') * Weights[i];

@@ -1,5 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-using IbanNet.Extensions.Bban.Extensions;
+﻿using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -58,7 +57,7 @@ internal static class CzechCheckDigitsCalculator
             char c = value[i];
             if (!c.IsAsciiDigit())
             {
-                throw new InvalidTokenException("Expected numeric characters.");
+                throw new InvalidTokenException("numeric", i, c);
             }
 
             sum += (c - '0') * weights[i];
