@@ -32,25 +32,20 @@ public class HasValidNationalCheckDigitsRule : IIbanValidationRule
     /// <inheritdoc />
     public ValidationRuleResult Validate(ValidationRuleContext context)
     {
-        if (context is null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
-
         if (!_nationalCheckDigitsValidators.TryGetValue(context.Country!.TwoLetterISORegionName, out IEnumerable<NationalCheckDigitsValidator>? checkDigitsValidators))
         {
             // No national check digits validators found.
             return ValidationRuleResult.Success;
         }
 
-        BbanStructure bbanStructure = context.Country.Bban;
-        if (bbanStructure.Position + bbanStructure.Length > context.Value.Length || bbanStructure.Length == 0)
+        PatternDescriptor bbanPatternDescriptor = context.Country.Bban;
+        if (bbanPatternDescriptor.Position + bbanPatternDescriptor.Length > context.Value.Length || bbanPatternDescriptor.Length == 0)
         {
             // BBAN positional data unavailable, or not matching input.
             return new InvalidNationalCheckDigitsResult();
         }
 
-        string bban = context.Value.Substring(bbanStructure.Position, bbanStructure.Length);
+        string bban = context.Value.Substring(bbanPatternDescriptor.Position, bbanPatternDescriptor.Length);
         return checkDigitsValidators.All(validator => validator.Validate(bban))
             ? ValidationRuleResult.Success
             : new InvalidNationalCheckDigitsResult();

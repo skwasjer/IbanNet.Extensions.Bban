@@ -27,21 +27,6 @@ public class HasValidNationalCheckDigitsRuleTests
     }
 
     [Fact]
-    public void Given_that_context_is_null_when_validating_it_should_throw()
-    {
-        ValidationRuleContext? context = null;
-
-        // Act
-        Action act = () => _sut.Validate(context!);
-
-        // Assert
-        act.Should()
-            .Throw<ArgumentNullException>()
-            .Which.ParamName.Should()
-            .Be(nameof(context));
-    }
-
-    [Fact]
     public void Given_that_no_validator_matches_iban_country_when_validating_it_should_pass()
     {
         var context = new ValidationRuleContext("XX000000", new IbanCountry("XX"));
@@ -59,7 +44,7 @@ public class HasValidNationalCheckDigitsRuleTests
     [Fact]
     public void Given_that_bban_structure_length_is_zero_when_validating_it_should_fail()
     {
-        var context = new ValidationRuleContext("ZZ000000", new IbanCountry("ZZ") { Bban = new BbanStructure(new TestPattern([])) });
+        var context = new ValidationRuleContext("ZZ000000", new IbanCountry("ZZ") { Bban = new PatternDescriptor(new TestPattern([])) });
 
         // Act
         ValidationRuleResult actual = _sut.Validate(context);
@@ -79,7 +64,7 @@ public class HasValidNationalCheckDigitsRuleTests
         var context = new ValidationRuleContext("ZZ000000",
             new IbanCountry("ZZ")
             {
-                Bban = new BbanStructure(
+                Bban = new PatternDescriptor(
                     new TestPattern([new PatternToken(AsciiCategory.Digit, length)]),
                     position)
             });
@@ -102,7 +87,7 @@ public class HasValidNationalCheckDigitsRuleTests
         var context = new ValidationRuleContext("ZZ0123456",
             new IbanCountry("ZZ")
             {
-                Bban = new BbanStructure(
+                Bban = new PatternDescriptor(
                     new TestPattern([new PatternToken(AsciiCategory.Digit, length)]),
                     position)
             });
@@ -137,7 +122,7 @@ public class HasValidNationalCheckDigitsRuleTests
         var context = new ValidationRuleContext("WW0123456",
             new IbanCountry("WW")
             {
-                Bban = new BbanStructure(
+                Bban = new PatternDescriptor(
                     new TestPattern([new PatternToken(AsciiCategory.Digit, 7)]),
                     2)
             });
@@ -169,7 +154,7 @@ public class HasValidNationalCheckDigitsRuleTests
         var context = new ValidationRuleContext("ZZ0123456",
             new IbanCountry("ZZ")
             {
-                Bban = new BbanStructure(
+                Bban = new PatternDescriptor(
                     new TestPattern([new PatternToken(AsciiCategory.Digit, 7)]),
                     2)
             });
