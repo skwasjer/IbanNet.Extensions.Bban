@@ -69,7 +69,7 @@ internal class CzechNationalCheckDigitsValidator : NationalCheckDigitsValidator
     }
 
     // Dummy calculator to satisfy base class requirement
-    private sealed class DummyCalculator : ICheckDigitsCalculator
+    private sealed class DummyCalculator : ICheckDigitsAlgorithm
     {
         public int Compute(char[] value)
         {

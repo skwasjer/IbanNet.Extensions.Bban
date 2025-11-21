@@ -1,4 +1,5 @@
 ﻿using IbanNet.CheckDigits.Calculators;
+using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
@@ -6,11 +7,11 @@ internal abstract class NationalCheckDigitsValidator
 {
     private readonly CheckString _checkString;
     private readonly CheckDigits _expectedCheckDigits;
-    private readonly ICheckDigitsCalculator _checkDigitsAlgorithm;
+    private readonly ICheckDigitsAlgorithm _checkDigitsAlgorithm;
 
     protected NationalCheckDigitsValidator
     (
-        ICheckDigitsCalculator checkDigitsAlgorithm,
+        ICheckDigitsAlgorithm checkDigitsAlgorithm,
         CheckString checkString,
         CheckDigits expectedCheckDigits,
         params string[] supportedCountryCodes)

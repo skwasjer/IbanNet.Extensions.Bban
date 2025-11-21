@@ -1,4 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
+﻿using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 using IbanNet.Extensions.Bban.Validation.Results;
 using IbanNet.Registry;
@@ -16,7 +16,7 @@ public class HasValidNationalCheckDigitsRuleTests
     public HasValidNationalCheckDigitsRuleTests()
     {
         _checkDigitsValidatorMock = Substitute.ForPartsOf<NationalCheckDigitsValidator>(
-            Substitute.For<ICheckDigitsCalculator>(),
+            Substitute.For<ICheckDigitsAlgorithm>(),
             Substitute.For<CheckString>(),
             Substitute.For<NationalCheckDigits.CheckDigits>(),
             "ZZ");
@@ -120,7 +120,7 @@ public class HasValidNationalCheckDigitsRuleTests
     public void Given_multiple_check_digit_validators_when_validating_it_should_only_use_those_that_have_matching_country()
     {
         var matchingCheckDigitValidatorMock = Substitute.ForPartsOf<NationalCheckDigitsValidator>(
-            Substitute.For<ICheckDigitsCalculator>(),
+            Substitute.For<ICheckDigitsAlgorithm>(),
             Substitute.For<CheckString>(),
             Substitute.For<NationalCheckDigits.CheckDigits>(),
             "WW"

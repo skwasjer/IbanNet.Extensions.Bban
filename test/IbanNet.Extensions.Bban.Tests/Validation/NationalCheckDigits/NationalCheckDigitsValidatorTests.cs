@@ -1,4 +1,5 @@
 ﻿using IbanNet.CheckDigits.Calculators;
+using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
@@ -7,14 +8,14 @@ public class NationalCheckDigitsValidatorTests
     private const string IbanTestValue = "some_fake_value";
     private const string CheckStringTestValue = "fake_value";
 
-    private readonly ICheckDigitsCalculator _checkDigitsAlgorithmMock;
+    private readonly ICheckDigitsAlgorithm _checkDigitsAlgorithmMock;
     private readonly CheckString _getCheckStringFuncMock;
     private readonly CheckDigits _getCheckDigitsFuncMock;
     private readonly NationalCheckDigitsValidator _sut;
 
     public NationalCheckDigitsValidatorTests()
     {
-        _checkDigitsAlgorithmMock = Substitute.For<ICheckDigitsCalculator>();
+        _checkDigitsAlgorithmMock = Substitute.For<ICheckDigitsAlgorithm>();
 
         _getCheckStringFuncMock = Substitute.For<CheckString>();
         _getCheckDigitsFuncMock = Substitute.For<CheckDigits>();
