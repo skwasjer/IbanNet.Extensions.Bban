@@ -9,14 +9,14 @@ namespace IbanNet.Extensions.Bban
 }
 namespace IbanNet.Extensions.Bban.Validation.Results
 {
-    public class InvalidNationalCheckDigitsResult : IbanNet.Validation.Results.ErrorResult, System.IEquatable<IbanNet.Extensions.Bban.Validation.Results.InvalidNationalCheckDigitsResult>
+    public sealed class InvalidNationalCheckDigitsResult : IbanNet.Validation.Results.ErrorResult, System.IEquatable<IbanNet.Extensions.Bban.Validation.Results.InvalidNationalCheckDigitsResult>
     {
         public InvalidNationalCheckDigitsResult() { }
     }
 }
 namespace IbanNet.Extensions.Bban.Validation.Rules
 {
-    public class HasValidNationalCheckDigitsRule : IbanNet.Validation.Rules.IIbanValidationRule
+    public sealed class HasValidNationalCheckDigitsRule : IbanNet.Validation.Rules.IIbanValidationRule
     {
         public HasValidNationalCheckDigitsRule() { }
         public IbanNet.Validation.Results.ValidationRuleResult Validate(IbanNet.Validation.Rules.ValidationRuleContext context) { }

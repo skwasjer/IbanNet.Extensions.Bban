@@ -5,7 +5,7 @@ namespace IbanNet.Extensions.Bban.Validation.Results;
 /// <summary>
 /// The result returned when the national check digits are incorrect.
 /// </summary>
-public record InvalidNationalCheckDigitsResult : ErrorResult
+public sealed record InvalidNationalCheckDigitsResult : ErrorResult
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="InvalidNationalCheckDigitsResult" /> class.
