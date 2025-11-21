@@ -19,7 +19,7 @@ public class NibAlgorithmTests
     public void Given_account_number_when_computing_check_digit_should_match_expected(string accountNumber, int expectedCheckDigits)
     {
         // Act
-        int actual = _sut.Compute(accountNumber.ToCharArray());
+        int actual = _sut.Compute(accountNumber);
 
         // Assert
         actual.Should().Be(expectedCheckDigits);
@@ -33,7 +33,7 @@ public class NibAlgorithmTests
     public void Given_invalid_account_number_when_computing_check_digit_should_not_match_expected(string accountNumber, int assumedCheckDigits)
     {
         // Act
-        int actual = _sut.Compute(accountNumber.ToCharArray());
+        int actual = _sut.Compute(accountNumber);
 
         // Assert
         actual.Should().NotBe(assumedCheckDigits);
@@ -42,23 +42,23 @@ public class NibAlgorithmTests
     [Theory]
     [InlineData("Short18CharsLong..")]
     [InlineData("TooShort")]
-    public void Given_account_number_contains_insufficient_chars_when_computing_should_throw(string value)
+    public void Given_account_number_contains_insufficient_chars_when_computing_should_throw(string buffer)
     {
-        Action act = () => _sut.Compute(value.ToCharArray());
+        Action act = () => _sut.Compute(buffer);
 
         // Assert
         act.Should()
             .Throw<ArgumentException>()
-            .WithMessage($"The input '{value}' can not be validated using NIB.*")
+            .WithMessage($"The input '{buffer}' can not be validated using NIB.*")
             .Which.ParamName.Should()
-            .Be(nameof(value));
+            .Be(nameof(buffer));
     }
 
     [Theory]
     [InlineData("02345123451234567A:")]
     public void Given_a_non_alphanumeric_character_when_computing_should_throw(string value)
     {
-        Action act = () => _sut.Compute(value.ToCharArray());
+        Action act = () => _sut.Compute(value);
 
         // Assert
         act.Should()
@@ -74,7 +74,7 @@ public class NibAlgorithmTests
     public void Given_single_digit_account_number_when_validating_it_should_return_correct_check_digit(string singleDigitAccountNumber, int expectedCheckDigits)
     {
         // Act
-        int actual = _sut.Compute(singleDigitAccountNumber.ToCharArray());
+        int actual = _sut.Compute(singleDigitAccountNumber);
 
         // Assert
         actual.Should().Be(expectedCheckDigits);

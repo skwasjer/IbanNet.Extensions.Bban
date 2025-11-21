@@ -13,22 +13,22 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// https://en.wikipedia.org/wiki/International_Bank_Account_Number#National_check_digits
 /// https://pl.wikipedia.org/wiki/Numer_rachunku_bankowego
 /// </remarks>
-internal class PolishCheckDigitsCalculator : ICheckDigitsAlgorithm
+internal class PolishCheckDigitsCalculator : CheckDigitsAlgorithm
 {
     private static readonly int[] Weights = [3, 9, 7, 1, 3, 9, 7];
 
-    public int Compute(char[] value)
+    protected override int Compute(Buffer buffer)
     {
-        if (value.Length != 7)
+        if (buffer.Length != 7)
         {
-            throw new ArgumentException($"The input '{new string(value)}' must be exactly 7 digits for Polish bank code validation.", nameof(value));
+            throw new ArgumentException($"The input '{buffer.ToString()}' must be exactly 7 digits for Polish bank code validation.", nameof(buffer));
         }
 
         int sum = 0;
 
-        for (int i = 0; i < value.Length; i++)
+        for (int i = 0; i < buffer.Length; i++)
         {
-            char c = value[i];
+            char c = buffer[i];
             if (!c.IsAsciiDigit())
             {
                 throw new InvalidTokenException("Expected numeric characters.");

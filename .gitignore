@@ -201,5 +201,7 @@ cordova.js
 *.DotSettings
 .vs/
 /coverage.xml
-BenchmarkDotNet.Artifacts
+/test/IbanNet.Extensions.Bban.Benchmark/BenchmarkDotNet.Artifacts/results/*.csv
+/test/IbanNet.Extensions.Bban.Benchmark/BenchmarkDotNet.Artifacts/results/*.html
+/test/IbanNet.Extensions.Bban.Benchmark/BenchmarkDotNet.Artifacts/results/*.R
 /.sonarqube

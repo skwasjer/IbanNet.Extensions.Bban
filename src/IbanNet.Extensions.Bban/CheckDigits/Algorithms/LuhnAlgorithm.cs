@@ -15,22 +15,22 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// https://en.wikipedia.org/wiki/International_Bank_Account_Number#National_check_digits
 /// https://fi.wikipedia.org/wiki/Tilinumero
 /// </remarks>
-internal class LuhnAlgorithm : ICheckDigitsAlgorithm
+internal class LuhnAlgorithm : CheckDigitsAlgorithm
 {
     private static readonly int[] Weights = [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
 
-    public int Compute(char[] value)
+    protected override int Compute(Buffer buffer)
     {
-        if (value.Length != 13)
+        if (buffer.Length != 13)
         {
-            throw new InvalidTokenException($"The input '{new string(value)}' must be exactly 13 digits for Finnish BBAN validation.");
+            throw new InvalidTokenException($"The input '{buffer.ToString()}' must be exactly 13 digits for Finnish BBAN validation.");
         }
 
         int sum = 0;
 
-        for (int i = 0; i < value.Length; i++)
+        for (int i = 0; i < buffer.Length; i++)
         {
-            char c = value[i];
+            char c = buffer[i];
             if (!c.IsAsciiDigit())
             {
                 throw new InvalidTokenException("Expected numeric characters.");

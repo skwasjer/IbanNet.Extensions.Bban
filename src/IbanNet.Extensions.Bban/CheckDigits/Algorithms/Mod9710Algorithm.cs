@@ -7,7 +7,7 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// ISO 7064 Mod 97,10 check digit algorithm.
 /// </summary>
 /// <param name="complement">The complement to return.</param>
-internal sealed class Mod9710Algorithm(Complement complement) : ICheckDigitsAlgorithm
+internal sealed class Mod9710Algorithm(Complement complement) : CheckDigitsAlgorithm
 {
     /// <summary>
     /// 8 because with 2 more digits added, we are risking integer overflow.
@@ -21,19 +21,14 @@ internal sealed class Mod9710Algorithm(Complement complement) : ICheckDigitsAlgo
     /// </summary>
     public AsciiConverter AsciiConverter { get; init; } = AsciiConverter.Base36;
 
-    public int Compute(char[] value)
+    protected override int Compute(Buffer buffer)
     {
-        if (value is null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
-
         int digits = 0;
         int remainder = 0;
         // ReSharper disable once ForCanBeConvertedToForeach - justification : performance
-        for (int i = 0; i < value.Length; i++)
+        for (int i = 0; i < buffer.Length; i++)
         {
-            char ch = value[i];
+            char ch = buffer[i];
             int number = AsciiConverter(ch);
             Debug.Assert(
                 number is >= 0 and < Modulo,

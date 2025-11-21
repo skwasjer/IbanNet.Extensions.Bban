@@ -14,4 +14,8 @@
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)'=='net8.0' Or '$(TargetFramework)'=='net7.0' Or '$(TargetFramework)'=='netstandard2.1'">
+    <DefineConstants>$(DefineConstants);USE_SPANS</DefineConstants>
+  </PropertyGroup>
+
 </Project>

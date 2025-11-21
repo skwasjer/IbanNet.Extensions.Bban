@@ -18,7 +18,7 @@ public class PolishCheckDigitsCalculatorTests
     public void Given_bank_code_when_computing_check_digit_should_match_expected(string bankCode, int expectedCheckDigit)
     {
         // Act
-        int actual = _sut.Compute(bankCode.ToCharArray());
+        int actual = _sut.Compute(bankCode);
 
         // Assert
         actual.Should().Be(expectedCheckDigit);
@@ -28,7 +28,7 @@ public class PolishCheckDigitsCalculatorTests
     public void Given_non_numeric_input_when_computing_should_throw_InvalidTokenException()
     {
         // Arrange
-        char[] invalidInput = "ABC1234".ToCharArray();
+        const string invalidInput = "ABC1234";
 
         // Act & Assert
         _sut.Invoking(c => c.Compute(invalidInput))

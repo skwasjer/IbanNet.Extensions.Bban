@@ -36,7 +36,7 @@ public sealed class Mod9710AlgorithmTests
     [MemberData(nameof(TestCases))]
     public void It_should_return_expected(string input, int expectedResult, int expectedRemainder)
     {
-        int actual = _sut.Compute(input.ToCharArray());
+        int actual = _sut.Compute(input);
 
         // Assert
         actual.Should().Be(expectedResult);
@@ -49,6 +49,7 @@ public sealed class Mod9710AlgorithmTests
 
     public static TheoryData<string, int, int> TestCases => new()
     {
+        { "", 97, 0 },
         { "0", 97, 0 },
         { "A", 87, 10 },
         { "ABCDEFG", 70, 27 },
@@ -59,17 +60,6 @@ public sealed class Mod9710AlgorithmTests
         { "ABNA0417164300NL91", 96, 1 },
         { "MALT011000012345MTLCAST001SMT84", 96, 1 }
     };
-
-    [Fact]
-    public void Given_that_input_is_null_when_computing_it_should_throw()
-    {
-        char[]? value = null;
-
-        _sut.Invoking(alg => alg.Compute(value!))
-            .Should()
-            .Throw<ArgumentNullException>()
-            .WithParameterName(nameof(value));
-    }
 
     /// <summary>
     /// Runs the same test cases as in the mocked tests, but this is to ensure our mocks/setups are not hiding any issues.
@@ -83,7 +73,7 @@ public sealed class Mod9710AlgorithmTests
         {
             var sut = new Mod9710Algorithm(Complement.DivisorMinusRemainder);
 
-            int actual = sut.Compute(input.ToCharArray());
+            int actual = sut.Compute(input);
 
             // Assert
             actual.Should().Be(expectedResult);
