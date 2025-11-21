@@ -1,6 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-
-namespace IbanNet.Extensions.Bban.CheckDigits;
+﻿namespace IbanNet.Extensions.Bban.CheckDigits;
 
 public static class AsciiConverterTests
 {

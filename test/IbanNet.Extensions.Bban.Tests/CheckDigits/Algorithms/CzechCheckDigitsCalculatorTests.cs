@@ -1,6 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-
-namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
+﻿namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 public class CzechCheckDigitsCalculatorTests
 {

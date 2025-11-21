@@ -1,5 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-using IbanNet.Extensions.Bban.Extensions;
+﻿using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -29,7 +28,7 @@ internal class NibAlgorithm : CheckDigitsAlgorithm
                 ? ch - '0'
                 : ch.IsAsciiLetter()
                     ? MapLetters(ch)
-                    : throw new InvalidTokenException("Expected alphanumeric characters.");
+                    : throw new InvalidTokenException("alphanumeric", i, ch);
             sum += (add * Weights[i]);
         }
 

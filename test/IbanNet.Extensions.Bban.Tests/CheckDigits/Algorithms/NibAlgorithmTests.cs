@@ -1,6 +1,4 @@
-﻿using IbanNet.CheckDigits.Calculators;
-
-namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
+﻿namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 public class NibAlgorithmTests
 {
@@ -63,7 +61,7 @@ public class NibAlgorithmTests
         // Assert
         act.Should()
             .Throw<InvalidTokenException>()
-            .WithMessage($"Expected alphanumeric characters.");
+            .WithMessage("Expected alphanumeric character at position 18, but found ':'.");
     }
 
     /// <summary>

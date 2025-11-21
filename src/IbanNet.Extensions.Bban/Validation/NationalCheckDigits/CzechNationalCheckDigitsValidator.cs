@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using IbanNet.CheckDigits.Calculators;
+using IbanNet.Extensions.Bban.CheckDigits;
 using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 using Buffer = IbanNet.Extensions.Bban.CheckDigits.Algorithms.Buffer;
 
