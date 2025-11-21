@@ -9,19 +9,19 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// <remarks>
 /// https://fr.wikipedia.org/wiki/Cl%C3%A9_RIB
 /// </remarks>
-internal class CleRibAlgorithm : ICheckDigitsAlgorithm
+internal class CleRibAlgorithm : CheckDigitsAlgorithm
 {
-    public int Compute(char[] value)
+    protected override int Compute(Buffer buffer)
     {
-        if (value.Length < 21)
+        if (buffer.Length < 21)
         {
-            throw new ArgumentException($"The input '{new string(value)}' can not be validated using clé RIB.", nameof(value));
+            throw new ArgumentException($"The input '{buffer.ToString()}' can not be validated using clé RIB.", nameof(buffer));
         }
 
         long b = 0, g = 0, c = 0;
-        for (int i = 0; i < value.Length; i++)
+        for (int i = 0; i < buffer.Length; i++)
         {
-            char ch = value[i];
+            char ch = buffer[i];
             int add = ch.IsAsciiDigit()
                 ? ch - '0'
                 : ch.IsAsciiLetter()

@@ -16,7 +16,7 @@ public class HasValidNationalCheckDigitsRuleTests
     public HasValidNationalCheckDigitsRuleTests()
     {
         _checkDigitsValidatorMock = Substitute.ForPartsOf<NationalCheckDigitsValidator>(
-            Substitute.For<ICheckDigitsAlgorithm>(),
+            new CheckDigitsAlgorithmStub(123),
             Substitute.For<CheckString>(),
             Substitute.For<NationalCheckDigits.CheckDigits>(),
             "ZZ");
@@ -120,7 +120,7 @@ public class HasValidNationalCheckDigitsRuleTests
     public void Given_multiple_check_digit_validators_when_validating_it_should_only_use_those_that_have_matching_country()
     {
         var matchingCheckDigitValidatorMock = Substitute.ForPartsOf<NationalCheckDigitsValidator>(
-            Substitute.For<ICheckDigitsAlgorithm>(),
+            new CheckDigitsAlgorithmStub(123),
             Substitute.For<CheckString>(),
             Substitute.For<NationalCheckDigits.CheckDigits>(),
             "WW"

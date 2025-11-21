@@ -36,7 +36,7 @@ internal abstract class NationalCheckDigitsValidator
 
         try
         {
-            int computedCheckDigits = _checkDigitsAlgorithm.Compute(checkString.ToCharArray());
+            int computedCheckDigits = _checkDigitsAlgorithm.Compute(checkString);
             int checkDigits = _expectedCheckDigits(bban);
             return checkDigits == computedCheckDigits;
         }

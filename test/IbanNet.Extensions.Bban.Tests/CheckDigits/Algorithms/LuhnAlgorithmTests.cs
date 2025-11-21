@@ -19,7 +19,7 @@ public class LuhnAlgorithmTests
     public void Given_first_thirteen_digits_when_computing_check_digit_should_match_expected(string firstThirteenDigits, int expectedCheckDigit)
     {
         // Act
-        int actual = _sut.Compute(firstThirteenDigits.ToCharArray());
+        int actual = _sut.Compute(firstThirteenDigits);
 
         // Assert
         actual.Should().Be(expectedCheckDigit);
@@ -29,7 +29,7 @@ public class LuhnAlgorithmTests
     public void Given_non_numeric_input_when_computing_should_throw_InvalidTokenException()
     {
         // Arrange
-        char[] invalidInput = "ABC1234567890".ToCharArray();
+        const string invalidInput = "ABC1234567890";
 
         // Act & Assert
         _sut.Invoking(c => c.Compute(invalidInput))
@@ -43,7 +43,7 @@ public class LuhnAlgorithmTests
     public void Given_invalid_length_when_computing_should_throw_InvalidTokenException(string invalidInput)
     {
         // Act & Assert
-        _sut.Invoking(c => c.Compute(invalidInput.ToCharArray()))
+        _sut.Invoking(c => c.Compute(invalidInput))
             .Should().Throw<InvalidTokenException>()
             .WithMessage("*13 digits*");
     }

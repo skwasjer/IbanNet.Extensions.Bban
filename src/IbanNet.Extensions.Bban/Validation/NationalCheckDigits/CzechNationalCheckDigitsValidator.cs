@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using IbanNet.CheckDigits.Calculators;
 using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
+using Buffer = IbanNet.Extensions.Bban.CheckDigits.Algorithms.Buffer;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
@@ -69,9 +70,9 @@ internal class CzechNationalCheckDigitsValidator : NationalCheckDigitsValidator
     }
 
     // Dummy calculator to satisfy base class requirement
-    private sealed class DummyCalculator : ICheckDigitsAlgorithm
+    private sealed class DummyCalculator : CheckDigitsAlgorithm
     {
-        public int Compute(char[] value)
+        protected override int Compute(Buffer buffer)
         {
             throw new System.NotImplementedException("Czech validator uses custom validation logic");
         }

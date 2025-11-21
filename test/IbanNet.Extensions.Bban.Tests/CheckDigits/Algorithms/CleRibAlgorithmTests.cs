@@ -17,7 +17,7 @@ public class CleRibAlgorithmTests
     public void Given_account_number_when_computing_check_digit_should_match_expected(string accountNumber, int expectedCheckDigits)
     {
         // Act
-        int actual = _sut.Compute(accountNumber.ToCharArray());
+        int actual = _sut.Compute(accountNumber);
 
         // Assert
         actual.Should().Be(expectedCheckDigits);
@@ -31,7 +31,7 @@ public class CleRibAlgorithmTests
     public void Given_invalid_account_number_when_computing_check_digit_should_not_match_expected(string accountNumber, int assumedCheckDigits)
     {
         // Act
-        int actual = _sut.Compute(accountNumber.ToCharArray());
+        int actual = _sut.Compute(accountNumber);
 
         // Assert
         actual.Should().NotBe(assumedCheckDigits);
@@ -40,16 +40,16 @@ public class CleRibAlgorithmTests
     [Theory]
     [InlineData("ShortAnd20CharsLong.")]
     [InlineData("TooShort")]
-    public void Given_account_number_contains_insufficient_chars_when_computing_should_throw(string value)
+    public void Given_account_number_contains_insufficient_chars_when_computing_should_throw(string buffer)
     {
-        Action act = () => _sut.Compute(value.ToCharArray());
+        Action act = () => _sut.Compute(buffer);
 
         // Assert
         act.Should()
             .Throw<ArgumentException>()
-            .WithMessage($"The input '{value}' can not be validated using clé RIB.*")
+            .WithMessage($"The input '{buffer}' can not be validated using clé RIB.*")
             .Which.ParamName.Should()
-            .Be(nameof(value));
+            .Be(nameof(buffer));
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public class CleRibAlgorithmTests
     public void Given_single_digit_account_number_when_validating_it_should_return_correct_check_digit(string singleDigitAccountNumber, int expectedCheckDigits)
     {
         // Act
-        int actual = _sut.Compute(singleDigitAccountNumber.ToCharArray());
+        int actual = _sut.Compute(singleDigitAccountNumber);
 
         // Assert
         actual.Should().Be(expectedCheckDigits);

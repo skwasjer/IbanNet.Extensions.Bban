@@ -9,14 +9,14 @@ namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 /// <remarks>
 /// https://no.wikipedia.org/wiki/MOD11
 /// </remarks>
-internal class Mod11CheckDigitsCalculator : ICheckDigitsAlgorithm
+internal class Mod11CheckDigitsCalculator : CheckDigitsAlgorithm
 {
-    public int Compute(char[] value)
+    protected override int Compute(Buffer buffer)
     {
         int sum = 0;
-        for (int i = 0; i < value.Length; i++)
+        for (int i = 0; i < buffer.Length; i++)
         {
-            char c = value[i];
+            char c = buffer[i];
             if (!c.IsAsciiDigit())
             {
                 throw new InvalidTokenException("Expected numeric characters.");
