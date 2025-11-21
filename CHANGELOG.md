@@ -1,8 +1,40 @@
 # Changelog
 
+## v2.2.0
+
+### What's Changed
+
+* feat: add new reusable mod-97,10 implementation by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/70
+* refactor: abstract the extraction of check digits and check string by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/63
+* refactor: rename calculators to algorithms by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/68
+* refactor: IbanNet 6.0 has ICheckDigitsCalculator deprecated, so introduce our own by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/82
+* perf: reduce heap allocation by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/84
+* perf: aggressive inline extensions/small helpers by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/74
+* perf: add benchmark and improve mod97-10 by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/71
+
+### Chores
+
+* chore(deps): replace Moq with NSubstitute by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/64
+* test: add explicit usings by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/65
+* chore: enable nullable context by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/66
+* test: verify the public API by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/67
+* style: clean up namespaces after #67 enabled implicit usings by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/69
+* chore(deps): Bump Microsoft.Extensions.DependencyInjection from 8.0.0 to 10.0.0 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/55
+* test: assert that we are actually calling with the expected characters, in order by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/72
+* perf: running benchmark was not honoring CLI args to select TFM. by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/73
+* ci(deps): Bump actions/download-artifact from 4 to 6 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/77
+* ci(deps): Bump actions/setup-dotnet from 4 to 5 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/76
+* ci(deps): Bump actions/setup-java from 4 to 5 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/78
+* chore(deps): Bump BenchmarkDotNet.Diagnostics.Windows from 0.15.6 to 0.15.7 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/75
+* chore(deps): bump xunit.runner.visualstudio from 2.4.3 to 2.8.2 by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/83
+* ci: only include (s)nupkg files in artifacts from /src folder by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/85
+
+
+**Full Changelog**: https://github.com/skwasjer/IbanNet.Extensions.Bban/compare/v2.1.1...v2.2.0
+
 ## v2.1.1
 
-## What's Changed
+### What's Changed
 
 * fix: all validators for a country must pass instead of one by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/60
 * fix(norway): when the final remainder of mod 11 = 0 it should yield 0 as check digit by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/61
@@ -15,6 +47,8 @@
 
 
 ## v2.1.0
+
+### What's Changed
 
 * feat: Add BBAN validators for Poland, Finland, and Czech Republic by @Thorium in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/49
   * Polish (PL) BBAN validator with MOD-10 check digit algorithm
@@ -31,13 +65,15 @@
 * ci(deps): Bump gittools/actions from 3.1.1 to 4.2.0 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/52
 * ci(deps): Bump actions/setup-node from 4 to 6 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/50
 
-## New Contributors
+### New Contributors
 * @dependabot[bot] made their first contribution in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/45
 * @Thorium made their first contribution in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/49
 
 **Full Changelog**: https://github.com/skwasjer/IbanNet.Extensions.Bban/compare/v2.0.0...v2.1.0
 
 ## v2.0.0
+
+### What's Changed
 
 * feat!: adds .NET 8 by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/26
 * feat!: removes .NET 6.0 by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/27
