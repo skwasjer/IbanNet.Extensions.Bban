@@ -9,7 +9,7 @@ namespace IbanNet.Extensions.Bban
 }
 namespace IbanNet.Extensions.Bban.Validation.Results
 {
-    public class InvalidNationalCheckDigitsResult : IbanNet.Validation.Results.ErrorResult
+    public class InvalidNationalCheckDigitsResult : IbanNet.Validation.Results.ErrorResult, System.IEquatable<IbanNet.Extensions.Bban.Validation.Results.InvalidNationalCheckDigitsResult>
     {
         public InvalidNationalCheckDigitsResult() { }
     }
