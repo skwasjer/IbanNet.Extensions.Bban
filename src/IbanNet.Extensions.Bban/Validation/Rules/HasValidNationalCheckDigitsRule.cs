@@ -10,7 +10,7 @@ namespace IbanNet.Extensions.Bban.Validation.Rules;
 /// <summary>
 /// Asserts that the BBAN portion of an IBAN has valid national check digits.
 /// </summary>
-public class HasValidNationalCheckDigitsRule : IIbanValidationRule
+public sealed class HasValidNationalCheckDigitsRule : IIbanValidationRule
 {
     private readonly ReadOnlyDictionary<string, IEnumerable<NationalCheckDigitsValidator>> _nationalCheckDigitsValidators;
 
