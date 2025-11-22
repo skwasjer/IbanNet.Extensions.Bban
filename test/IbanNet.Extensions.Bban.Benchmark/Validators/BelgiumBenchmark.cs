@@ -4,7 +4,7 @@ using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 namespace IbanNet.Extensions.Bban.Benchmark.Validators;
 
 [MemoryDiagnoser]
-public sealed class BelgiumBenchmark : ValidatorBenchmark
+public class BelgiumBenchmark : ValidatorBenchmark
 {
     private readonly Belgium _validator = new();
 
