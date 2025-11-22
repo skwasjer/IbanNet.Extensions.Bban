@@ -1,4 +1,4 @@
-## CLI
+# CLI
 
 All benchmarks can be run from this path:
 
@@ -18,23 +18,29 @@ To run all the benchmark(s):
 dotnet run -c Release -f net10.0 --runtimes net10.0 net80 net48 --all
 ```
 
-### Benchmarks
+## Benchmarks
 
-#### Algorithms
+
+### Check digit algorithms
 
 ```
 dotnet run -c Release -f net10.0 --runtimes net10.0 net80 net48 --algorithms
 ```
 
-- [Cin](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Artifacts.CinBenchmark-report-github)
-- [Clé Rib](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Artifacts.CleRibBenchmark-report-github)
-- [Luhn](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Artifacts.LuhnBenchmark-report-github)
-- [Mod-11](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Artifacts.Mod11Benchmark-report-github)
-- [Mod-97,10](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Artifacts.Mod9710Benchmark-report-github)
-- [Nib](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Artifacts.NibBenchmark-report-github)
+#### General
+
+- [Cin](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.CinBenchmark-report-github)
+- [Clé Rib](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.CleRibBenchmark-report-github)
+- [Luhn](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.LuhnBenchmark-report-github)
+- [Mod-97,10](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.Mod9710Benchmark-report-github)
+- [Nib](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.NibBenchmark-report-github)
+
+#### Country specific/unnamed
+
+- [Weighted Mod-11 (Norway)](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.NorwayWeightedMod11Benchmark-report-github)
 
 
-#### Validators (by country)
+### Validators (by country)
 
 ```
 dotnet run -c Release -f net10.0 --runtimes net10.0 net80 net48 --validators

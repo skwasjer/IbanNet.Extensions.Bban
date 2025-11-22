@@ -1,12 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
-using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
+using IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
 namespace IbanNet.Extensions.Bban.Benchmark.Algorithms;
 
 [MemoryDiagnoser]
-public class Mod11Benchmark : AlgorithmBenchmark
+public class NorwayWeightedMod11Benchmark : AlgorithmBenchmark
 {
-    private readonly Mod11CheckDigitsCalculator _mod11 = new();
+    private readonly Norway.WeightedMod11Algorithm _mod11 = new();
 
     private string _input = null!;
 
