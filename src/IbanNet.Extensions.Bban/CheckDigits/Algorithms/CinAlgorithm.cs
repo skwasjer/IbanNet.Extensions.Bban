@@ -1,33 +1,57 @@
-﻿using IbanNet.Extensions.Bban.Extensions;
+﻿using System.Runtime.CompilerServices;
+using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 /// <summary>
-/// Computes the check digits using CIN algorithm.
+/// CIN check digit algorithm, used in Italy.
 /// </summary>
 /// <remarks>
 /// http://www.artico.name/soft/iban/wiban.htm#cin
 /// </remarks>
-internal class CinAlgorithm : CheckDigitsAlgorithm
+internal sealed class CinAlgorithm : CheckDigitsAlgorithm
 {
-    private static readonly int[] OddWeights = [1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23, 27, 28, 26];
-    private static readonly int[] EvenWeights = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
+    private static readonly int[] OddWeights = [1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23];
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected override int Compute(Buffer buffer)
     {
         int sum = 0;
-        for (int i = 0; i < buffer.Length; i++)
+
+        // Avoid branching in the loop by just looping for odd/even individually.
+
+        // Odd weights (1-based index).
+        for (int i = 0; i < buffer.Length; i += 2)
         {
-            char c = buffer[i];
-            int number = c.IsAsciiDigit()
-                ? c - '0'
-                : c.IsAsciiLetter()
-                    ? (c | ' ') - 'a'
-                    : throw new InvalidTokenException("alphanumeric", i, c);
-            int[] takeWeightsFrom = (i & 1) == 1 ? EvenWeights : OddWeights;
-            sum += takeWeightsFrom[number];
+            int value = ConvertChar(buffer, i);
+            sum += OddWeights[value];
+        }
+
+        // Even weights (1-based index).
+        for (int i = 1; i < buffer.Length; i += 2)
+        {
+            int value = ConvertChar(buffer, i);
+            // The even weights are exactly the converted value.
+            sum += value;
         }
 
         return sum % 26;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int ConvertChar(Buffer buffer, int index)
+    {
+        char ch = buffer[index];
+        if (ch.IsAsciiDigit())
+        {
+            return ch - '0';
+        }
+
+        if (ch.IsAsciiLetter())
+        {
+            return (ch | ' ') - 'a';
+        }
+
+        throw new InvalidTokenException("alphanumeric", index, ch);
     }
 }
