@@ -1,54 +1,59 @@
-﻿using IbanNet.Extensions.Bban.Extensions;
+﻿using System.Runtime.CompilerServices;
+using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 /// <summary>
-/// Computes the expected national check digits for Finnish bank account numbers using the Luhn algorithm.
+/// Luhn check digit algorithm.
 /// </summary>
 /// <remarks>
-/// The Finnish BBAN uses the Luhn algorithm (MOD-10 with alternating doubling).
-/// The BBAN consists of 14 digits: bank+branch (6), account (7), and check digit (1).
-/// Weights: [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2] applied to first 13 digits.
+/// The Luhn algorithm is a MOD-10 algorithm with alternating doubling.
+/// Weights: [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, etc.]
 /// When weight × digit ≥ 10, the individual digits of the product are summed.
 /// For example: 2 × 6 = 12 → 1 + 2 = 3
 /// https://en.wikipedia.org/wiki/International_Bank_Account_Number#National_check_digits
 /// https://fi.wikipedia.org/wiki/Tilinumero
 /// </remarks>
-internal class LuhnAlgorithm : CheckDigitsAlgorithm
+internal sealed class LuhnAlgorithm : CheckDigitsAlgorithm
 {
-    private static readonly int[] Weights = [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
-
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected override int Compute(Buffer buffer)
     {
-        if (buffer.Length != 13)
-        {
-            throw new InvalidTokenException($"The input '{buffer.ToString()}' must be exactly 13 digits for Finnish BBAN validation.");
-        }
-
         int sum = 0;
 
-        for (int i = 0; i < buffer.Length; i++)
+        // Start from last char working our way back to the beginning.
+        int i = buffer.Length - 1;
+        for (int j = 0; j < buffer.Length; j++)
         {
-            char c = buffer[i];
-            if (!c.IsAsciiDigit())
-            {
-                throw new InvalidTokenException("numeric", i, c);
-            }
+            int value = ConvertChar(buffer, i);
 
-            int product = (c - '0') * Weights[i];
-            
-            // Luhn algorithm: sum the digits of products ≥ 10
-            if (product >= 10)
-            {
-                sum += (product / 10) + (product % 10);
-            }
-            else
-            {
-                sum += product;
-            }
+            // Double every 2nd.
+            int weightedValue = (j & 1) == 0
+                ? value << 1
+                : value;
+
+            // Sum digits if > 9.
+            sum += weightedValue > 9
+                ? weightedValue - 9
+                : weightedValue;
+            i--;
         }
 
         int remainder = sum % 10;
-        return remainder == 0 ? 0 : 10 - remainder;
+        return remainder == 0
+            ? 0
+            : 10 - remainder;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int ConvertChar(Buffer buffer, int index)
+    {
+        char ch = buffer[index];
+        if (ch.IsAsciiDigit())
+        {
+            return ch - '0';
+        }
+
+        throw new InvalidTokenException("numeric", index, ch);
     }
 }
