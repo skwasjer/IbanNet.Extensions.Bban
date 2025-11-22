@@ -1,17 +1,17 @@
 ﻿namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
-public class NibNationalCheckDigitsValidatorTest
+public sealed class PortugalTest
 {
-    // BA
+    private readonly Portugal _sut = new();
+
     [Theory]
     [InlineData("000201231234567890154")]
     [InlineData("123443211234567890172")]
     [InlineData("003507390002158210038")]
     [InlineData("003604569910448906182")]
-    public void Given_valid_bban_should_validate(string bban)
+    public void Given_that_bban_is_valid_when_validating_it_should_pass(string bban)
     {
-        var validator = new NibNationalCheckDigitsValidator();
-        validator.Validate(bban).Should().BeTrue();
+        _sut.Validate(bban).Should().BeTrue();
     }
 
     // BA
@@ -20,9 +20,8 @@ public class NibNationalCheckDigitsValidatorTest
     [InlineData("123443211234567890171")]
     [InlineData("003507390002158210039")]
     [InlineData("003604569910448906183")]
-    public void Given_invalid_bban_should_not_validate(string bban)
+    public void Given_that_bban_is_invalid_when_validating_it_should_fail(string bban)
     {
-        var validator = new NibNationalCheckDigitsValidator();
-        validator.Validate(bban).Should().BeFalse();
+        _sut.Validate(bban).Should().BeFalse();
     }
 }

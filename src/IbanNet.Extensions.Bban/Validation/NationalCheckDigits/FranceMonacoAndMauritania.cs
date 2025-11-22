@@ -2,12 +2,12 @@
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
-internal class CleRibNationalCheckDigitsValidator : NationalCheckDigitsValidator
+internal sealed class FranceMonacoAndMauritania : NationalCheckDigitsValidator
 {
     private const int CheckDigitPosition = 21;
     private const int CheckDigitLength = 2;
 
-    public CleRibNationalCheckDigitsValidator()
+    public FranceMonacoAndMauritania()
         : base(
             new CleRibAlgorithm(),
             CheckString.At(0, CheckDigitPosition),

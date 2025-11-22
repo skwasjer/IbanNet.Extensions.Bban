@@ -31,19 +31,19 @@ internal static class NationalCheckDigitsValidatorFactory
             );
     }
 
-    private class AllValidators : IEnumerable<NationalCheckDigitsValidator>
+    private sealed class AllValidators : IEnumerable<NationalCheckDigitsValidator>
     {
         public IEnumerator<NationalCheckDigitsValidator> GetEnumerator()
         {
-            yield return new CinNationalCheckDigitsValidator();
-            yield return new CleRibNationalCheckDigitsValidator();
-            yield return new NorwayMod11ValidatorDigitsValidator();
-            yield return new BosniaAndHerzegovinaMod97NationalCheckDigitsValidator();
-            yield return new BelgiumMod97NationalCheckDigitsValidator();
-            yield return new NibNationalCheckDigitsValidator();
-            yield return new PolishNationalCheckDigitsValidator();
-            yield return new FinnishNationalCheckDigitsValidator();
-            yield return new CzechNationalCheckDigitsValidator();
+            yield return new ItalyAndSanMarino();
+            yield return new FranceMonacoAndMauritania();
+            yield return new Norway();
+            yield return new BosniaAndHerzegovina();
+            yield return new Belgium();
+            yield return new Portugal();
+            yield return new Poland();
+            yield return new Finland();
+            yield return new CzechRepublic();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

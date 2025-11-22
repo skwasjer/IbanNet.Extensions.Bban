@@ -9,12 +9,12 @@ namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 /// The Polish BBAN structure is: 8-digit bank code + 16-digit account number.
 /// The 8th digit of the bank code is a check digit calculated from the first 7 digits.
 /// </remarks>
-internal class PolishNationalCheckDigitsValidator : NationalCheckDigitsValidator
+internal sealed class Poland : NationalCheckDigitsValidator
 {
     private const int CheckDigitPosition = 7; // 0-based index
     private const int CheckDigitLength = 1;
 
-    public PolishNationalCheckDigitsValidator()
+    public Poland()
         : base(
             new PolishCheckDigitsCalculator(),
             CheckString.At(0, CheckDigitPosition),
