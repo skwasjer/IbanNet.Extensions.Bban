@@ -1,67 +1,42 @@
 ﻿namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
-public class NibAlgorithmTests
+public sealed class NibAlgorithmTests
 {
-    private readonly NibAlgorithm _sut;
-
-    public NibAlgorithmTests()
-    {
-        _sut = new NibAlgorithm();
-    }
+    private readonly NibAlgorithm _sut = new();
 
     [Theory]
     [InlineData("12345123451234567A1", 25)]
-    [InlineData("12345123451234567A2", 22)]
+    [InlineData("12345123451234567a2", 22)]
     [InlineData("20041010050500013M0", 29)]
     [InlineData("3000600001123456789", 64)]
-    public void Given_account_number_when_computing_check_digit_should_match_expected(string accountNumber, int expectedCheckDigits)
+    [InlineData("9999999999999999999", 50)]
+    public void It_should_return_expected(string input, int expectedResult)
     {
-        // Act
-        int actual = _sut.Compute(accountNumber);
-
-        // Assert
-        actual.Should().Be(expectedCheckDigits);
+        _sut.Compute(input).Should().Be(expectedResult);
     }
 
     [Theory]
-    [InlineData("02345123451234567A1", 25)]
-    [InlineData("02345123451234567A2", 22)]
-    [InlineData("00041010050500013M0", 29)]
-    [InlineData("1000600001123456789", 64)]
-    public void Given_invalid_account_number_when_computing_check_digit_should_not_match_expected(string accountNumber, int assumedCheckDigits)
+    [InlineData("123:5123451234567A1", ':', 3)]
+    [InlineData("123451234512345é7A1", 'é', 15)]
+    public void Given_that_input_contains_a_non_alphaNumeric_character_when_computing_it_should_throw(string value, char invalidChar, int errorPosition)
     {
-        // Act
-        int actual = _sut.Compute(accountNumber);
-
-        // Assert
-        actual.Should().NotBe(assumedCheckDigits);
+        _sut.Invoking(s => s.Compute(value))
+            .Should()
+            .Throw<InvalidTokenException>()
+            .WithMessage($"Expected alphanumeric character at position {errorPosition}, but found '{invalidChar}'.");
     }
 
     [Theory]
     [InlineData("Short18CharsLong..")]
     [InlineData("TooShort")]
-    public void Given_account_number_contains_insufficient_chars_when_computing_should_throw(string buffer)
+    [InlineData("TooLongForNibToValidate")]
+    public void Given_that_input_contains_the_wrong_number_of_chars_when_computing_it_should_throw(string buffer)
     {
-        Action act = () => _sut.Compute(buffer);
-
-        // Assert
-        act.Should()
+        _sut.Invoking(s => s.Compute(buffer))
+            .Should()
             .Throw<ArgumentException>()
             .WithMessage($"The input '{buffer}' can not be validated using NIB.*")
-            .Which.ParamName.Should()
-            .Be(nameof(buffer));
-    }
-
-    [Theory]
-    [InlineData("02345123451234567A:")]
-    public void Given_a_non_alphanumeric_character_when_computing_should_throw(string value)
-    {
-        Action act = () => _sut.Compute(value);
-
-        // Assert
-        act.Should()
-            .Throw<InvalidTokenException>()
-            .WithMessage("Expected alphanumeric character at position 18, but found ':'.");
+            .WithParameterName(nameof(buffer));
     }
 
     /// <summary>
