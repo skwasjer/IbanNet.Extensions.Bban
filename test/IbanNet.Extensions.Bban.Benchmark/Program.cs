@@ -6,18 +6,19 @@ namespace IbanNet.Extensions.Bban.Benchmark;
 
 public static class Program
 {
+    private const string RunAllSwitch = "--all";
+
     public static void Main(string[] args)
     {
+        IConfig config = ManualConfig.CreateMinimumViable();
 #if DEBUG
-        IConfig config = new DebugInProcessConfig();
-#else
-        IConfig? config = null;
+        config = ManualConfig.Union(config, new DebugInProcessConfig());
 #endif
 
         Assembly asm = typeof(Program).Assembly;
-        if (args.Contains("--all"))
+        if (args.Contains(RunAllSwitch))
         {
-            args = args.Except(["--all"]).ToArray();
+            args = args.Except([RunAllSwitch]).ToArray();
             BenchmarkRunner.Run(asm, config, args);
         }
         else
