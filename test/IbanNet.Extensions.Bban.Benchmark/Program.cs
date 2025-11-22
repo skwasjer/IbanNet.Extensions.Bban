@@ -2,6 +2,7 @@
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 using IbanNet.Extensions.Bban.Benchmark.Algorithms;
+using IbanNet.Extensions.Bban.Benchmark.Validators;
 
 namespace IbanNet.Extensions.Bban.Benchmark;
 
@@ -9,6 +10,7 @@ public static class Program
 {
     private const string RunAllSwitch = "--all";
     private const string RunAlgorithmsSwitch = "--algorithms";
+    private const string RunValidatorsSwitch = "--validators";
 
     public static void Main(string[] args)
     {
@@ -23,7 +25,8 @@ public static class Program
             args = args.Except([RunAllSwitch]).ToArray();
             BenchmarkRunner.Run(asm, config, args);
         }
-        else if (!RunSelectionIfArgsContains<AlgorithmBenchmark>(RunAlgorithmsSwitch, args))
+        else if (!RunSelectionIfArgsContains<AlgorithmBenchmark>(RunAlgorithmsSwitch, args)
+               && !RunSelectionIfArgsContains<ValidatorBenchmark>(RunValidatorsSwitch, args))
         {
             BenchmarkSwitcher.FromAssembly(asm).Run(args, config);
         }
