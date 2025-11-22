@@ -3,7 +3,7 @@ using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 
-internal class BelgiumMod97NationalCheckDigitsValidator : NationalCheckDigitsValidator
+internal sealed class Belgium : NationalCheckDigitsValidator
 {
     private const int CheckDigitPosition = 10;
     private const int CheckDigitLength = 2;
@@ -16,7 +16,7 @@ internal class BelgiumMod97NationalCheckDigitsValidator : NationalCheckDigitsVal
             ? modulo
             : remainder;
 
-    public BelgiumMod97NationalCheckDigitsValidator()
+    public Belgium()
         : base(
             new Mod9710Algorithm(Complement),
             CheckString.At(0, CheckDigitPosition),

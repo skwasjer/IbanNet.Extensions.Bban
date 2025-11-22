@@ -16,9 +16,9 @@ namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 /// 
 /// This validator checks both the prefix check digit and the account check digit.
 /// </remarks>
-internal class CzechNationalCheckDigitsValidator : NationalCheckDigitsValidator
+internal sealed class CzechRepublic : NationalCheckDigitsValidator
 {
-    public CzechNationalCheckDigitsValidator()
+    public CzechRepublic()
         : base(
             new DummyCalculator(),
             _ => throw new System.NotImplementedException(),
