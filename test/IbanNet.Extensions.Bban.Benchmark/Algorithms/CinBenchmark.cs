@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
-namespace IbanNet.Extensions.Bban.Benchmark;
+namespace IbanNet.Extensions.Bban.Benchmark.Algorithms;
 
 [MemoryDiagnoser]
 public class CinBenchmark : AlgorithmBenchmark

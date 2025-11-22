@@ -2,7 +2,7 @@
 using IbanNet.Extensions.Bban.CheckDigits;
 using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
-namespace IbanNet.Extensions.Bban.Benchmark;
+namespace IbanNet.Extensions.Bban.Benchmark.Algorithms;
 
 [MemoryDiagnoser]
 public class Mod9710Benchmark : AlgorithmBenchmark
