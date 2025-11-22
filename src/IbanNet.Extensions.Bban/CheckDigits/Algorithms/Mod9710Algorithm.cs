@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Runtime.CompilerServices;
+using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -15,11 +16,7 @@ internal sealed class Mod9710Algorithm(Complement complement) : CheckDigitsAlgor
     private const int Modulo = 97;
     private readonly Complement _complement = complement ?? throw new ArgumentNullException(nameof(complement));
 
-    /// <summary>
-    /// Gets the delegate used to translate an ASCII character to an integer value.
-    /// </summary>
-    public AsciiConverter AsciiConverter { get; init; } = AsciiConverter.Base36;
-
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected override int Compute(Buffer buffer)
     {
         int digits = 0;
@@ -27,24 +24,19 @@ internal sealed class Mod9710Algorithm(Complement complement) : CheckDigitsAlgor
         // ReSharper disable once ForCanBeConvertedToForeach - justification : performance
         for (int i = 0; i < buffer.Length; i++)
         {
-            char ch = buffer[i];
-            int number = AsciiConverter(ch);
-            Debug.Assert(
-                number is >= 0 and < Modulo,
-                $"Value {number} for character '{ch}' is not valid in Mod 97,10 calculation."
-            );
+            int value = ConvertChar(buffer, i);
 
             // If the number we got is a two-digit number (i.e. >= 10) we need to shift left by 100, else by 10.
-            int numberDigits = 2;
+            int valueDigits = 2;
             int base10Shift = 100;
-            if (number < 10)
+            if (value < 10)
             {
-                numberDigits = 1;
+                valueDigits = 1;
                 base10Shift = 10;
             }
 
-            remainder = remainder * base10Shift + number;
-            if (digits + numberDigits >= MaxDigitsBeforeIntegerOverflow)
+            remainder = remainder * base10Shift + value;
+            if (digits + valueDigits >= MaxDigitsBeforeIntegerOverflow)
             {
                 // Compute the new remainder to avoid integer overflow and reset the number of digits.
                 remainder %= Modulo;
@@ -52,7 +44,7 @@ internal sealed class Mod9710Algorithm(Complement complement) : CheckDigitsAlgor
             }
             else
             {
-                digits += numberDigits;
+                digits += valueDigits;
             }
         }
 
@@ -62,5 +54,22 @@ internal sealed class Mod9710Algorithm(Complement complement) : CheckDigitsAlgor
         }
 
         return _complement(Modulo, remainder);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int ConvertChar(Buffer buffer, int index)
+    {
+        char ch = buffer[index];
+        if (ch.IsAsciiDigit())
+        {
+            return ch - '0';
+        }
+
+        if (ch.IsAsciiLetter())
+        {
+            return (ch | ' ') - 'a' + 10;
+        }
+
+        throw new InvalidTokenException("alphanumeric", index, ch);
     }
 }
