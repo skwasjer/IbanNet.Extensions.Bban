@@ -9,6 +9,7 @@ namespace IbanNet.Extensions.Bban.Extensions;
 [DebuggerNonUserCode]
 internal static class CharExtensions
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsInRange(this char c, char min, char max)
     {
         // ReSharper disable RedundantCast - justification: more clear this way.
