@@ -37,8 +37,9 @@ dotnet run -c Release -f net10.0 --runtimes net10.0 net80 net48 --algorithms
 
 #### Country specific/unnamed
 
-- [Weighted Mod-11 (Norway)](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.NorwayWeightedMod11Benchmark-report-github)
 - [Weighted Mod-10 (Poland)](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.PolandWeightedMod10Benchmark-report-github)
+- [Weighted Mod-11 (Czech Republic)](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.CzechRepublicWeightedMod11Benchmark-report-github)
+- [Weighted Mod-11 (Norway)](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.NorwayWeightedMod11Benchmark-report-github)
 
 
 ### Validators (by country)
@@ -49,6 +50,7 @@ dotnet run -c Release -f net10.0 --runtimes net10.0 net80 net48 --validators
 
 - [Belgium](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Validators.BelgiumBenchmark-report-github)
 - [Bosnia and Herzegovina](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Validators.BosniaAndHerzegovinaBenchmark-report-github)
+- [Czech Republic](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Validators.CzechRepublicBenchmark-report-github)
 - [Finland](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Validators.FinlandBenchmark-report-github)
 - [France, Monaco and Mauritania](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Validators.FranceMonacoAndMauritaniaBenchmarkBenchmark-report-github)
 - [Italy and San Marino](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Validators.ItalyAndSanMarinoBenchmark-report-github)

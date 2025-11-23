@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using IbanNet.Extensions.Bban.CheckDigits;
+﻿using IbanNet.Extensions.Bban.CheckDigits;
 using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 using Buffer = IbanNet.Extensions.Bban.CheckDigits.Buffer;
 
@@ -10,71 +9,63 @@ namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 /// </summary>
 /// <remarks>
 /// The Czech BBAN structure is: bbbb pppppp cccccccccc (20 digits)
-///   - Bank code: 4 digits (positions 0-3)
-///   - Account prefix: 6 digits (positions 4-9, last digit is check digit)
-///   - Account number: 10 digits (positions 10-19, last digit is check digit)
-/// 
+/// - Bank code: 4 digits (positions 0-3)
+/// - Account prefix: 6 digits (positions 4-9, last digit is check digit)
+/// - Account number: 10 digits (positions 10-19, last digit is check digit)
 /// This validator checks both the prefix check digit and the account check digit.
 /// </remarks>
-internal sealed class CzechRepublic : NationalCheckDigitsValidator
+internal static class CzechRepublic
 {
-    public CzechRepublic()
-        : base(
-            new DummyCalculator(),
-            _ => throw new System.NotImplementedException(),
-            _ => throw new System.NotImplementedException(),
-            "CZ")
+    public sealed class Prefix()
+        : NationalCheckDigitsValidator(
+            new WeightedMod11Algorithm(Weights),
+            bban => CheckString.At(CheckStringPosition, CheckStringLength)(bban) + "0",
+            CheckDigits.At(CheckDigitPosition, CheckDigitLength),
+            "CZ"
+        )
     {
+        private const int CheckStringPosition = 4;
+        private const int CheckStringLength = 5;
+        private const int CheckDigitPosition = CheckStringPosition + CheckStringLength;
+        private const int CheckDigitLength = 1;
+
+        private static readonly int[] Weights = [10, 5, 8, 4, 2, 1];
     }
 
-    public override bool Validate(string bban)
+    public sealed class Account()
+        : NationalCheckDigitsValidator(
+            new WeightedMod11Algorithm(Weights),
+            bban => CheckString.At(CheckStringPosition, CheckStringLength)(bban) + "0",
+            CheckDigits.At(CheckDigitPosition, CheckDigitLength),
+            "CZ"
+        )
     {
-        if (string.IsNullOrEmpty(bban) || bban.Length != 20)
-        {
-            return false;
-        }
+        private const int CheckStringPosition = 10;
+        private const int CheckStringLength = 9;
+        private const int CheckDigitPosition = CheckStringPosition + CheckStringLength;
+        private const int CheckDigitLength = 1;
 
-        try
-        {
-            // Validate prefix check digit
-            // Prefix data: positions 4-8 (5 digits)
-            // Prefix check digit: position 9 (1 digit)
-            // Pass data + '0' to calculator to get expected check digit
-            string prefixData = bban.Substring(4, 5) + "0";
-            int computedPrefixCheck = CzechCheckDigitsCalculator.ComputePrefixCheckDigit(prefixData.ToCharArray());
-            int expectedPrefixCheck = int.Parse(bban.Substring(9, 1), CultureInfo.InvariantCulture);
-            
-            if (computedPrefixCheck != expectedPrefixCheck)
-            {
-                return false;
-            }
-
-            // Validate account check digit
-            // Account data: positions 10-18 (9 digits)
-            // Account check digit: position 19 (1 digit)
-            // Pass data + '0' to calculator to get expected check digit
-            string accountData = bban.Substring(10, 9) + "0";
-            int computedAccountCheck = CzechCheckDigitsCalculator.ComputeAccountCheckDigit(accountData.ToCharArray());
-            int expectedAccountCheck = int.Parse(bban.Substring(19, 1), CultureInfo.InvariantCulture);
-            
-            return computedAccountCheck == expectedAccountCheck;
-        }
-        catch (InvalidTokenException)
-        {
-            return false;
-        }
-        catch (System.FormatException)
-        {
-            return false;
-        }
+        private static readonly int[] Weights = [6, 3, 7, 9, 10, 5, 8, 4, 2, 1];
     }
 
-    // Dummy calculator to satisfy base class requirement
-    private sealed class DummyCalculator : CheckDigitsAlgorithm
+    internal sealed class WeightedMod11Algorithm(int[] weights) : CheckDigitsAlgorithm
     {
         protected override int Compute(Buffer buffer)
         {
-            throw new System.NotImplementedException("Czech validator uses custom validation logic");
+            if (buffer.Length != weights.Length)
+            {
+                throw new ArgumentException($"The input must be exactly {weights.Length} digits for Czech validation.", nameof(buffer));
+            }
+
+            int sum = 0;
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                int value = buffer.GetDigitValue(i);
+                sum += value * weights[i];
+            }
+
+            int remainder = sum % 11;
+            return remainder == 0 ? 0 : 11 - remainder;
         }
     }
 }
