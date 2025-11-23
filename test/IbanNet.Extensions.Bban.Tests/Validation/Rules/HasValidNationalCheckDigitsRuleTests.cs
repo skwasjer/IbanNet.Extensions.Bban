@@ -17,8 +17,8 @@ public class HasValidNationalCheckDigitsRuleTests
     {
         _checkDigitsValidatorMock = Substitute.ForPartsOf<NationalCheckDigitsValidator>(
             new CheckDigitsAlgorithmStub(123),
-            Substitute.For<CheckString>(),
-            Substitute.For<NationalCheckDigits.CheckDigits>(),
+            (CheckString)(x => x),
+            (NationalCheckDigits.CheckDigits)(_ => 0),
             "ZZ");
 
         var checkDigitValidatorStubs = new Dictionary<string, IEnumerable<NationalCheckDigitsValidator>> { { "ZZ", [_checkDigitsValidatorMock] } };
