@@ -43,7 +43,8 @@ internal static class NationalCheckDigitsValidatorFactory
             yield return new Portugal();
             yield return new Poland();
             yield return new Finland();
-            yield return new CzechRepublic();
+            yield return new CzechRepublic.Prefix();
+            yield return new CzechRepublic.Account();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
