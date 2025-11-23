@@ -38,6 +38,7 @@ dotnet run -c Release -f net10.0 --runtimes net10.0 net80 net48 --algorithms
 #### Country specific/unnamed
 
 - [Weighted Mod-11 (Norway)](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.NorwayWeightedMod11Benchmark-report-github)
+- [Weighted Mod-10 (Poland)](BenchmarkDotNet.Artifacts/results/IbanNet.Extensions.Bban.Benchmark.Algorithms.PolandWeightedMod10Benchmark-report-github)
 
 
 ### Validators (by country)
