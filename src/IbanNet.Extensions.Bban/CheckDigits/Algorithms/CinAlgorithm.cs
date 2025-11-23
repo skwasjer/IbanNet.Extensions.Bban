@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -23,35 +22,18 @@ internal sealed class CinAlgorithm : CheckDigitsAlgorithm
         // Odd weights (1-based index).
         for (int i = 0; i < buffer.Length; i += 2)
         {
-            int value = ConvertChar(buffer, i);
+            int value = buffer.GetOrdinalValue(i);
             sum += OddWeights[value];
         }
 
         // Even weights (1-based index).
         for (int i = 1; i < buffer.Length; i += 2)
         {
-            int value = ConvertChar(buffer, i);
+            int value = buffer.GetOrdinalValue(i);
             // The even weights are exactly the converted value.
             sum += value;
         }
 
         return sum % 26;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int ConvertChar(Buffer buffer, int index)
-    {
-        char ch = buffer[index];
-        if (ch.IsAsciiDigit())
-        {
-            return ch - '0';
-        }
-
-        if (ch.IsAsciiLetter())
-        {
-            return (ch | ' ') - 'a';
-        }
-
-        throw new InvalidTokenException("alphanumeric", index, ch);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -25,7 +24,7 @@ internal sealed class CleRibAlgorithm : CheckDigitsAlgorithm
         long b = 0, g = 0, c = 0;
         for (int i = 0; i < buffer.Length; i++)
         {
-            int value = ConvertChar(buffer, i);
+            int value = buffer.GetAlphaNumericBase10Value(i);
 
             // ReSharper disable once ConvertIfStatementToSwitchStatement
             if (i < 5)
@@ -43,41 +42,5 @@ internal sealed class CleRibAlgorithm : CheckDigitsAlgorithm
         }
 
         return (int)(Modulo - (89 * b + 15 * g + 3 * c) % Modulo);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int ConvertChar(Buffer buffer, int index)
-    {
-        char ch = buffer[index];
-        if (ch.IsAsciiDigit())
-        {
-            return ch - '0';
-        }
-
-        // ReSharper disable once ConvertIfStatementToReturnStatement
-        if (ch.IsAsciiLetter())
-        {
-            return MapLetters(ch);
-        }
-
-        throw new InvalidTokenException("alphanumeric", index, ch);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int MapLetters(char ch)
-    {
-        int v = (ch | ' ') - 'a' + 1;
-        // ReSharper disable once ConvertIfStatementToSwitchStatement
-        if (v <= 9)
-        {
-            return v;
-        }
-
-        if (v <= 18)
-        {
-            return v - 9;
-        }
-
-        return v - 17;
     }
 }

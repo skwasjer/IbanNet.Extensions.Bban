@@ -13,7 +13,7 @@ public class CleRibBenchmark : AlgorithmBenchmark
     [GlobalSetup]
     public void Setup()
     {
-        _input = "20041010050500013M02606";
+        _input = "20041010050500013M026";
     }
 
     [Benchmark]

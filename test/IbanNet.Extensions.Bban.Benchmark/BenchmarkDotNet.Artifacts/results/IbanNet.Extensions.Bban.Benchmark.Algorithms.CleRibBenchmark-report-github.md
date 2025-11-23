@@ -12,6 +12,6 @@ Intel Core i7-8700K CPU 3.70GHz (Coffee Lake), 1 CPU, 12 logical and 6 physical 
 ```
 | Method | Job                | Runtime            | Mean     | Error    | StdDev   | Ratio | RatioSD | Allocated | Alloc Ratio |
 |------- |------------------- |------------------- |---------:|---------:|---------:|------:|--------:|----------:|------------:|
-| CleRib | .NET 10.0          | .NET 10.0          | 12.59 ns | 0.155 ns | 0.138 ns |  1.00 |    0.01 |         - |          NA |
-| CleRib | .NET 8.0           | .NET 8.0           | 23.60 ns | 0.263 ns | 0.246 ns |  1.87 |    0.03 |         - |          NA |
-| CleRib | .NET Framework 4.8 | .NET Framework 4.8 | 29.84 ns | 0.297 ns | 0.263 ns |  2.37 |    0.03 |         - |          NA |
+| CleRib | .NET 10.0          | .NET 10.0          | 12.51 ns | 0.043 ns | 0.038 ns |  1.00 |    0.00 |         - |          NA |
+| CleRib | .NET 8.0           | .NET 8.0           | 27.26 ns | 0.114 ns | 0.106 ns |  2.18 |    0.01 |         - |          NA |
+| CleRib | .NET Framework 4.8 | .NET Framework 4.8 | 41.98 ns | 0.193 ns | 0.171 ns |  3.36 |    0.02 |         - |          NA |
