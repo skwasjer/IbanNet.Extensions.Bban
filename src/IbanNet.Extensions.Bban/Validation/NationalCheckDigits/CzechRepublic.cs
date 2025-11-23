@@ -19,7 +19,7 @@ internal static class CzechRepublic
     public sealed class Prefix()
         : NationalCheckDigitsValidator(
             new WeightedMod11Algorithm(Weights),
-            bban => CheckString.At(CheckStringPosition, CheckStringLength)(bban) + "0",
+            CheckString.At(CheckStringPosition, CheckStringLength),
             CheckDigits.At(CheckDigitPosition, CheckDigitLength),
             "CZ"
         )
@@ -29,13 +29,15 @@ internal static class CzechRepublic
         private const int CheckDigitPosition = CheckStringPosition + CheckStringLength;
         private const int CheckDigitLength = 1;
 
-        private static readonly int[] Weights = [10, 5, 8, 4, 2, 1];
+        // We don't care about the last weight (which = 1), since the input would be padded with a '0' to compute the expected check digit.
+        // This would mean that we would add 0x1 = 0 to the total sum, which is redundant.
+        private static readonly int[] Weights = [10, 5, 8, 4, 2];
     }
 
     public sealed class Account()
         : NationalCheckDigitsValidator(
             new WeightedMod11Algorithm(Weights),
-            bban => CheckString.At(CheckStringPosition, CheckStringLength)(bban) + "0",
+            CheckString.At(CheckStringPosition, CheckStringLength),
             CheckDigits.At(CheckDigitPosition, CheckDigitLength),
             "CZ"
         )
@@ -45,7 +47,9 @@ internal static class CzechRepublic
         private const int CheckDigitPosition = CheckStringPosition + CheckStringLength;
         private const int CheckDigitLength = 1;
 
-        private static readonly int[] Weights = [6, 3, 7, 9, 10, 5, 8, 4, 2, 1];
+        // We don't care about the last weight (which = 1), since the input would be padded with a '0' to compute the expected check digit.
+        // This would mean that we would add 0x1 = 0 to the total sum, which is redundant.
+        private static readonly int[] Weights = [6, 3, 7, 9, 10, 5, 8, 4, 2];
     }
 
     internal sealed class WeightedMod11Algorithm(int[] weights) : CheckDigitsAlgorithm
