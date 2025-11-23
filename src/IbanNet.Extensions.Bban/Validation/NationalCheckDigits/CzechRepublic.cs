@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using IbanNet.Extensions.Bban.CheckDigits;
 using IbanNet.Extensions.Bban.CheckDigits.Algorithms;
-using Buffer = IbanNet.Extensions.Bban.CheckDigits.Algorithms.Buffer;
+using Buffer = IbanNet.Extensions.Bban.CheckDigits.Buffer;
 
 namespace IbanNet.Extensions.Bban.Validation.NationalCheckDigits;
 

@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -24,7 +23,7 @@ internal sealed class Mod9710Algorithm(Complement complement) : CheckDigitsAlgor
         // ReSharper disable once ForCanBeConvertedToForeach - justification : performance
         for (int i = 0; i < buffer.Length; i++)
         {
-            int value = ConvertChar(buffer, i);
+            int value = buffer.GetBase36Value(i);
 
             // If the number we got is a two-digit number (i.e. >= 10) we need to shift left by 100, else by 10.
             int valueDigits = 2;
@@ -54,22 +53,5 @@ internal sealed class Mod9710Algorithm(Complement complement) : CheckDigitsAlgor
         }
 
         return _complement(Modulo, remainder);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int ConvertChar(Buffer buffer, int index)
-    {
-        char ch = buffer[index];
-        if (ch.IsAsciiDigit())
-        {
-            return ch - '0';
-        }
-
-        if (ch.IsAsciiLetter())
-        {
-            return (ch | ' ') - 'a' + 10;
-        }
-
-        throw new InvalidTokenException("alphanumeric", index, ch);
     }
 }

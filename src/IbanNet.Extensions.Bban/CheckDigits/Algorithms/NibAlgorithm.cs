@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -26,46 +25,10 @@ internal sealed class NibAlgorithm : CheckDigitsAlgorithm
 
         for (int i = 0; i < buffer.Length; i++)
         {
-            int value = ConvertChar(buffer, i);
+            int value = buffer.GetAlphaNumericBase10Value(i);
             sum += value * Weights[i];
         }
 
         return Modulo - (sum % Modulo) + 1;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int ConvertChar(Buffer buffer, int index)
-    {
-        char ch = buffer[index];
-        if (ch.IsAsciiDigit())
-        {
-            return ch - '0';
-        }
-
-        // ReSharper disable once ConvertIfStatementToReturnStatement
-        if (ch.IsAsciiLetter())
-        {
-            return MapLetters(ch);
-        }
-
-        throw new InvalidTokenException("alphanumeric", index, ch);
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int MapLetters(char ch)
-    {
-        int v = (ch | ' ') - 'a' + 1;
-        // ReSharper disable once ConvertIfStatementToSwitchStatement
-        if (v <= 9)
-        {
-            return v;
-        }
-
-        if (v <= 18)
-        {
-            return v - 9;
-        }
-
-        return v - 17;
     }
 }

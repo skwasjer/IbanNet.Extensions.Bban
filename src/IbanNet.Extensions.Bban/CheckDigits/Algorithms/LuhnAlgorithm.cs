@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using IbanNet.Extensions.Bban.Extensions;
 
 namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
 
@@ -25,7 +24,7 @@ internal sealed class LuhnAlgorithm : CheckDigitsAlgorithm
         int i = buffer.Length - 1;
         for (int j = 0; j < buffer.Length; j++)
         {
-            int value = ConvertChar(buffer, i);
+            int value = buffer.GetDigitValue(i);
 
             // Double every 2nd.
             int weightedValue = (j & 1) == 0
@@ -43,17 +42,5 @@ internal sealed class LuhnAlgorithm : CheckDigitsAlgorithm
         return remainder == 0
             ? 0
             : 10 - remainder;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static int ConvertChar(Buffer buffer, int index)
-    {
-        char ch = buffer[index];
-        if (ch.IsAsciiDigit())
-        {
-            return ch - '0';
-        }
-
-        throw new InvalidTokenException("numeric", index, ch);
     }
 }

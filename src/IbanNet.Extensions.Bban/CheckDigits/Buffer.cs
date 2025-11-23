@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace IbanNet.Extensions.Bban.CheckDigits.Algorithms;
+namespace IbanNet.Extensions.Bban.CheckDigits;
 
 #if USE_SPANS
 internal readonly ref struct Buffer
@@ -29,6 +29,13 @@ internal readonly ref struct Buffer
     {
         return new Buffer(value);
     }
+
+    public char this[int index]
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => _value[index];
+    }
+}
 #else
 internal readonly unsafe ref struct Buffer
 {
@@ -45,7 +52,6 @@ internal readonly unsafe ref struct Buffer
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get;
-        private init;
     }
 
     public override string ToString()
@@ -54,15 +60,36 @@ internal readonly unsafe ref struct Buffer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Buffer Create(char* value, int length)
+    public static Buffer Create(string? value)
     {
-        return new Buffer(value, length);
+        value ??= string.Empty;
+        fixed (char* ptr = value)
+        {
+            return new Buffer(ptr, value.Length);
+        }
     }
-#endif
 
     public char this[int index]
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => _value[index];
+        get
+        {
+            if (index < 0 || index >= Length)
+            {
+                // Disabling warnings as this is the intended exception to throw in this case,
+                // since we're accessing an indexer out of the bounds of the buffer.
+                // We acknowledge that throwing IndexOutOfRangeException directly is generally discouraged,
+                // but in this specific context, it is appropriate, esp. because (ReadOnly)Span<T> does the same,
+                // and we want the buffer to behave similarly in all TFM's.
+#pragma warning disable CA2201
+#pragma warning disable S112
+                throw new IndexOutOfRangeException();
+#pragma warning restore S112
+#pragma warning restore CA2201
+            }
+
+            return _value[index];
+        }
     }
 }
+#endif
