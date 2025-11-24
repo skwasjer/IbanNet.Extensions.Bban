@@ -70,6 +70,8 @@ public class NationalCheckDigitsValidatorTests
     {
         yield return [new InvalidTokenException("error")];
         yield return [new ArgumentException("error")];
+        yield return [new FormatException("error")];
+        yield return [new OverflowException("error")];
     }
 
     [Theory]
