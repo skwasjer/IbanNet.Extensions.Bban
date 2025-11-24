@@ -7,8 +7,6 @@
     <PackageProjectUrl>https://github.com/skwasjer/IbanNet.Extensions.Bban</PackageProjectUrl>
     <PackageTags>BBAN, Validation, IBAN, International Bank Account Number</PackageTags>
     <Nullable>enable</Nullable>
-
-    <AllowUnsafeBlocks Condition="!$(DefineConstants.Contains('USE_SPANS'))">true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
