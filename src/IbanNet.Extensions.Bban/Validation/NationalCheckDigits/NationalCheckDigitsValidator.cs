@@ -32,7 +32,10 @@ internal abstract class NationalCheckDigitsValidator
     /// </summary>
     public virtual bool Validate(string bban)
     {
-        string checkString = _checkString.Invoke(bban);
+#pragma warning disable IDE0008 // The return type may be string or ReadOnlySpan<char> depending on TFM.
+        // ReSharper disable once SuggestVarOrType_Elsewhere
+        var checkString = _checkString.Invoke(bban);
+#pragma warning restore IDE0008
 
         try
         {

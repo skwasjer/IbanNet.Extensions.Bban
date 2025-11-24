@@ -10,42 +10,57 @@ public class NationalCheckDigitsValidatorTests
     private const int FakeCheckDigits = 12;
 
     private readonly CheckDigitsAlgorithmStub _checkDigitsAlgorithmMock;
-    private readonly CheckString _getCheckStringFuncMock;
-    private readonly CheckDigits _getCheckDigitsFuncMock;
     private readonly NationalCheckDigitsValidator _sut;
+    private int _checkStringWasCalledTimes;
+    private string? _checkStringWasCalledWith;
+    private int _checkDigitsWasCalledTimes;
+    private string? _checkDigitsWasCalledWith;
 
     public NationalCheckDigitsValidatorTests()
     {
         _checkDigitsAlgorithmMock = new CheckDigitsAlgorithmStub(FakeCheckDigits);
 
-        _getCheckStringFuncMock = Substitute.For<CheckString>();
-        _getCheckDigitsFuncMock = Substitute.For<CheckDigits>();
+        _sut = Substitute.ForPartsOf<NationalCheckDigitsValidator>(
+            _checkDigitsAlgorithmMock,
+            (CheckString)GetCheckStringFuncMock,
+            (CheckDigits)GetCheckDigitsFuncMock);
+        return;
 
-        _sut = Substitute.ForPartsOf<NationalCheckDigitsValidator>(_checkDigitsAlgorithmMock, _getCheckStringFuncMock, _getCheckDigitsFuncMock);
+#if USE_SPANS
+        ReadOnlySpan<char> GetCheckStringFuncMock(ReadOnlySpan<char> bban)
+#else
+        string GetCheckStringFuncMock(string bban)
+#endif
+        {
+            _checkStringWasCalledTimes++;
+            _checkStringWasCalledWith = bban.ToString();
+            return CheckStringTestValue;
+        }
 
-        _getCheckStringFuncMock
-            .Invoke(Arg.Any<string>())
-            .Returns(CheckStringTestValue);
+#if USE_SPANS
+        int GetCheckDigitsFuncMock(ReadOnlySpan<char> bban)
+#else
+        int GetCheckDigitsFuncMock(string bban)
+#endif
+        {
+            _checkDigitsWasCalledTimes++;
+            _checkDigitsWasCalledWith = bban.ToString();
+            return FakeCheckDigits;
+        }
     }
 
     [Fact]
     public void It_should_call_algorithm_with_checkstring_and_validate()
     {
-        _getCheckDigitsFuncMock
-            .Invoke(Arg.Any<string>())
-            .Returns(FakeCheckDigits);
-
         // Act
         bool actual = _sut.Validate(IbanTestValue);
 
         // Assert
         actual.Should().BeTrue();
-        _getCheckStringFuncMock
-            .Received(1)
-            .Invoke(IbanTestValue);
-        _getCheckDigitsFuncMock
-            .Received(1)
-            .Invoke(IbanTestValue);
+        _checkStringWasCalledTimes.Should().Be(1);
+        _checkStringWasCalledWith.Should().Be(IbanTestValue);
+        _checkDigitsWasCalledTimes.Should().Be(1);
+        _checkDigitsWasCalledWith.Should().Be(IbanTestValue);
         _checkDigitsAlgorithmMock
             .Received.Should()
             .BeEquivalentTo(CheckStringTestValue);

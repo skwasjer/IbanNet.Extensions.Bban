@@ -10,8 +10,8 @@ Intel Core i7-8700K CPU 3.70GHz (Coffee Lake), 1 CPU, 12 logical and 6 physical 
 
 
 ```
-| Method   | Job                | Runtime            | Mean     | Error    | StdDev   | Ratio | Gen0   | Allocated | Alloc Ratio |
-|--------- |------------------- |------------------- |---------:|---------:|---------:|------:|-------:|----------:|------------:|
-| Validate | .NET 10.0          | .NET 10.0          | 31.29 ns | 0.111 ns | 0.104 ns |  1.00 | 0.0127 |      80 B |        1.00 |
-| Validate | .NET 8.0           | .NET 8.0           | 33.37 ns | 0.152 ns | 0.142 ns |  1.07 | 0.0127 |      80 B |        1.00 |
-| Validate | .NET Framework 4.8 | .NET Framework 4.8 | 83.43 ns | 0.337 ns | 0.298 ns |  2.67 | 0.0126 |      80 B |        1.00 |
+| Method   | Job                | Runtime            | Mean     | Error    | StdDev   | Ratio | RatioSD | Gen0   | Allocated | Alloc Ratio |
+|--------- |------------------- |------------------- |---------:|---------:|---------:|------:|--------:|-------:|----------:|------------:|
+| Validate | .NET 10.0          | .NET 10.0          | 22.56 ns | 0.323 ns | 0.286 ns |  1.00 |    0.02 |      - |         - |          NA |
+| Validate | .NET 8.0           | .NET 8.0           | 22.76 ns | 0.140 ns | 0.131 ns |  1.01 |    0.01 |      - |         - |          NA |
+| Validate | .NET Framework 4.8 | .NET Framework 4.8 | 87.80 ns | 0.982 ns | 0.767 ns |  3.89 |    0.06 | 0.0126 |      80 B |          NA |
