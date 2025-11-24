@@ -1,5 +1,45 @@
 # Changelog
 
+## v3.0.0
+
+### Breaking changes
+
+* chore(deps)!: bump IbanNet from 5.18.0 to 6.0.0 by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/87
+
+### Features/improvements
+
+* feat(tfm): add .NET 10 by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/91
+* perf: aggressive inline extension method by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/93
+* perf: do not inline the Compute method itself by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/94
+* perf: improve Mod-97,10 algorithm performance by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/100
+* perf: improve Clé Rib algorithm performance. by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/101
+* perf: improve CIN algorithm performance. by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/102
+* perf: improve Luhn algorithm performance. by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/103
+* perf: improve NIB algorithm performance by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/104
+* perf: improve Norwegian MOD-11 algorithm performance. by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/106
+* perf: improve Polish MOD-10 algorithm impl by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/107
+* perf: improve Czech Republic validator/algorithm by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/108
+* perf: use ReadOnlySpan<char> while extracting the check string and check digits by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/110
+
+### Chores
+
+* refactor: replaces the deprecated exception with our own. by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/86
+* fix: seal types `InvalidNationalCheckDigitsResult` and `HasValidNationalCheckDigitsRule` by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/88
+* perf: don't generate csv/html reports by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/92
+* refactor: remove visibility by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/95
+* Add benchmarks per validator/country by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/96
+* refactor: rename validators more explicitly to their resp. countries they implement. by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/97
+* fix: benchmarks cannot be sealed by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/98
+* fix: .NET 10 was not compiled with Span<T>-support. by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/99
+* chore(deps): Bump PublicApiGenerator from 11.5.0 to 11.5.1 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/81
+* chore(deps): Bump Verify.Xunit from 31.7.1 to 31.7.2 by @dependabot[bot] in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/90
+* refactor: move Buffer, remove duplicate code and add range check by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/105
+* chore: remove unused types by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/109
+* refactor: remove unsafe code by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/111
+* fix: catch FormatException/OverflowException  by @skwasjer in https://github.com/skwasjer/IbanNet.Extensions.Bban/pull/112
+
+**Full Changelog**: https://github.com/skwasjer/IbanNet.Extensions.Bban/compare/v2.2.0...v3.0.0
+
 ## v2.2.0
 
 ### What's Changed
